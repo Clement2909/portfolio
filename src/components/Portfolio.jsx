@@ -369,7 +369,7 @@ const Portfolio = () => {
                 GitHub
               </a>
               <a
-                href="www.linkedin.com/in/clément-victorin-randrianasolo" // LINKEDIN
+                href="https://www.linkedin.com/in/clément-victorin-randrianasolo" // LINKEDIN
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
