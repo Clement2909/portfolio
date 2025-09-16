@@ -80,7 +80,8 @@ const Portfolio = () => {
     { name: "TypeScript", percentage: 80, color: "#3178C6" },
     { name: "Vue.js", percentage: 70, color: "#4FC08D" },
     { name: "Python", percentage: 60, color: "#3776AB" },
-    { name: "Java", percentage: 60, color: "#339933" }
+    { name: "Java", percentage: 60, color: "#339933" },
+    { name: "React", percentage: 60, color: "#c28494ff" }
   ];
 
   // PERSONNALISATION DES PROJETS
@@ -102,6 +103,16 @@ const Portfolio = () => {
       },
       tech: ["Laravel", "Vue.js", "Mysql","Python","Javascript"],
       isPrivate: true // Projet confidentiel d'entreprise
+    },
+    {
+      title: "Architect's portfolio website",
+      description: {
+        fr: "Site web pour le portfolio d'un architecte",
+        en: "Website for an architect"
+      },
+      tech: ["React", "Javascript", "HTML","CSS","Netlify","Tailwind CSS","EmailJS"],
+      isPrivate: false,
+      siteUrl: "http://maconcept.netlify.app"
     }
 /*{
       title: "Weather Dashboard",
