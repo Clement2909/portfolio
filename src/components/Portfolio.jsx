@@ -28,8 +28,8 @@ const Portfolio = () => {
       },
       projects: {
         title: "Mes Projets",
-        viewProject: "Voir le projet",
-        viewCode: "Voir le code"
+        viewSite: "Voir le site",
+        private: "Privé"
       },
       contact: {
         title: "Me Contacter",
@@ -59,8 +59,8 @@ const Portfolio = () => {
       },
       projects: {
         title: "My Projects",
-        viewProject: "View Project",
-        viewCode: "View Code"
+        viewSite: "View Site",
+        private: "Private"
       },
       contact: {
         title: "Contact Me",
@@ -83,7 +83,7 @@ const Portfolio = () => {
     { name: "Java", percentage: 60, color: "#339933" }
   ];
 
-  // PERSONNALISATION DES PROJETS 
+  // PERSONNALISATION DES PROJETS
   const projects = [
     {
       title: "Website overhaul",
@@ -92,8 +92,7 @@ const Portfolio = () => {
         en: "Replatforming a native PHP site to Laravel + Vue.js"
       },
       tech: ["Vue.js", "Laravel", "Postgres"],
-      //demo: "https://votre-demo.com", // 🔧 REMPLACEZ PAR VOS VRAIS LIENS
-      //code: "https://github.com/votre-username/projet"
+      isPrivate: true // Projet confidentiel d'entreprise
     },
     {
       title: "Automated attendance tracking",
@@ -102,8 +101,7 @@ const Portfolio = () => {
         en: "Real-time attendance tracking automation"
       },
       tech: ["Laravel", "Vue.js", "Mysql","Python","Javascript"],
-      //demo: "https://votre-demo.com",
-      //code: "https://github.com/votre-username/projet"
+      isPrivate: true // Projet confidentiel d'entreprise
     }
 /*{
       title: "Weather Dashboard",
@@ -316,24 +314,22 @@ const Portfolio = () => {
                   </div>
                   
                   <div className="flex space-x-3">
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
-                    >
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      {t.projects.viewProject}
-                    </a>
-                    <a
-                      href={project.code}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                    >
-                      <Github className="h-4 w-4 mr-2" />
-                      {t.projects.viewCode}
-                    </a>
+                    {project.isPrivate ? (
+                      <span className="flex items-center px-4 py-2 bg-gray-100 text-gray-500 rounded-lg cursor-not-allowed">
+                        <User className="h-4 w-4 mr-2" />
+                        {t.projects.private}
+                      </span>
+                    ) : (
+                      <a
+                        href={project.siteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+                      >
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        {t.projects.viewSite}
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -369,7 +365,7 @@ const Portfolio = () => {
                 GitHub
               </a>
               <a
-                href="www.linkedin.com/in/clément-victorin-randrianasolo" // LINKEDIN
+                href="https://www.linkedin.com/in/clément-victorin-randrianasolo" // LINKEDIN
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
