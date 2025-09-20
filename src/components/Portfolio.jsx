@@ -28,6 +28,8 @@ const Portfolio = () => {
       },
       projects: {
         title: "Mes Projets",
+        professionalTitle: "Projets Professionnels",
+        gamesTitle: "Jeux",
         viewSite: "Voir le site",
         private: "Privé"
       },
@@ -59,6 +61,8 @@ const Portfolio = () => {
       },
       projects: {
         title: "My Projects",
+        professionalTitle: "Professional Projects",
+        gamesTitle: "Games",
         viewSite: "View Site",
         private: "Private"
       },
@@ -84,8 +88,8 @@ const Portfolio = () => {
     { name: "React", percentage: 60, color: "#c28494ff" }
   ];
 
-  // PERSONNALISATION DES PROJETS
-  const projects = [
+  // PERSONNALISATION DES PROJETS PROFESSIONNELS
+  const professionalProjects = [
     {
       title: "Website overhaul",
       description: {
@@ -124,6 +128,20 @@ const Portfolio = () => {
       demo: "https://votre-demo.com",
       code: "https://github.com/votre-username/projet"
     }*/
+  ];
+
+  // PERSONNALISATION DES JEUX
+  const games = [
+    {
+      title: "Puzzle Game",
+      description: {
+        fr: "Jeu de puzzle interactif développé en JavaScript avec interface HTML/CSS et Python",
+        en: "Interactive puzzle game developed in JavaScript with HTML/CSS interface and Python"
+      },
+      tech: ["JavaScript", "HTML", "CSS", "Python"],
+      isPrivate: false,
+      siteUrl: "https://clement2909.github.io/puzzle/"
+    }
   ];
 
   const t = translations[currentLang];
@@ -211,8 +229,11 @@ const Portfolio = () => {
               <button onClick={() => scrollToSection('skills')} className="text-gray-600 hover:text-blue-600 transition-colors">
                 {t.nav.skills}
               </button>
-              <button onClick={() => scrollToSection('projects')} className="text-gray-600 hover:text-blue-600 transition-colors">
-                {t.nav.projects}
+              <button onClick={() => scrollToSection('professional-projects')} className="text-gray-600 hover:text-blue-600 transition-colors">
+                {t.projects.professionalTitle}
+              </button>
+              <button onClick={() => scrollToSection('games')} className="text-gray-600 hover:text-blue-600 transition-colors">
+                {t.projects.gamesTitle}
               </button>
               <button onClick={() => scrollToSection('contact')} className="text-gray-600 hover:text-blue-600 transition-colors">
                 {t.nav.contact}
@@ -239,9 +260,9 @@ const Portfolio = () => {
             <div className="mb-8">
               {/* 🔧 AJOUTEZ VOTRE PHOTO ICI */}
               <div className="w-64 h-64 mx-auto rounded-full mb-6 shadow-2xl overflow-hidden border-4 border-white">
-                <img 
-                  src="/portfolio/images/profile.jpg" 
-                  alt="Photo de profil"
+                <img
+                  src="/portfolio/images/profile.jpg"
+                  alt="Profil"
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                   onError={(e) => {
                     // Fallback si l'image n'existe pas
@@ -257,7 +278,7 @@ const Portfolio = () => {
                 {t.hero.subtitle}
               </p>
               <button
-                onClick={() => scrollToSection('projects')}
+                onClick={() => scrollToSection('professional-projects')}
                 className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-2xl"
               >
                 {t.hero.cta}
@@ -302,20 +323,20 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-16 bg-white">
+      {/* Professional Projects Section */}
+      <section id="professional-projects" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.projects.title}</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.projects.professionalTitle}</h2>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {professionalProjects.map((project, index) => (
               <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
                   <p className="text-gray-600 mb-4 leading-relaxed">{project.description[currentLang]}</p>
-                  
+
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tech.map((tech, techIndex) => (
                       <span key={techIndex} className="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 rounded-full text-sm font-medium">
@@ -323,7 +344,7 @@ const Portfolio = () => {
                       </span>
                     ))}
                   </div>
-                  
+
                   <div className="flex space-x-3">
                     {project.isPrivate ? (
                       <span className="flex items-center px-4 py-2 bg-gray-100 text-gray-500 rounded-lg cursor-not-allowed">
@@ -336,6 +357,53 @@ const Portfolio = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+                      >
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        {t.projects.viewSite}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Games Section */}
+      <section id="games" className="py-16 bg-gradient-to-r from-purple-50 to-pink-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.projects.gamesTitle}</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {games.map((game, index) => (
+              <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{game.title}</h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed">{game.description[currentLang]}</p>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {game.tech.map((tech, techIndex) => (
+                      <span key={techIndex} className="px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 rounded-full text-sm font-medium">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex space-x-3">
+                    {game.isPrivate ? (
+                      <span className="flex items-center px-4 py-2 bg-gray-100 text-gray-500 rounded-lg cursor-not-allowed">
+                        <User className="h-4 w-4 mr-2" />
+                        {t.projects.private}
+                      </span>
+                    ) : (
+                      <a
+                        href={game.siteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors shadow-md hover:shadow-lg"
                       >
                         <ExternalLink className="h-4 w-4 mr-2" />
                         {t.projects.viewSite}
