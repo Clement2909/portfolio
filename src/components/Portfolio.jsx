@@ -74,10 +74,10 @@ const Portfolio = () => {
     }
   };
 
-  // PERSONNALISATION DES COMPÉTENCES 
+  // PERSONNALISATION DES COMPÉTENCES
   const skills = [
-    { name: "Laravel", percentage: 90, color: "#61DAFB" },
-    { name: "PHP", percentage: 90, color: "#47A248" },
+    { name: "Laravel", percentage: 90, color: "#9966CC" },
+    { name: "PHP", percentage: 90, color: "#777BB4" },
     { name: "CSS/SCSS", percentage: 90, color: "#1572B6" },
     { name: "Postgres,Mysql,Oracle", percentage: 85, color: "#9fb6a0ff" },
     { name: "JavaScript", percentage: 80, color: "#F7DF1E" },
@@ -85,7 +85,8 @@ const Portfolio = () => {
     { name: "Vue.js", percentage: 70, color: "#4FC08D" },
     { name: "Python", percentage: 60, color: "#3776AB" },
     { name: "Java", percentage: 60, color: "#339933" },
-    { name: "React", percentage: 60, color: "#c28494ff" }
+    { name: "React", percentage: 60, color: "#61DAFB" },
+    { name: "NoSQL (Firebase)", percentage: 60, color: "#2E8B57" }
   ];
 
   // PERSONNALISATION DES PROJETS PROFESSIONNELS
@@ -97,7 +98,8 @@ const Portfolio = () => {
         en: "Replatforming a native PHP site to Laravel + Vue.js"
       },
       tech: ["Vue.js", "Laravel", "Postgres"],
-      isPrivate: true // Projet confidentiel d'entreprise
+      isPrivate: true, // Projet confidentiel d'entreprise
+      image: "/portfolio/images/dgi_logo.png"
     },
     {
       title: "Automated attendance tracking",
@@ -106,7 +108,8 @@ const Portfolio = () => {
         en: "Real-time attendance tracking automation"
       },
       tech: ["Laravel", "Vue.js", "Mysql","Python","Javascript"],
-      isPrivate: true // Projet confidentiel d'entreprise
+      isPrivate: true, // Projet confidentiel d'entreprise
+      image: "/portfolio/images/pointage_logo.png"
     },
     {
       title: "Architect's portfolio website",
@@ -116,7 +119,19 @@ const Portfolio = () => {
       },
       tech: ["React", "Javascript", "HTML","CSS","Netlify","Tailwind CSS","EmailJS"],
       isPrivate: false,
-      siteUrl: "http://maconcept.netlify.app"
+      siteUrl: "http://maconcept.netlify.app",
+      image: "/portfolio/images/ma_logo.jpg"
+    },
+    {
+      title: "Scandale Bouffe",
+      description: {
+        fr: "Site web pour un projet de restaurant",
+        en: "Website for a restaurant project"
+      },
+      tech: ["React", "Javascript", "HTML", "CSS", "Netlify", "Firebase"],
+      isPrivate: false,
+      siteUrl: "https://scandalebouffe.netlify.app/",
+      image: "/portfolio/images/scandale_logo.jpg"
     }
 /*{
       title: "Weather Dashboard",
@@ -140,7 +155,8 @@ const Portfolio = () => {
       },
       tech: ["JavaScript", "HTML", "CSS", "Python"],
       isPrivate: false,
-      siteUrl: "https://clement2909.github.io/puzzle/"
+      siteUrl: "https://clement2909.github.io/puzzle/",
+      image: "/portfolio/images/puzzle_logo.png"
     }
   ];
 
@@ -333,6 +349,18 @@ const Portfolio = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {professionalProjects.map((project, index) => (
               <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                {project.image && (
+                  <div className="h-48 overflow-hidden rounded-t-xl bg-gray-50 flex items-center justify-center p-4">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                )}
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
                   <p className="text-gray-600 mb-4 leading-relaxed">{project.description[currentLang]}</p>
@@ -380,6 +408,18 @@ const Portfolio = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {games.map((game, index) => (
               <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                {game.image && (
+                  <div className="h-48 overflow-hidden rounded-t-xl bg-gray-50 flex items-center justify-center p-4">
+                    <img
+                      src={game.image}
+                      alt={game.title}
+                      className="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                )}
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-3">{game.title}</h3>
                   <p className="text-gray-600 mb-4 leading-relaxed">{game.description[currentLang]}</p>
