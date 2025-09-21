@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Globe, User, Code, Mail, Github, Linkedin, ExternalLink } from "lucide-react";
+import { Globe, User, Code, Mail, Github, Linkedin, ExternalLink, Sun, Moon } from "lucide-react";
 
 const Portfolio = () => {
   const [currentLang, setCurrentLang] = useState('fr');
   const [skillsVisible, setSkillsVisible] = useState(false);
+  const [isDark, setIsDark] = useState(true); // Mode sombre par défaut
 
   const translations = {
     fr: {
@@ -198,12 +199,12 @@ const Portfolio = () => {
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-2xl font-bold text-gray-700">
+            <span className="text-2xl font-bold text-gray-700 dark:text-gray-300">
               {skillsVisible ? percentage : 0}%
             </span>
           </div>
         </div>
-        <h3 className="mt-3 text-lg font-semibold text-gray-800">{name}</h3>
+        <h3 className="mt-3 text-lg font-semibold text-gray-800 dark:text-gray-200">{name}</h3>
       </div>
     );
   };
@@ -228,38 +229,60 @@ const Portfolio = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className={`min-h-screen transition-all duration-300 ${
+      isDark
+        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
+        : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
+    }`}>
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+      <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md shadow-sm transition-all duration-300 ${
+        isDark ? 'bg-gray-800/90' : 'bg-white/90'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center">
               <Code className="h-8 w-8 text-blue-600 mr-2" />
-              <span className="text-xl font-bold text-gray-800">Portfolio</span>
+              <span className={`text-xl font-bold transition-colors duration-300 ${
+                isDark ? 'text-white' : 'text-gray-800'
+              }`}>Portfolio</span>
             </div>
             
             <div className="hidden md:flex items-center space-x-8">
-              <button onClick={() => scrollToSection('about')} className="text-gray-600 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('about')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.about}
               </button>
-              <button onClick={() => scrollToSection('skills')} className="text-gray-600 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('skills')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.skills}
               </button>
-              <button onClick={() => scrollToSection('professional-projects')} className="text-gray-600 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('professional-projects')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.projects.professionalTitle}
               </button>
-              <button onClick={() => scrollToSection('games')} className="text-gray-600 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('games')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.projects.gamesTitle}
               </button>
-              <button onClick={() => scrollToSection('contact')} className="text-gray-600 hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection('contact')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.contact}
               </button>
             </div>
 
             <div className="flex items-center space-x-4">
               <button
+                onClick={() => setIsDark(!isDark)}
+                className={`flex items-center px-3 py-2 rounded-md transition-colors ${
+                  isDark
+                    ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400'
+                    : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
+                }`}
+              >
+                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </button>
+              <button
                 onClick={() => setCurrentLang(currentLang === 'fr' ? 'en' : 'fr')}
-                className="flex items-center px-3 py-2 rounded-md bg-blue-100 hover:bg-blue-200 transition-colors"
+                className={`flex items-center px-3 py-2 rounded-md transition-colors ${
+                  isDark
+                    ? 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                    : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
+                }`}
               >
                 <Globe className="h-4 w-4 mr-1" />
                 {currentLang.toUpperCase()}
@@ -278,7 +301,7 @@ const Portfolio = () => {
               <div className="w-64 h-64 mx-auto rounded-full mb-6 shadow-2xl overflow-hidden border-4 border-white">
                 <img
                   src="/portfolio/images/profile.jpg"
-                  alt="Profil"
+                  alt="Clément Randrianasolo, développeur Full Stack"
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                   onError={(e) => {
                     // Fallback si l'image n'existe pas
@@ -287,10 +310,14 @@ const Portfolio = () => {
                   }}
                 />
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+              <h1 className={`text-5xl md:text-6xl font-bold mb-4 transition-colors duration-300 ${
+                isDark ? 'text-white' : 'text-gray-900'
+              }`}>
                 {t.hero.title}
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              <p className={`text-xl mb-8 max-w-3xl mx-auto transition-colors duration-300 ${
+                isDark ? 'text-gray-300' : 'text-gray-600'
+              }`}>
                 {t.hero.subtitle}
               </p>
               <button
@@ -306,11 +333,17 @@ const Portfolio = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 bg-white">
+      <section id="about" className={`py-16 transition-all duration-300 ${
+        isDark ? 'bg-gray-800' : 'bg-white'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.about.title}</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <h2 className={`text-4xl font-bold mb-4 transition-colors duration-300 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>{t.about.title}</h2>
+            <p className={`text-lg max-w-3xl mx-auto leading-relaxed transition-colors duration-300 ${
+              isDark ? 'text-gray-300' : 'text-gray-600'
+            }`}>
               {t.about.description}
             </p>
           </div>
@@ -318,16 +351,24 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-16 bg-gradient-to-r from-blue-50 to-purple-50">
+      <section id="skills" className={`py-16 transition-all duration-300 ${
+        isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.skills.title}</h2>
-            <p className="text-lg text-gray-600">{t.skills.subtitle}</p>
+            <h2 className={`text-4xl font-bold mb-4 transition-colors duration-300 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>{t.skills.title}</h2>
+            <p className={`text-lg transition-colors duration-300 ${
+              isDark ? 'text-gray-300' : 'text-gray-600'
+            }`}>{t.skills.subtitle}</p>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {skills.map((skill, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+              <div key={index} className={`rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${
+                isDark ? 'bg-gray-900 border border-gray-700' : 'bg-white'
+              }`}>
                 <CircularProgress
                   percentage={skill.percentage}
                   color={skill.color}
@@ -340,20 +381,26 @@ const Portfolio = () => {
       </section>
 
       {/* Professional Projects Section */}
-      <section id="professional-projects" className="py-16 bg-white">
+      <section id="professional-projects" className={`py-16 transition-all duration-300 ${
+        isDark ? 'bg-gray-900' : 'bg-white'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.projects.professionalTitle}</h2>
+            <h2 className={`text-4xl font-bold mb-4 transition-colors duration-300 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>{t.projects.professionalTitle}</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {professionalProjects.map((project, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+              <div key={index} className={`rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${
+                isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'
+              }`}>
                 {project.image && (
                   <div className="h-48 overflow-hidden rounded-t-xl bg-gray-50 flex items-center justify-center p-4">
                     <img
                       src={project.image}
-                      alt={project.title}
+                      alt={`Logo du projet ${project.title} - ${project.description[currentLang]}`}
                       className="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
                         e.target.style.display = 'none';
@@ -362,12 +409,20 @@ const Portfolio = () => {
                   </div>
                 )}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{project.title}</h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">{project.description[currentLang]}</p>
+                  <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 ${
+                    isDark ? 'text-white' : 'text-gray-900'
+                  }`}>{project.title}</h3>
+                  <p className={`mb-4 leading-relaxed transition-colors duration-300 ${
+                    isDark ? 'text-gray-300' : 'text-gray-600'
+                  }`}>{project.description[currentLang]}</p>
 
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tech.map((tech, techIndex) => (
-                      <span key={techIndex} className="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 rounded-full text-sm font-medium">
+                      <span key={techIndex} className={`px-3 py-1 rounded-full text-sm font-medium transition-colors duration-300 ${
+                        isDark
+                          ? 'bg-gradient-to-r from-blue-900 to-purple-900 text-blue-300'
+                          : 'bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800'
+                      }`}>
                         {tech}
                       </span>
                     ))}
@@ -375,7 +430,9 @@ const Portfolio = () => {
 
                   <div className="flex space-x-3">
                     {project.isPrivate ? (
-                      <span className="flex items-center px-4 py-2 bg-gray-100 text-gray-500 rounded-lg cursor-not-allowed">
+                      <span className={`flex items-center px-4 py-2 rounded-lg cursor-not-allowed transition-colors duration-300 ${
+                        isDark ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-500'
+                      }`}>
                         <User className="h-4 w-4 mr-2" />
                         {t.projects.private}
                       </span>
@@ -399,20 +456,26 @@ const Portfolio = () => {
       </section>
 
       {/* Games Section */}
-      <section id="games" className="py-16 bg-gradient-to-r from-purple-50 to-pink-50">
+      <section id="games" className={`py-16 transition-all duration-300 ${
+        isDark ? 'bg-gradient-to-r from-gray-800 to-gray-700' : 'bg-gradient-to-r from-purple-50 to-pink-50'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t.projects.gamesTitle}</h2>
+            <h2 className={`text-4xl font-bold mb-4 transition-colors duration-300 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>{t.projects.gamesTitle}</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {games.map((game, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+              <div key={index} className={`rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${
+                isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'
+              }`}>
                 {game.image && (
                   <div className="h-48 overflow-hidden rounded-t-xl bg-gray-50 flex items-center justify-center p-4">
                     <img
                       src={game.image}
-                      alt={game.title}
+                      alt={`Capture d'écran du jeu ${game.title} - ${game.description[currentLang]}`}
                       className="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
                         e.target.style.display = 'none';
@@ -421,12 +484,20 @@ const Portfolio = () => {
                   </div>
                 )}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{game.title}</h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">{game.description[currentLang]}</p>
+                  <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 ${
+                    isDark ? 'text-white' : 'text-gray-900'
+                  }`}>{game.title}</h3>
+                  <p className={`mb-4 leading-relaxed transition-colors duration-300 ${
+                    isDark ? 'text-gray-300' : 'text-gray-600'
+                  }`}>{game.description[currentLang]}</p>
 
                   <div className="flex flex-wrap gap-2 mb-4">
                     {game.tech.map((tech, techIndex) => (
-                      <span key={techIndex} className="px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 rounded-full text-sm font-medium">
+                      <span key={techIndex} className={`px-3 py-1 rounded-full text-sm font-medium transition-colors duration-300 ${
+                        isDark
+                          ? 'bg-gradient-to-r from-purple-900 to-pink-900 text-purple-300'
+                          : 'bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800'
+                      }`}>
                         {tech}
                       </span>
                     ))}
@@ -434,7 +505,9 @@ const Portfolio = () => {
 
                   <div className="flex space-x-3">
                     {game.isPrivate ? (
-                      <span className="flex items-center px-4 py-2 bg-gray-100 text-gray-500 rounded-lg cursor-not-allowed">
+                      <span className={`flex items-center px-4 py-2 rounded-lg cursor-not-allowed transition-colors duration-300 ${
+                        isDark ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-500'
+                      }`}>
                         <User className="h-4 w-4 mr-2" />
                         {t.projects.private}
                       </span>
@@ -443,7 +516,9 @@ const Portfolio = () => {
                         href={game.siteUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors shadow-md hover:shadow-lg"
+                        className={`flex items-center px-4 py-2 text-white rounded-lg transition-colors shadow-md hover:shadow-lg ${
+                          isDark ? 'bg-purple-700 hover:bg-purple-800' : 'bg-purple-600 hover:bg-purple-700'
+                        }`}
                       >
                         <ExternalLink className="h-4 w-4 mr-2" />
                         {t.projects.viewSite}
@@ -458,18 +533,24 @@ const Portfolio = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
+      <section id="contact" className={`py-16 transition-all duration-300 ${
+        isDark ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-blue-600 to-purple-600'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-4xl font-bold text-white mb-4">{t.contact.title}</h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p className={`text-xl mb-8 max-w-2xl mx-auto transition-colors duration-300 ${
+              isDark ? 'text-gray-300' : 'text-blue-100'
+            }`}>
               {t.contact.description}
             </p>
             
             <div className="flex justify-center space-x-6 flex-wrap gap-4">
               <a
                 href={`mailto:${t.contact.email}`}
-                className="flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
+                className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                  isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-white text-blue-600 hover:bg-gray-100'
+                }`}
               >
                 <Mail className="h-5 w-5 mr-2" />
                 Email
@@ -478,7 +559,9 @@ const Portfolio = () => {
                 href="https://github.com/Clement2909" //  GITHUB
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
+                className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                  isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-white text-blue-600 hover:bg-gray-100'
+                }`}
               >
                 <Github className="h-5 w-5 mr-2" />
                 GitHub
@@ -487,7 +570,9 @@ const Portfolio = () => {
                 href="https://www.linkedin.com/in/clément-victorin-randrianasolo" // LINKEDIN
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
+                className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                  isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-white text-blue-600 hover:bg-gray-100'
+                }`}
               >
                 <Linkedin className="h-5 w-5 mr-2" />
                 LinkedIn
@@ -498,7 +583,9 @@ const Portfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
+      <footer className={`py-8 transition-all duration-300 ${
+        isDark ? 'bg-black text-gray-300' : 'bg-gray-900 text-white'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p>&copy; 2025 Portfolio. {currentLang === 'fr' ? 'Tous droits réservés' : 'All rights reserved'}.</p>
