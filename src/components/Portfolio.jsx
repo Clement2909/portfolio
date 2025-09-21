@@ -95,8 +95,8 @@ const Portfolio = () => {
     {
       title: "Website overhaul",
       description: {
-        fr: "Refonte de site web en PHP natif en Laravel + Vue.js",
-        en: "Replatforming a native PHP site to Laravel + Vue.js"
+        fr: "Refonte de site web en PHP brut en Laravel + Vue.js",
+        en: "Replatforming a raw PHP site to Laravel + Vue.js"
       },
       tech: ["Vue.js", "Laravel", "Postgres"],
       isPrivate: true, // Projet confidentiel d'entreprise
