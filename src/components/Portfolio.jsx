@@ -199,12 +199,12 @@ const Portfolio = () => {
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-2xl font-bold text-gray-700 dark:text-gray-300 dark:sm:text-white">
+            <span className="text-2xl font-bold text-gray-700 dark:text-white">
               {skillsVisible ? percentage : 0}%
             </span>
           </div>
         </div>
-        <h3 className="mt-3 text-lg font-semibold text-gray-800 dark:text-gray-200 dark:sm:text-white">{name}</h3>
+        <h3 className="mt-3 text-lg font-semibold text-gray-800 dark:text-white">{name}</h3>
       </div>
     );
   };
