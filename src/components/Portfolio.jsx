@@ -156,7 +156,7 @@ const Portfolio = () => {
       },
       tech: ["JavaScript", "HTML", "CSS", "Python"],
       isPrivate: false,
-      siteUrl: "https://babypuzzlegasy.netlify.app/",
+      siteUrl: "https://clement2909.github.io/puzzle",
       image: "/portfolio/images/puzzle_logo.png"
     }
   ];
