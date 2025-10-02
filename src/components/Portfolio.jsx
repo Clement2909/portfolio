@@ -158,6 +158,17 @@ const Portfolio = () => {
       isPrivate: false,
       siteUrl: "https://babypuzzlegasy.vercel.app",
       image: "/portfolio/images/puzzle_logo.png"
+    },
+    {
+      title: "Domy - Malagasy Rules",
+      description: {
+        fr: "Domino aux règles malgaches développé avec React",
+        en: "Malagasy rules domino game developed with React"
+      },
+      tech: ["React", "JavaScript", "Vercel", "Firebase"],
+      isPrivate: false,
+      siteUrl: "https://domy-delta.vercel.app",
+      image: "/portfolio/images/logo_domy.png"
     }
   ];
 
