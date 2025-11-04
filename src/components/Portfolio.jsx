@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Globe, User, Code, Mail, Github, Linkedin, ExternalLink, Sun, Moon } from "lucide-react";
+import { Globe, User, Code, Mail, Github, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check } from "lucide-react";
 
 const Portfolio = () => {
   const [currentLang, setCurrentLang] = useState('fr');
@@ -10,6 +10,7 @@ const Portfolio = () => {
     fr: {
       nav: {
         about: "À propos",
+        services: "Services",
         skills: "Compétences",
         projects: "Projets",
         contact: "Contact"
@@ -22,6 +23,47 @@ const Portfolio = () => {
       about: {
         title: "À propos de moi",
         description: "Développeur passionné avec plusieurs expériences dans le développement web/logiciel. J'aime créer des solutions innovantes et user-friendly en utilisant les dernières technologies."
+      },
+      services: {
+        title: "Mes Services",
+        subtitle: "Des solutions adaptées à vos besoins",
+        contactButton: "Me contacter",
+        service1: {
+          title: "Développement Web & Logiciel Sur Mesure",
+          description: "Création de sites web et d'applications adaptés à vos besoins spécifiques : sites vitrine, plateformes e-commerce, systèmes de gestion interne, ou tout autre outil digital dont votre entreprise a besoin.",
+          features: [
+            "Sites web professionnels et modernes",
+            "Applications web pour gérer votre activité",
+            "Plateformes e-commerce pour vendre en ligne",
+            "Systèmes de gestion sur mesure",
+            "Interface intuitive et facile à utiliser",
+            "Compatible mobile, tablette et ordinateur"
+          ]
+        },
+        service2: {
+          title: "Gestion & Organisation de Vos Données",
+          description: "Conception et organisation de vos bases de données pour stocker, gérer et exploiter efficacement toutes vos informations : clients, produits, transactions, historiques, etc.",
+          features: [
+            "Stockage sécurisé de vos données",
+            "Organisation optimale de vos informations",
+            "Accès rapide et fiable à vos données",
+            "Sauvegarde et protection des informations sensibles",
+            "Amélioration des performances",
+            "Migration et consolidation de données existantes"
+          ]
+        },
+        service3: {
+          title: "Solutions Personnalisées & Automatisation",
+          description: "Développement de solutions sur mesure pour automatiser vos tâches répétitives, optimiser vos processus métier et créer des outils adaptés aux besoins uniques de votre entreprise.",
+          features: [
+            "Automatisation des tâches répétitives",
+            "Outils métier adaptés à votre activité",
+            "Systèmes de pointage et suivi du personnel",
+            "Génération automatique de rapports et statistiques",
+            "Intégration avec vos outils existants",
+            "Gain de temps et réduction des erreurs"
+          ]
+        }
       },
       skills: {
         title: "Mes Compétences",
@@ -43,6 +85,7 @@ const Portfolio = () => {
     en: {
       nav: {
         about: "About",
+        services: "Services",
         skills: "Skills",
         projects: "Projects",
         contact: "Contact"
@@ -55,6 +98,47 @@ const Portfolio = () => {
       about: {
         title: "About Me",
         description: "Passionate developer with several  experience in web/software development  . I love creating innovative and user-friendly solutions using the latest technologies."
+      },
+      services: {
+        title: "My Services",
+        subtitle: "Solutions tailored to your needs",
+        contactButton: "Contact me",
+        service1: {
+          title: "Custom Web & Software Development",
+          description: "Creation of websites and applications tailored to your specific needs: showcase websites, e-commerce platforms, internal management systems, or any other digital tool your business needs.",
+          features: [
+            "Professional and modern websites",
+            "Web applications to manage your business",
+            "E-commerce platforms to sell online",
+            "Custom management systems",
+            "Intuitive and user-friendly interface",
+            "Mobile, tablet and desktop compatible"
+          ]
+        },
+        service2: {
+          title: "Data Management & Organization",
+          description: "Design and organization of your databases to efficiently store, manage and utilize all your information: customers, products, transactions, history, etc.",
+          features: [
+            "Secure storage of your data",
+            "Optimal organization of your information",
+            "Fast and reliable access to your data",
+            "Backup and protection of sensitive information",
+            "Performance improvements",
+            "Migration and consolidation of existing data"
+          ]
+        },
+        service3: {
+          title: "Custom Solutions & Automation",
+          description: "Development of custom solutions to automate your repetitive tasks, optimize your business processes and create tools adapted to your company's unique needs.",
+          features: [
+            "Automation of repetitive tasks",
+            "Business tools tailored to your activity",
+            "Time tracking and staff monitoring systems",
+            "Automatic generation of reports and statistics",
+            "Integration with your existing tools",
+            "Time savings and error reduction"
+          ]
+        }
       },
       skills: {
         title: "My Skills",
@@ -74,6 +158,28 @@ const Portfolio = () => {
       }
     }
   };
+
+  // PERSONNALISATION DES SERVICES
+  const services = [
+    {
+      icon: Monitor,
+      iconColor: "#3B82F6",
+      titleKey: "service1",
+      gradient: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: Database,
+      iconColor: "#10B981",
+      titleKey: "service2",
+      gradient: "from-green-500 to-emerald-500"
+    },
+    {
+      icon: Zap,
+      iconColor: "#F59E0B",
+      titleKey: "service3",
+      gradient: "from-orange-500 to-yellow-500"
+    }
+  ];
 
   // PERSONNALISATION DES COMPÉTENCES
   const skills = [
@@ -262,6 +368,9 @@ const Portfolio = () => {
               <button onClick={() => scrollToSection('about')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.about}
               </button>
+              <button onClick={() => scrollToSection('services')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+                {t.nav.services}
+              </button>
               <button onClick={() => scrollToSection('skills')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.skills}
               </button>
@@ -357,6 +466,82 @@ const Portfolio = () => {
             }`}>
               {t.about.description}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className={`py-16 transition-all duration-300 ${
+        isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className={`text-4xl font-bold mb-4 transition-colors duration-300 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>{t.services.title}</h2>
+            <p className={`text-lg transition-colors duration-300 ${
+              isDark ? 'text-gray-300' : 'text-gray-600'
+            }`}>{t.services.subtitle}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => {
+              const serviceData = t.services[service.titleKey];
+              const IconComponent = service.icon;
+
+              return (
+                <div
+                  key={index}
+                  className={`rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${
+                    isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'
+                  }`}
+                >
+                  <div className="p-8">
+                    {/* Icon with gradient background */}
+                    <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 shadow-lg`}>
+                      <IconComponent className="h-8 w-8 text-white" />
+                    </div>
+
+                    {/* Service Title */}
+                    <h3 className={`text-2xl font-bold mb-4 transition-colors duration-300 ${
+                      isDark ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {serviceData.title}
+                    </h3>
+
+                    {/* Service Description */}
+                    <p className={`mb-6 leading-relaxed transition-colors duration-300 ${
+                      isDark ? 'text-gray-300' : 'text-gray-600'
+                    }`}>
+                      {serviceData.description}
+                    </p>
+
+                    {/* Features List */}
+                    <ul className="space-y-3 mb-6">
+                      {serviceData.features.map((feature, featureIndex) => (
+                        <li
+                          key={featureIndex}
+                          className={`flex items-start transition-colors duration-300 ${
+                            isDark ? 'text-gray-300' : 'text-gray-700'
+                          }`}
+                        >
+                          <Check className={`h-5 w-5 mr-2 flex-shrink-0 mt-0.5`} style={{ color: service.iconColor }} />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Contact Button */}
+                    <button
+                      onClick={() => scrollToSection('contact')}
+                      className={`w-full px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg bg-gradient-to-r ${service.gradient} text-white`}
+                    >
+                      {t.services.contactButton}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -565,6 +750,17 @@ const Portfolio = () => {
               >
                 <Mail className="h-5 w-5 mr-2" />
                 Email
+              </a>
+              <a
+                href="https://wa.me/261326312603"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                  isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-white text-blue-600 hover:bg-gray-100'
+                }`}
+              >
+                <MessageCircle className="h-5 w-5 mr-2" />
+                WhatsApp
               </a>
               <a
                 href="https://github.com/Clement2909" //  GITHUB
