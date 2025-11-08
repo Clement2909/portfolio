@@ -89,7 +89,7 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           questions: [
             {
               q: "Comment puis-je vous contacter ?",
-              a: "Vous pouvez me contacter par email (randrianasolo.clementvictorin@gmail.com), WhatsApp, LinkedIn ou via le formulaire de contact du site. Je réponds généralement sous 24h maximum."
+              a: "Vous pouvez me contacter par email (randrianasolo.clementvictorin@gmail.com), WhatsApp ou LinkedIn. Je réponds généralement sous 24h maximum."
             },
             {
               q: "Proposez-vous une formation pour utiliser mon site/application ?",
@@ -181,7 +181,7 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           questions: [
             {
               q: "How can I contact you?",
-              a: "You can contact me by email (randrianasolo.clementvictorin@gmail.com), WhatsApp, LinkedIn, or via the contact form on the site. I usually respond within 24 hours maximum."
+              a: "You can contact me by email (randrianasolo.clementvictorin@gmail.com), WhatsApp, or LinkedIn. I usually respond within 24 hours maximum."
             },
             {
               q: "Do you provide training to use my site/application?",
@@ -319,7 +319,12 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
               : "Feel free to contact me directly. I'll be happy to discuss your project!"}
           </p>
           <button
-            onClick={() => navigate('/#contact')}
+            onClick={() => {
+              navigate('/');
+              setTimeout(() => {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }, 100);
+            }}
             className="px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-2xl font-semibold"
           >
             {currentLang === 'fr' ? "Me Contacter" : "Contact Me"}
