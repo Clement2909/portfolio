@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Globe, User, Code, Mail, Github, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle } from "lucide-react";
+import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, setCurrentLang: propSetCurrentLang }) => {
@@ -794,17 +794,6 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
               >
                 <MessageCircle className="h-5 w-5 mr-2" />
                 WhatsApp
-              </a>
-              <a
-                href="https://github.com/Clement2909" //  GITHUB
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
-                  isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-white text-blue-600 hover:bg-gray-100'
-                }`}
-              >
-                <Github className="h-5 w-5 mr-2" />
-                GitHub
               </a>
               <a
                 href="https://www.linkedin.com/in/clément-victorin-randrianasolo" // LINKEDIN
