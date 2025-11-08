@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle } from "lucide-react";
+import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, setCurrentLang: propSetCurrentLang }) => {
@@ -7,6 +7,9 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
   const [currentLang, setCurrentLang] = useState(propCurrentLang || 'fr');
   const [skillsVisible, setSkillsVisible] = useState(false);
   const [isDark, setIsDark] = useState(propIsDark !== undefined ? propIsDark : true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [visibleSections, setVisibleSections] = useState(new Set());
 
   // Sync with parent props
   useEffect(() => {
@@ -356,10 +359,22 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
 
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    setMobileMenuOpen(false);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Gestion du scroll pour les animations et le bouton retour en haut
   useEffect(() => {
     const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+
+      // Afficher le bouton retour en haut après 300px de scroll
+      setShowScrollTop(scrollPosition > 300);
+
+      // Animation des compétences
       const skillsSection = document.getElementById('skills');
       if (skillsSection) {
         const rect = skillsSection.getBoundingClientRect();
@@ -367,11 +382,30 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
           setSkillsVisible(true);
         }
       }
+
+      // Animation unique au scroll pour les sections
+      const sections = ['about', 'services', 'skills', 'professional-projects', 'games', 'contact'];
+      const newVisibleSections = new Set(visibleSections);
+
+      sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (section && !visibleSections.has(sectionId)) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.75) {
+            newVisibleSections.add(sectionId);
+          }
+        }
+      });
+
+      if (newVisibleSections.size !== visibleSections.size) {
+        setVisibleSections(newVisibleSections);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Vérifier au chargement
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [visibleSections]);
 
   return (
     <div className={`min-h-screen transition-all duration-300 ${
@@ -439,7 +473,86 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                 <Globe className="h-4 w-4 mr-1" />
                 {currentLang.toUpperCase()}
               </button>
+
+              {/* Bouton menu hamburger (visible uniquement sur mobile) */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className={`md:hidden flex items-center px-3 py-2 rounded-md transition-colors ${
+                  isDark
+                    ? 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                    : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
+                }`}
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
             </div>
+          </div>
+        </div>
+
+        {/* Menu mobile */}
+        <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+          mobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+        }`}>
+          <div className={`px-4 pt-2 pb-4 space-y-2 border-t ${
+            isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+          }`}>
+            <button
+              onClick={() => scrollToSection('about')}
+              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+              }`}
+            >
+              {t.nav.about}
+            </button>
+            <button
+              onClick={() => scrollToSection('services')}
+              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+              }`}
+            >
+              {t.nav.services}
+            </button>
+            <button
+              onClick={() => scrollToSection('skills')}
+              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+              }`}
+            >
+              {t.nav.skills}
+            </button>
+            <button
+              onClick={() => scrollToSection('professional-projects')}
+              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+              }`}
+            >
+              {t.projects.professionalTitle}
+            </button>
+            <button
+              onClick={() => scrollToSection('games')}
+              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+              }`}
+            >
+              {t.projects.gamesTitle}
+            </button>
+            <button
+              onClick={() => { navigate('/faq'); setMobileMenuOpen(false); }}
+              className={`flex items-center w-full text-left px-4 py-3 rounded-md transition-colors ${
+                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+              }`}
+            >
+              <HelpCircle className="h-4 w-4 mr-2" />
+              {t.nav.faq}
+            </button>
+            <button
+              onClick={() => scrollToSection('contact')}
+              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+              }`}
+            >
+              {t.nav.contact}
+            </button>
           </div>
         </div>
       </nav>
@@ -485,8 +598,12 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       </section>
 
       {/* About Section */}
-      <section id="about" className={`py-16 transition-all duration-300 ${
+      <section id="about" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gray-800' : 'bg-white'
+      } ${
+        visibleSections.has('about')
+          ? 'opacity-100 translate-x-0 rotate-0'
+          : 'opacity-0 -translate-x-20 -rotate-2'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -503,8 +620,12 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       </section>
 
       {/* Services Section */}
-      <section id="services" className={`py-16 transition-all duration-300 ${
+      <section id="services" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
+      } ${
+        visibleSections.has('services')
+          ? 'opacity-100 translate-x-0 rotate-0'
+          : 'opacity-0 translate-x-20 rotate-2'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -579,8 +700,12 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className={`py-16 transition-all duration-300 ${
+      <section id="skills" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
+      } ${
+        visibleSections.has('skills')
+          ? 'opacity-100 translate-x-0 rotate-0'
+          : 'opacity-0 -translate-x-20 -rotate-1'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -610,8 +735,12 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       </section>
 
       {/* Professional Projects Section */}
-      <section id="professional-projects" className={`py-16 transition-all duration-300 ${
+      <section id="professional-projects" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gray-900' : 'bg-white'
+      } ${
+        visibleSections.has('professional-projects')
+          ? 'opacity-100 translate-x-0 rotate-0'
+          : 'opacity-0 translate-x-20 rotate-1'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -685,8 +814,12 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       </section>
 
       {/* Games Section */}
-      <section id="games" className={`py-16 transition-all duration-300 ${
+      <section id="games" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-800 to-gray-700' : 'bg-gradient-to-r from-purple-50 to-pink-50'
+      } ${
+        visibleSections.has('games')
+          ? 'opacity-100 translate-x-0 rotate-0'
+          : 'opacity-0 -translate-x-20 -rotate-2'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -762,8 +895,12 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className={`py-16 transition-all duration-300 ${
+      <section id="contact" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-blue-600 to-purple-600'
+      } ${
+        visibleSections.has('contact')
+          ? 'opacity-100 translate-x-0 rotate-0'
+          : 'opacity-0 translate-x-20 rotate-1'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -810,6 +947,23 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
           </div>
         </div>
       </section>
+
+      {/* Bouton retour en haut */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-8 right-8 p-4 rounded-full shadow-2xl transition-all duration-300 z-50 ${
+          showScrollTop
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-16 pointer-events-none'
+        } ${
+          isDark
+            ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white'
+            : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white'
+        } hover:scale-110 active:scale-95`}
+        aria-label="Retour en haut"
+      >
+        <ArrowUp className="h-6 w-6" />
+      </button>
 
       {/* Footer */}
       <footer className={`py-8 transition-all duration-300 ${
