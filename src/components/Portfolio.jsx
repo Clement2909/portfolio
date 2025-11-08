@@ -1,10 +1,32 @@
 import { useState, useEffect } from "react";
-import { Globe, User, Code, Mail, Github, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check } from "lucide-react";
+import { Globe, User, Code, Mail, Github, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const Portfolio = () => {
-  const [currentLang, setCurrentLang] = useState('fr');
+const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, setCurrentLang: propSetCurrentLang }) => {
+  const navigate = useNavigate();
+  const [currentLang, setCurrentLang] = useState(propCurrentLang || 'fr');
   const [skillsVisible, setSkillsVisible] = useState(false);
-  const [isDark, setIsDark] = useState(true); // Mode sombre par défaut
+  const [isDark, setIsDark] = useState(propIsDark !== undefined ? propIsDark : true);
+
+  // Sync with parent props
+  useEffect(() => {
+    if (propCurrentLang !== undefined) setCurrentLang(propCurrentLang);
+  }, [propCurrentLang]);
+
+  useEffect(() => {
+    if (propIsDark !== undefined) setIsDark(propIsDark);
+  }, [propIsDark]);
+
+  // Update parent state when local state changes
+  const handleLangChange = (newLang) => {
+    setCurrentLang(newLang);
+    if (propSetCurrentLang) propSetCurrentLang(newLang);
+  };
+
+  const handleThemeChange = (newIsDark) => {
+    setIsDark(newIsDark);
+    if (propSetIsDark) propSetIsDark(newIsDark);
+  };
 
   const translations = {
     fr: {
@@ -13,7 +35,8 @@ const Portfolio = () => {
         services: "Services",
         skills: "Compétences",
         projects: "Projets",
-        contact: "Contact"
+        contact: "Contact",
+        faq: "FAQ"
       },
       hero: {
         title: "Développeur Full Stack",
@@ -88,7 +111,8 @@ const Portfolio = () => {
         services: "Services",
         skills: "Skills",
         projects: "Projects",
-        contact: "Contact"
+        contact: "Contact",
+        faq: "FAQ"
       },
       hero: {
         title: "Full Stack Developer",
@@ -384,6 +408,10 @@ const Portfolio = () => {
               <button onClick={() => scrollToSection('games')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.projects.gamesTitle}
               </button>
+              <button onClick={() => navigate('/faq')} className={`flex items-center transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+                <HelpCircle className="h-4 w-4 mr-1" />
+                {t.nav.faq}
+              </button>
               <button onClick={() => scrollToSection('contact')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.contact}
               </button>
@@ -391,7 +419,7 @@ const Portfolio = () => {
 
             <div className="flex items-center space-x-4">
               <button
-                onClick={() => setIsDark(!isDark)}
+                onClick={() => handleThemeChange(!isDark)}
                 className={`flex items-center px-3 py-2 rounded-md transition-colors ${
                   isDark
                     ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400'
@@ -401,7 +429,7 @@ const Portfolio = () => {
                 {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </button>
               <button
-                onClick={() => setCurrentLang(currentLang === 'fr' ? 'en' : 'fr')}
+                onClick={() => handleLangChange(currentLang === 'fr' ? 'en' : 'fr')}
                 className={`flex items-center px-3 py-2 rounded-md transition-colors ${
                   isDark
                     ? 'bg-gray-700 hover:bg-gray-600 text-gray-300'
