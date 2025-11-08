@@ -491,97 +491,103 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
         </div>
 
         {/* Menu mobile */}
-        <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-          mobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-        }`}>
-          <div className={`px-4 pt-2 pb-4 space-y-2 border-t ${
-            isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+        {mobileMenuOpen && (
+          <div className={`md:hidden fixed inset-0 top-[73px] z-40 ${
+            isDark ? 'bg-gray-800' : 'bg-white'
           }`}>
-            {/* Boutons thème et langue dans le menu mobile */}
-            <div className="flex gap-2 pb-2 border-b border-gray-600">
-              <button
-                onClick={() => handleThemeChange(!isDark)}
-                className={`flex-1 flex items-center justify-center px-4 py-3 rounded-md transition-colors ${
-                  isDark
-                    ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400'
-                    : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
-                }`}
-              >
-                {isDark ? <Sun className="h-5 w-5 mr-2" /> : <Moon className="h-5 w-5 mr-2" />}
-                <span className="text-sm">{isDark ? 'Clair' : 'Sombre'}</span>
-              </button>
-              <button
-                onClick={() => handleLangChange(currentLang === 'fr' ? 'en' : 'fr')}
-                className={`flex-1 flex items-center justify-center px-4 py-3 rounded-md transition-colors ${
-                  isDark
-                    ? 'bg-gray-700 hover:bg-gray-600 text-gray-300'
-                    : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
-                }`}
-              >
-                <Globe className="h-5 w-5 mr-2" />
-                <span className="text-sm">{currentLang === 'fr' ? 'EN' : 'FR'}</span>
-              </button>
-            </div>
+            <div className="h-full overflow-y-auto">
+              <div className={`px-4 pt-4 pb-4 space-y-3 ${
+                isDark ? 'bg-gray-800' : 'bg-white'
+              }`}>
+                {/* Boutons thème et langue dans le menu mobile */}
+                <div className={`flex gap-2 pb-3 border-b ${
+                  isDark ? 'border-gray-700' : 'border-gray-200'
+                }`}>
+                  <button
+                    onClick={() => handleThemeChange(!isDark)}
+                    className={`flex-1 flex items-center justify-center px-4 py-3 rounded-md transition-colors ${
+                      isDark
+                        ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400'
+                        : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
+                    }`}
+                  >
+                    {isDark ? <Sun className="h-5 w-5 mr-2" /> : <Moon className="h-5 w-5 mr-2" />}
+                    <span className="text-sm font-medium">{isDark ? 'Clair' : 'Sombre'}</span>
+                  </button>
+                  <button
+                    onClick={() => handleLangChange(currentLang === 'fr' ? 'en' : 'fr')}
+                    className={`flex-1 flex items-center justify-center px-4 py-3 rounded-md transition-colors ${
+                      isDark
+                        ? 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                        : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
+                    }`}
+                  >
+                    <Globe className="h-5 w-5 mr-2" />
+                    <span className="text-sm font-medium">{currentLang === 'fr' ? 'EN' : 'FR'}</span>
+                  </button>
+                </div>
 
-            <button
-              onClick={() => scrollToSection('about')}
-              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-              }`}
-            >
-              {t.nav.about}
-            </button>
-            <button
-              onClick={() => scrollToSection('services')}
-              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-              }`}
-            >
-              {t.nav.services}
-            </button>
-            <button
-              onClick={() => scrollToSection('skills')}
-              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-              }`}
-            >
-              {t.nav.skills}
-            </button>
-            <button
-              onClick={() => scrollToSection('professional-projects')}
-              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-              }`}
-            >
-              {t.projects.professionalTitle}
-            </button>
-            <button
-              onClick={() => scrollToSection('games')}
-              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-              }`}
-            >
-              {t.projects.gamesTitle}
-            </button>
-            <button
-              onClick={() => { navigate('/faq'); setMobileMenuOpen(false); }}
-              className={`flex items-center w-full text-left px-4 py-3 rounded-md transition-colors ${
-                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-              }`}
-            >
-              <HelpCircle className="h-4 w-4 mr-2" />
-              {t.nav.faq}
-            </button>
-            <button
-              onClick={() => scrollToSection('contact')}
-              className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-              }`}
-            >
-              {t.nav.contact}
-            </button>
+                <button
+                  onClick={() => scrollToSection('about')}
+                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  {t.nav.about}
+                </button>
+                <button
+                  onClick={() => scrollToSection('services')}
+                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  {t.nav.services}
+                </button>
+                <button
+                  onClick={() => scrollToSection('skills')}
+                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  {t.nav.skills}
+                </button>
+                <button
+                  onClick={() => scrollToSection('professional-projects')}
+                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  {t.projects.professionalTitle}
+                </button>
+                <button
+                  onClick={() => scrollToSection('games')}
+                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  {t.projects.gamesTitle}
+                </button>
+                <button
+                  onClick={() => { navigate('/faq'); setMobileMenuOpen(false); }}
+                  className={`flex items-center w-full text-left px-4 py-3 rounded-md transition-colors ${
+                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  <HelpCircle className="h-4 w-4 mr-2" />
+                  {t.nav.faq}
+                </button>
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  {t.nav.contact}
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </nav>
 
       {/* Hero Section */}
