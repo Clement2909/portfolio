@@ -280,7 +280,7 @@ const Portfolio = () => {
 
   const t = translations[currentLang];
 
-  const CircularProgress = ({ percentage, color, name, size = 120 }) => {
+  const CircularProgress = ({ percentage, color, name, size = 120, isDark }) => {
     const radius = (size - 20) / 2;
     const circumference = 2 * Math.PI * radius;
     const strokeDasharray = circumference;
@@ -316,12 +316,16 @@ const Portfolio = () => {
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-2xl font-bold text-gray-700 dark:text-white">
+            <span className={`text-2xl font-bold transition-colors duration-300 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>
               {skillsVisible ? percentage : 0}%
             </span>
           </div>
         </div>
-        <h3 className="mt-3 text-lg font-semibold text-gray-800 dark:text-white">{name}</h3>
+        <h3 className={`mt-3 text-lg font-semibold transition-colors duration-300 ${
+          isDark ? 'text-white' : 'text-gray-900'
+        }`}>{name}</h3>
       </div>
     );
   };
@@ -569,6 +573,7 @@ const Portfolio = () => {
                   percentage={skill.percentage}
                   color={skill.color}
                   name={skill.name}
+                  isDark={isDark}
                 />
               </div>
             ))}
