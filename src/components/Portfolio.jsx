@@ -414,7 +414,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
     }`}>
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md shadow-sm transition-all duration-300 ${
+      <nav className={`fixed top-0 left-0 right-0 z-[200] backdrop-blur-md shadow-sm transition-all duration-300 ${
         isDark ? 'bg-gray-800/90' : 'bg-white/90'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -492,11 +492,11 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
 
         {/* Menu mobile */}
         {mobileMenuOpen && (
-          <div className={`md:hidden fixed inset-0 top-[73px] z-40 ${
+          <div className={`md:hidden fixed left-0 right-0 top-[73px] bottom-0 z-[100] ${
             isDark ? 'bg-gray-800' : 'bg-white'
           }`}>
-            <div className="h-full overflow-y-auto">
-              <div className={`px-4 pt-4 pb-4 space-y-3 ${
+            <div className="h-full overflow-y-auto pb-safe">
+              <div className={`px-4 pt-4 pb-8 space-y-3 min-h-full ${
                 isDark ? 'bg-gray-800' : 'bg-white'
               }`}>
                 {/* Boutons thème et langue dans le menu mobile */}
