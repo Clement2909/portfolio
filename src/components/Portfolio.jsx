@@ -451,10 +451,11 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
               </button>
             </div>
 
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              {/* Desktop: afficher thème et langue */}
               <button
                 onClick={() => handleThemeChange(!isDark)}
-                className={`flex items-center px-3 py-2 rounded-md transition-colors ${
+                className={`hidden md:flex items-center px-3 py-2 rounded-md transition-colors ${
                   isDark
                     ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400'
                     : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
@@ -464,7 +465,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
               </button>
               <button
                 onClick={() => handleLangChange(currentLang === 'fr' ? 'en' : 'fr')}
-                className={`flex items-center px-3 py-2 rounded-md transition-colors ${
+                className={`hidden md:flex items-center px-3 py-2 rounded-md transition-colors ${
                   isDark
                     ? 'bg-gray-700 hover:bg-gray-600 text-gray-300'
                     : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
@@ -477,13 +478,13 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
               {/* Bouton menu hamburger (visible uniquement sur mobile) */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`md:hidden flex items-center px-3 py-2 rounded-md transition-colors ${
+                className={`md:hidden flex items-center p-2 rounded-md transition-colors ${
                   isDark
                     ? 'bg-gray-700 hover:bg-gray-600 text-gray-300'
                     : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
                 }`}
               >
-                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             </div>
           </div>
@@ -496,6 +497,32 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
           <div className={`px-4 pt-2 pb-4 space-y-2 border-t ${
             isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
           }`}>
+            {/* Boutons thème et langue dans le menu mobile */}
+            <div className="flex gap-2 pb-2 border-b border-gray-600">
+              <button
+                onClick={() => handleThemeChange(!isDark)}
+                className={`flex-1 flex items-center justify-center px-4 py-3 rounded-md transition-colors ${
+                  isDark
+                    ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400'
+                    : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
+                }`}
+              >
+                {isDark ? <Sun className="h-5 w-5 mr-2" /> : <Moon className="h-5 w-5 mr-2" />}
+                <span className="text-sm">{isDark ? 'Clair' : 'Sombre'}</span>
+              </button>
+              <button
+                onClick={() => handleLangChange(currentLang === 'fr' ? 'en' : 'fr')}
+                className={`flex-1 flex items-center justify-center px-4 py-3 rounded-md transition-colors ${
+                  isDark
+                    ? 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                    : 'bg-blue-100 hover:bg-blue-200 text-blue-600'
+                }`}
+              >
+                <Globe className="h-5 w-5 mr-2" />
+                <span className="text-sm">{currentLang === 'fr' ? 'EN' : 'FR'}</span>
+              </button>
+            </div>
+
             <button
               onClick={() => scrollToSection('about')}
               className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
