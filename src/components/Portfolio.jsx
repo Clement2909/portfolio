@@ -484,12 +484,11 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
     setFormStatus({ type: 'sending', message: '' });
 
     try {
-      // 🔧 CONFIGURATION EMAILJS - Remplacez par vos identifiants
       await emailjs.sendForm(
-        'YOUR_SERVICE_ID',      // À remplacer par votre Service ID
-        'YOUR_TEMPLATE_ID',     // À remplacer par votre Template ID
+        'service_68iqopf',
+        'template_fd4kibz',
         formRef.current,
-        'YOUR_PUBLIC_KEY'       // À remplacer par votre Public Key
+        'zdktpGXKNobTcjCmc'
       );
 
       setFormStatus({ type: 'success', message: t.contact.form.success });
