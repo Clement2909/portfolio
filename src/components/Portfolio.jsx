@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp, Send } from "lucide-react";
+import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp, Send, Briefcase } from "lucide-react";
 import { FaDiscord, FaFacebook, FaInstagram, FaTelegram, FaMicrosoft } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
@@ -1184,6 +1184,17 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                 >
                   <FaTelegram className="h-5 w-5 mr-3" />
                   <span className="font-medium">Telegram</span>
+                </a>
+                <a
+                  href="https://www.malt.com/profile/clementvictorinmarierandrianasolo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <Briefcase className="h-5 w-5 mr-3" />
+                  <span className="font-medium">Malt</span>
                 </a>
               </div>
             </div>
