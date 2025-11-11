@@ -1,15 +1,31 @@
-import { useState, useEffect } from "react";
-import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp, Send } from "lucide-react";
+import { FaDiscord, FaFacebook, FaInstagram, FaTelegram, FaMicrosoft } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
+import emailjs from '@emailjs/browser';
 
 const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, setCurrentLang: propSetCurrentLang }) => {
   const navigate = useNavigate();
+  const formRef = useRef();
   const [currentLang, setCurrentLang] = useState(propCurrentLang || 'fr');
   const [skillsVisible, setSkillsVisible] = useState(false);
   const [isDark, setIsDark] = useState(propIsDark !== undefined ? propIsDark : true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    projectType: '',
+    sector: '',
+    budget: '',
+    currency: 'EUR',
+    deadline: '',
+    description: ''
+  });
+  const [formStatus, setFormStatus] = useState({ type: '', message: '' });
 
   // Sync with parent props
   useEffect(() => {
@@ -105,7 +121,51 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       contact: {
         title: "Me Contacter",
         description: "Intéressé par une collaboration ? N'hésitez pas à me contacter !",
-        email: "randrianasolo.clementvictorin@gmail.com"
+        email: "randrianasolo.clementvictorin@gmail.com",
+        quickContact: "Contact Rapide",
+        quoteForm: "Demande de Devis",
+        form: {
+          name: "Nom complet",
+          email: "Email",
+          phone: "Téléphone",
+          company: "Entreprise",
+          projectType: "Type de projet",
+          sector: "Secteur d'activité",
+          budget: "Budget estimé",
+          currency: "Devise",
+          deadline: "Délai souhaité",
+          description: "Description du projet",
+          send: "Envoyer la demande",
+          sending: "Envoi en cours...",
+          projectTypes: {
+            web: "Site Web",
+            ecommerce: "E-commerce",
+            webapp: "Application Web",
+            mobile: "Application Mobile",
+            database: "Base de données",
+            automation: "Automatisation",
+            other: "Autre"
+          },
+          sectors: {
+            health: "Santé/Médecine",
+            education: "Éducation",
+            finance: "Finance",
+            retail: "Commerce",
+            technology: "Technologie",
+            hospitality: "Hôtellerie/Restauration",
+            agriculture: "Agriculture",
+            other: "Autre"
+          },
+          deadlines: {
+            urgent: "Urgent (< 1 mois)",
+            short: "Court terme (1-3 mois)",
+            medium: "Moyen terme (3-6 mois)",
+            long: "Long terme (> 6 mois)",
+            flexible: "Flexible"
+          },
+          success: "Votre demande a été envoyée avec succès ! Je vous répondrai dans les plus brefs délais.",
+          error: "Une erreur s'est produite. Veuillez réessayer ou me contacter directement."
+        }
       }
     },
     en: {
@@ -181,7 +241,51 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       contact: {
         title: "Contact Me",
         description: "Interested in collaboration? Feel free to reach out!",
-        email: "randrianasolo.clementvictorin@gmail.com"
+        email: "randrianasolo.clementvictorin@gmail.com",
+        quickContact: "Quick Contact",
+        quoteForm: "Request a Quote",
+        form: {
+          name: "Full Name",
+          email: "Email",
+          phone: "Phone",
+          company: "Company",
+          projectType: "Project Type",
+          sector: "Business Sector",
+          budget: "Estimated Budget",
+          currency: "Currency",
+          deadline: "Desired Timeline",
+          description: "Project Description",
+          send: "Send Request",
+          sending: "Sending...",
+          projectTypes: {
+            web: "Website",
+            ecommerce: "E-commerce",
+            webapp: "Web Application",
+            mobile: "Mobile App",
+            database: "Database",
+            automation: "Automation",
+            other: "Other"
+          },
+          sectors: {
+            health: "Health/Medicine",
+            education: "Education",
+            finance: "Finance",
+            retail: "Retail",
+            technology: "Technology",
+            hospitality: "Hospitality/Restaurant",
+            agriculture: "Agriculture",
+            other: "Other"
+          },
+          deadlines: {
+            urgent: "Urgent (< 1 month)",
+            short: "Short term (1-3 months)",
+            medium: "Medium term (3-6 months)",
+            long: "Long term (> 6 months)",
+            flexible: "Flexible"
+          },
+          success: "Your request has been sent successfully! I will get back to you as soon as possible.",
+          error: "An error occurred. Please try again or contact me directly."
+        }
       }
     }
   };
@@ -364,6 +468,47 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Gestion du formulaire de contact
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus({ type: 'sending', message: '' });
+
+    try {
+      // 🔧 CONFIGURATION EMAILJS - Remplacez par vos identifiants
+      await emailjs.sendForm(
+        'YOUR_SERVICE_ID',      // À remplacer par votre Service ID
+        'YOUR_TEMPLATE_ID',     // À remplacer par votre Template ID
+        formRef.current,
+        'YOUR_PUBLIC_KEY'       // À remplacer par votre Public Key
+      );
+
+      setFormStatus({ type: 'success', message: t.contact.form.success });
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        projectType: '',
+        sector: '',
+        budget: '',
+        currency: 'EUR',
+        deadline: '',
+        description: ''
+      });
+    } catch (error) {
+      console.error('Erreur EmailJS:', error);
+      setFormStatus({ type: 'error', message: t.contact.form.error });
+    }
   };
 
   // Gestion du scroll pour les animations et le bouton retour en haut
@@ -936,46 +1081,353 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
           : 'opacity-0 translate-x-20 rotate-1'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+          <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-white mb-4">{t.contact.title}</h2>
-            <p className={`text-xl mb-8 max-w-2xl mx-auto transition-colors duration-300 ${
+            <p className={`text-xl max-w-2xl mx-auto transition-colors duration-300 ${
               isDark ? 'text-gray-300' : 'text-blue-100'
             }`}>
               {t.contact.description}
             </p>
-            
-            <div className="flex justify-center space-x-6 flex-wrap gap-4">
-              <a
-                href={`mailto:${t.contact.email}`}
-                className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
-                  isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-white text-blue-600 hover:bg-gray-100'
-                }`}
-              >
-                <Mail className="h-5 w-5 mr-2" />
-                Email
-              </a>
-              <a
-                href="https://wa.me/261326312603"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
-                  isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-white text-blue-600 hover:bg-gray-100'
-                }`}
-              >
-                <MessageCircle className="h-5 w-5 mr-2" />
-                WhatsApp
-              </a>
-              <a
-                href="https://www.linkedin.com/in/clément-victorin-randrianasolo" // LINKEDIN
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
-                  isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-white text-blue-600 hover:bg-gray-100'
-                }`}
-              >
-                <Linkedin className="h-5 w-5 mr-2" />
-                LinkedIn
-              </a>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Partie gauche : Liens de contact */}
+            <div className={`rounded-xl shadow-2xl p-8 ${
+              isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white'
+            }`}>
+              <h3 className={`text-2xl font-bold mb-6 ${
+                isDark ? 'text-white' : 'text-gray-900'
+              }`}>{t.contact.quickContact}</h3>
+
+              <div className="space-y-4">
+                <a
+                  href={`mailto:${t.contact.email}`}
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <Mail className="h-5 w-5 mr-3" />
+                  <span className="font-medium">Email</span>
+                </a>
+                <a
+                  href="https://wa.me/261326312603"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <MessageCircle className="h-5 w-5 mr-3" />
+                  <span className="font-medium">WhatsApp</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/clément-victorin-randrianasolo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <Linkedin className="h-5 w-5 mr-3" />
+                  <span className="font-medium">LinkedIn</span>
+                </a>
+                <a
+                  href="https://discordapp.com/users/nacl29094368"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <FaDiscord className="h-5 w-5 mr-3" />
+                  <span className="font-medium">Discord</span>
+                </a>
+                <a
+                  href="https://teams.microsoft.com/l/chat/0/0?users=clement.randria@outlook.fr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <FaMicrosoft className="h-5 w-5 mr-3" />
+                  <span className="font-medium">Teams</span>
+                </a>
+                <a
+                  href="https://www.facebook.com/fanyah.rabemanantsoa.90"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <FaFacebook className="h-5 w-5 mr-3" />
+                  <span className="font-medium">Facebook</span>
+                </a>
+                <a
+                  href="https://www.instagram.com/clement_randrianasolo/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <FaInstagram className="h-5 w-5 mr-3" />
+                  <span className="font-medium">Instagram</span>
+                </a>
+                <a
+                  href="https://t.me/+261344557927"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <FaTelegram className="h-5 w-5 mr-3" />
+                  <span className="font-medium">Telegram</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Partie droite : Formulaire de devis */}
+            <div className={`rounded-xl shadow-2xl p-8 ${
+              isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white'
+            }`}>
+              <h3 className={`text-2xl font-bold mb-6 ${
+                isDark ? 'text-white' : 'text-gray-900'
+              }`}>{t.contact.quoteForm}</h3>
+
+              <form ref={formRef} onSubmit={handleFormSubmit} className="space-y-4">
+                {/* Nom complet */}
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${
+                    isDark ? 'text-gray-300' : 'text-gray-700'
+                  }`}>{t.contact.form.name} *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleFormChange}
+                    required
+                    className={`w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      isDark
+                        ? 'bg-gray-700 border-gray-600 text-white'
+                        : 'bg-white border-gray-300 text-gray-900'
+                    }`}
+                  />
+                </div>
+
+                {/* Email et Téléphone */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${
+                      isDark ? 'text-gray-300' : 'text-gray-700'
+                    }`}>{t.contact.form.email} *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleFormChange}
+                      required
+                      className={`w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        isDark
+                          ? 'bg-gray-700 border-gray-600 text-white'
+                          : 'bg-white border-gray-300 text-gray-900'
+                      }`}
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${
+                      isDark ? 'text-gray-300' : 'text-gray-700'
+                    }`}>{t.contact.form.phone} *</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleFormChange}
+                      required
+                      className={`w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        isDark
+                          ? 'bg-gray-700 border-gray-600 text-white'
+                          : 'bg-white border-gray-300 text-gray-900'
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                {/* Entreprise */}
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${
+                    isDark ? 'text-gray-300' : 'text-gray-700'
+                  }`}>{t.contact.form.company} *</label>
+                  <input
+                    type="text"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleFormChange}
+                    required
+                    className={`w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      isDark
+                        ? 'bg-gray-700 border-gray-600 text-white'
+                        : 'bg-white border-gray-300 text-gray-900'
+                    }`}
+                  />
+                </div>
+
+                {/* Type de projet et Secteur */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${
+                      isDark ? 'text-gray-300' : 'text-gray-700'
+                    }`}>{t.contact.form.projectType} *</label>
+                    <select
+                      name="projectType"
+                      value={formData.projectType}
+                      onChange={handleFormChange}
+                      required
+                      className={`w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        isDark
+                          ? 'bg-gray-700 border-gray-600 text-white'
+                          : 'bg-white border-gray-300 text-gray-900'
+                      }`}
+                    >
+                      <option value="">-- {currentLang === 'fr' ? 'Sélectionner' : 'Select'} --</option>
+                      {Object.entries(t.contact.form.projectTypes).map(([key, value]) => (
+                        <option key={key} value={key}>{value}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${
+                      isDark ? 'text-gray-300' : 'text-gray-700'
+                    }`}>{t.contact.form.sector} *</label>
+                    <select
+                      name="sector"
+                      value={formData.sector}
+                      onChange={handleFormChange}
+                      required
+                      className={`w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        isDark
+                          ? 'bg-gray-700 border-gray-600 text-white'
+                          : 'bg-white border-gray-300 text-gray-900'
+                      }`}
+                    >
+                      <option value="">-- {currentLang === 'fr' ? 'Sélectionner' : 'Select'} --</option>
+                      {Object.entries(t.contact.form.sectors).map(([key, value]) => (
+                        <option key={key} value={key}>{value}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Budget et Devise */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="md:col-span-2">
+                    <label className={`block text-sm font-medium mb-2 ${
+                      isDark ? 'text-gray-300' : 'text-gray-700'
+                    }`}>{t.contact.form.budget} *</label>
+                    <input
+                      type="number"
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleFormChange}
+                      required
+                      min="0"
+                      className={`w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        isDark
+                          ? 'bg-gray-700 border-gray-600 text-white'
+                          : 'bg-white border-gray-300 text-gray-900'
+                      }`}
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${
+                      isDark ? 'text-gray-300' : 'text-gray-700'
+                    }`}>{t.contact.form.currency} *</label>
+                    <select
+                      name="currency"
+                      value={formData.currency}
+                      onChange={handleFormChange}
+                      required
+                      className={`w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        isDark
+                          ? 'bg-gray-700 border-gray-600 text-white'
+                          : 'bg-white border-gray-300 text-gray-900'
+                      }`}
+                    >
+                      <option value="EUR">EUR (€)</option>
+                      <option value="USD">USD ($)</option>
+                      <option value="GBP">GBP (£)</option>
+                      <option value="MGA">MGA (Ar)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Délai */}
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${
+                    isDark ? 'text-gray-300' : 'text-gray-700'
+                  }`}>{t.contact.form.deadline} *</label>
+                  <select
+                    name="deadline"
+                    value={formData.deadline}
+                    onChange={handleFormChange}
+                    required
+                    className={`w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      isDark
+                        ? 'bg-gray-700 border-gray-600 text-white'
+                        : 'bg-white border-gray-300 text-gray-900'
+                    }`}
+                  >
+                    <option value="">-- {currentLang === 'fr' ? 'Sélectionner' : 'Select'} --</option>
+                    {Object.entries(t.contact.form.deadlines).map(([key, value]) => (
+                      <option key={key} value={key}>{value}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${
+                    isDark ? 'text-gray-300' : 'text-gray-700'
+                  }`}>{t.contact.form.description} *</label>
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleFormChange}
+                    required
+                    rows="4"
+                    className={`w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${
+                      isDark
+                        ? 'bg-gray-700 border-gray-600 text-white'
+                        : 'bg-white border-gray-300 text-gray-900'
+                    }`}
+                  />
+                </div>
+
+                {/* Message de statut */}
+                {formStatus.message && (
+                  <div className={`p-4 rounded-lg ${
+                    formStatus.type === 'success'
+                      ? 'bg-green-100 text-green-800 border border-green-300'
+                      : formStatus.type === 'error'
+                      ? 'bg-red-100 text-red-800 border border-red-300'
+                      : 'bg-blue-100 text-blue-800 border border-blue-300'
+                  }`}>
+                    {formStatus.message}
+                  </div>
+                )}
+
+                {/* Bouton d'envoi */}
+                <button
+                  type="submit"
+                  disabled={formStatus.type === 'sending'}
+                  className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Send className="h-5 w-5 mr-2" />
+                  {formStatus.type === 'sending' ? t.contact.form.sending : t.contact.form.send}
+                </button>
+              </form>
             </div>
           </div>
         </div>
