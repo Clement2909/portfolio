@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Portfolio from './components/Portfolio';
 import FAQ from './components/FAQ';
+import Blog from './components/Blog';
 import './App.css';
 
 function App() {
@@ -27,6 +28,17 @@ function App() {
             path="/faq"
             element={
               <FAQ
+                isDark={isDark}
+                setIsDark={setIsDark}
+                currentLang={currentLang}
+                setCurrentLang={setCurrentLang}
+              />
+            }
+          />
+          <Route
+            path="/blog"
+            element={
+              <Blog
                 isDark={isDark}
                 setIsDark={setIsDark}
                 currentLang={currentLang}

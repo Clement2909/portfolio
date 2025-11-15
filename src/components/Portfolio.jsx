@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp, Send, Briefcase } from "lucide-react";
-import { FaDiscord, FaFacebook, FaInstagram, FaTelegram, FaMicrosoft } from 'react-icons/fa';
+import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin } from "lucide-react";
+import { FaDiscord, FaFacebook, FaFacebookMessenger, FaInstagram, FaTelegram, FaMicrosoft } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
 
@@ -13,6 +13,8 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
+  const [currentValueIndex, setCurrentValueIndex] = useState(0);
+  const [currentPhilosophyIndex, setCurrentPhilosophyIndex] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -53,7 +55,9 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
         about: "À propos",
         services: "Services",
         skills: "Compétences",
+        process: "Processus",
         projects: "Projets",
+        blog: "Blog",
         contact: "Contact",
         faq: "FAQ"
       },
@@ -64,7 +68,39 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       },
       about: {
         title: "À propos de moi",
-        description: "Développeur passionné avec plusieurs expériences dans le développement web/logiciel. J'aime créer des solutions innovantes et user-friendly en utilisant les dernières technologies."
+        description: "Développeur passionné avec plusieurs expériences dans le développement web/logiciel. J'aime créer des solutions innovantes et user-friendly en utilisant les dernières technologies.",
+        location: "Localisation",
+        locationValue: "Antananarivo, Madagascar",
+        locationDetail: "Disponible en remote ou sur place (préférence remote)",
+        languages: "Langues",
+        languagesList: {
+          french: "Français - Natif",
+          malagasy: "Malgache - Maternel",
+          english: "Anglais - Moyen"
+        },
+        interests: "Centres d'intérêt professionnels",
+        interestsList: [
+          "Architecture logicielle & Design Patterns",
+          "Performance & Optimisation",
+          "Sécurité Web"
+        ],
+        values: "Mes Valeurs",
+        valuesList: [
+          "Excellence & Qualité - Livrer un code propre et des solutions pérennes",
+          "Communication transparente - Tenir informé le client à chaque étape",
+          "Engagement & Fiabilité - Respecter les délais et promesses",
+          "Innovation & Créativité - Proposer des solutions modernes et efficaces",
+          "Simplicité & Pragmatisme - Solutions simples et fonctionnelles avant tout",
+          "Apprentissage continu - Se former aux nouvelles technologies",
+          "Collaboration - Travailler en équipe de manière constructive",
+          "Écoute active - Comprendre les besoins réels du client"
+        ],
+        philosophy: "Ma Philosophie",
+        philosophyList: [
+          "Le code doit être écrit pour être lu par des humains, pas seulement des machines",
+          "Mieux vaut une solution simple qui fonctionne qu'une solution complexe qui impressionne",
+          "Automatiser ce qui est répétitif, se concentrer sur ce qui a de la valeur"
+        ]
       },
       services: {
         title: "Mes Services",
@@ -118,12 +154,48 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
         viewSite: "Voir le site",
         private: "Privé"
       },
+      process: {
+        title: "Mon Processus de Travail",
+        subtitle: "Une méthodologie éprouvée pour la réussite de vos projets",
+        step1: {
+          title: "Découverte & Analyse",
+          description: "Comprendre vos besoins, analyser vos objectifs et définir ensemble la solution idéale."
+        },
+        step2: {
+          title: "Design & Prototypage",
+          description: "Concevoir l'interface utilisateur et créer des maquettes interactives pour validation."
+        },
+        step3: {
+          title: "Développement",
+          description: "Coder votre solution avec les meilleures pratiques et technologies adaptées."
+        },
+        step4: {
+          title: "Tests & Qualité",
+          description: "Tester rigoureusement chaque fonctionnalité pour garantir la fiabilité."
+        },
+        step5: {
+          title: "Déploiement",
+          description: "Mettre en production votre application de manière sécurisée et optimisée."
+        },
+        step6: {
+          title: "Maintenance & Support",
+          description: "Assurer le suivi, les mises à jour et le support technique continu."
+        }
+      },
       contact: {
         title: "Me Contacter",
         description: "Intéressé par une collaboration ? N'hésitez pas à me contacter !",
         email: "randrianasolo.clementvictorin@gmail.com",
         quickContact: "Contact Rapide",
         quoteForm: "Demande de Devis",
+        availability: "Disponibilité",
+        openingHours: {
+          title: "Heures d'ouverture",
+          weekdays: "Lundi - Samedi",
+          hours: "07h00 - 20h00",
+          sunday: "Dimanche",
+          closed: "Fermé"
+        },
         form: {
           name: "Nom complet",
           email: "Email",
@@ -173,7 +245,9 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
         about: "About",
         services: "Services",
         skills: "Skills",
+        process: "Process",
         projects: "Projects",
+        blog: "Blog",
         contact: "Contact",
         faq: "FAQ"
       },
@@ -184,7 +258,39 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       },
       about: {
         title: "About Me",
-        description: "Passionate developer with several  experience in web/software development  . I love creating innovative and user-friendly solutions using the latest technologies."
+        description: "Passionate developer with several experience in web/software development. I love creating innovative and user-friendly solutions using the latest technologies.",
+        location: "Location",
+        locationValue: "Antananarivo, Madagascar",
+        locationDetail: "Available remote or on-site (remote preferred)",
+        languages: "Languages",
+        languagesList: {
+          french: "French - Native",
+          malagasy: "Malagasy - Native",
+          english: "English - Intermediate"
+        },
+        interests: "Professional Interests",
+        interestsList: [
+          "Software Architecture & Design Patterns",
+          "Performance & Optimization",
+          "Web Security"
+        ],
+        values: "My Values",
+        valuesList: [
+          "Excellence & Quality - Deliver clean code and sustainable solutions",
+          "Transparent Communication - Keep clients informed at every step",
+          "Commitment & Reliability - Meet deadlines and promises",
+          "Innovation & Creativity - Propose modern and efficient solutions",
+          "Simplicity & Pragmatism - Simple and functional solutions first",
+          "Continuous Learning - Stay updated with new technologies",
+          "Collaboration - Work constructively as a team",
+          "Active Listening - Understand clients' real needs"
+        ],
+        philosophy: "My Philosophy",
+        philosophyList: [
+          "Code should be written to be read by humans, not just machines",
+          "Better a simple solution that works than a complex one that impresses",
+          "Automate what is repetitive, focus on what has value"
+        ]
       },
       services: {
         title: "My Services",
@@ -238,12 +344,48 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
         viewSite: "View Site",
         private: "Private"
       },
+      process: {
+        title: "My Work Process",
+        subtitle: "A proven methodology for the success of your projects",
+        step1: {
+          title: "Discovery & Analysis",
+          description: "Understanding your needs, analyzing your goals and defining the ideal solution together."
+        },
+        step2: {
+          title: "Design & Prototyping",
+          description: "Designing the user interface and creating interactive mockups for validation."
+        },
+        step3: {
+          title: "Development",
+          description: "Coding your solution with best practices and adapted technologies."
+        },
+        step4: {
+          title: "Testing & Quality",
+          description: "Rigorously testing every feature to ensure reliability."
+        },
+        step5: {
+          title: "Deployment",
+          description: "Putting your application into production in a secure and optimized way."
+        },
+        step6: {
+          title: "Maintenance & Support",
+          description: "Providing ongoing monitoring, updates and technical support."
+        }
+      },
       contact: {
         title: "Contact Me",
         description: "Interested in collaboration? Feel free to reach out!",
         email: "randrianasolo.clementvictorin@gmail.com",
         quickContact: "Quick Contact",
         quoteForm: "Request a Quote",
+        availability: "Availability",
+        openingHours: {
+          title: "Opening Hours",
+          weekdays: "Monday - Saturday",
+          hours: "07:00 AM - 08:00 PM",
+          sunday: "Sunday",
+          closed: "Closed"
+        },
         form: {
           name: "Full Name",
           email: "Email",
@@ -325,6 +467,52 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
     { name: "Java", percentage: 60, color: "#339933" },
     { name: "React", percentage: 60, color: "#61DAFB" },
     { name: "NoSQL (Firebase)", percentage: 60, color: "#2E8B57" }
+  ];
+
+  // PROCESSUS DE TRAVAIL
+  const workProcess = [
+    {
+      icon: Search,
+      step: "1",
+      titleKey: "step1",
+      color: "#3B82F6",
+      gradient: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: Palette,
+      step: "2",
+      titleKey: "step2",
+      color: "#8B5CF6",
+      gradient: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: Cog,
+      step: "3",
+      titleKey: "step3",
+      color: "#10B981",
+      gradient: "from-green-500 to-emerald-500"
+    },
+    {
+      icon: TestTube,
+      step: "4",
+      titleKey: "step4",
+      color: "#F59E0B",
+      gradient: "from-orange-500 to-yellow-500"
+    },
+    {
+      icon: Rocket,
+      step: "5",
+      titleKey: "step5",
+      color: "#EF4444",
+      gradient: "from-red-500 to-pink-500"
+    },
+    {
+      icon: Wrench,
+      step: "6",
+      titleKey: "step6",
+      color: "#6366F1",
+      gradient: "from-indigo-500 to-purple-500"
+    }
   ];
 
   // PERSONNALISATION DES PROJETS PROFESSIONNELS
@@ -470,6 +658,22 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Rotation des valeurs et philosophies
+  useEffect(() => {
+    const valueInterval = setInterval(() => {
+      setCurrentValueIndex((prev) => (prev + 1) % t.about.valuesList.length);
+    }, 4000); // Change toutes les 4 secondes
+
+    const philosophyInterval = setInterval(() => {
+      setCurrentPhilosophyIndex((prev) => (prev + 1) % t.about.philosophyList.length);
+    }, 5000); // Change toutes les 5 secondes
+
+    return () => {
+      clearInterval(valueInterval);
+      clearInterval(philosophyInterval);
+    };
+  }, [t.about.valuesList.length, t.about.philosophyList.length]);
+
   // Gestion du formulaire de contact
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -528,7 +732,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       }
 
       // Animation unique au scroll pour les sections
-      const sections = ['about', 'services', 'skills', 'professional-projects', 'games', 'contact'];
+      const sections = ['about', 'services', 'skills', 'process', 'professional-projects', 'games', 'contact'];
       const newVisibleSections = new Set(visibleSections);
 
       sections.forEach(sectionId => {
@@ -580,18 +784,24 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
               <button onClick={() => scrollToSection('skills')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.skills}
               </button>
+              <button onClick={() => scrollToSection('process')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+                {t.nav.process}
+              </button>
               <button onClick={() => scrollToSection('professional-projects')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.projects.professionalTitle}
               </button>
               <button onClick={() => scrollToSection('games')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.projects.gamesTitle}
               </button>
-              <button onClick={() => navigate('/faq')} className={`flex items-center transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
-                <HelpCircle className="h-4 w-4 mr-1" />
-                {t.nav.faq}
+              <button onClick={() => navigate('/blog')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+                {t.nav.blog}
               </button>
               <button onClick={() => scrollToSection('contact')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.contact}
+              </button>
+              <button onClick={() => navigate('/faq')} className={`flex items-center transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+                <HelpCircle className="h-4 w-4 mr-1" />
+                {t.nav.faq}
               </button>
             </div>
 
@@ -696,6 +906,14 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                   {t.nav.skills}
                 </button>
                 <button
+                  onClick={() => scrollToSection('process')}
+                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  {t.nav.process}
+                </button>
+                <button
                   onClick={() => scrollToSection('professional-projects')}
                   className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
                     isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
@@ -712,13 +930,12 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                   {t.projects.gamesTitle}
                 </button>
                 <button
-                  onClick={() => { navigate('/faq'); setMobileMenuOpen(false); }}
-                  className={`flex items-center w-full text-left px-4 py-3 rounded-md transition-colors ${
+                  onClick={() => { navigate('/blog'); setMobileMenuOpen(false); }}
+                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
                     isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
                   }`}
                 >
-                  <HelpCircle className="h-4 w-4 mr-2" />
-                  {t.nav.faq}
+                  {t.nav.blog}
                 </button>
                 <button
                   onClick={() => scrollToSection('contact')}
@@ -727,6 +944,15 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                   }`}
                 >
                   {t.nav.contact}
+                </button>
+                <button
+                  onClick={() => { navigate('/faq'); setMobileMenuOpen(false); }}
+                  className={`flex items-center w-full text-left px-4 py-3 rounded-md transition-colors ${
+                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  <HelpCircle className="h-4 w-4 mr-2" />
+                  {t.nav.faq}
                 </button>
               </div>
             </div>
@@ -792,6 +1018,116 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
             }`}>
               {t.about.description}
             </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+            {/* Localisation et Langues */}
+            <div className={`rounded-xl shadow-lg p-8 ${
+              isDark ? 'bg-gray-900 border border-gray-700' : 'bg-gray-50 border border-gray-100'
+            }`}>
+              <div className="mb-6">
+                <h3 className={`text-2xl font-bold mb-4 flex items-center ${
+                  isDark ? 'text-white' : 'text-gray-900'
+                }`}>
+                  <MapPin className="h-6 w-6 mr-2 text-blue-500" />
+                  {t.about.location}
+                </h3>
+                <p className={`text-lg font-semibold mb-2 ${
+                  isDark ? 'text-blue-400' : 'text-blue-600'
+                }`}>{t.about.locationValue}</p>
+                <p className={`text-sm ${
+                  isDark ? 'text-gray-400' : 'text-gray-600'
+                }`}>{t.about.locationDetail}</p>
+              </div>
+
+              <div className="border-t pt-6 border-gray-200 dark:border-gray-700">
+                <h3 className={`text-2xl font-bold mb-4 flex items-center ${
+                  isDark ? 'text-white' : 'text-gray-900'
+                }`}>
+                  <Globe className="h-6 w-6 mr-2 text-green-500" />
+                  {t.about.languages}
+                </h3>
+                <ul className="space-y-2">
+                  <li className={`flex items-center ${
+                    isDark ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    <Check className="h-5 w-5 mr-2 text-green-500" />
+                    {t.about.languagesList.french}
+                  </li>
+                  <li className={`flex items-center ${
+                    isDark ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    <Check className="h-5 w-5 mr-2 text-green-500" />
+                    {t.about.languagesList.malagasy}
+                  </li>
+                  <li className={`flex items-center ${
+                    isDark ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    <Check className="h-5 w-5 mr-2 text-green-500" />
+                    {t.about.languagesList.english}
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Centres d'intérêt professionnels */}
+            <div className={`rounded-xl shadow-lg p-8 ${
+              isDark ? 'bg-gray-900 border border-gray-700' : 'bg-gray-50 border border-gray-100'
+            }`}>
+              <h3 className={`text-2xl font-bold mb-4 flex items-center ${
+                isDark ? 'text-white' : 'text-gray-900'
+              }`}>
+                <Code className="h-6 w-6 mr-2 text-purple-500" />
+                {t.about.interests}
+              </h3>
+              <ul className="space-y-3">
+                {t.about.interestsList.map((interest, index) => (
+                  <li key={index} className={`flex items-start ${
+                    isDark ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    <Zap className="h-5 w-5 mr-2 mt-0.5 text-yellow-500 flex-shrink-0" />
+                    <span>{interest}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Valeurs et Philosophie avec rotation */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+            {/* Valeurs avec rotation */}
+            <div className={`rounded-xl shadow-lg p-8 min-h-[200px] flex flex-col justify-center ${
+              isDark ? 'bg-gradient-to-br from-blue-900 to-purple-900' : 'bg-gradient-to-br from-blue-100 to-purple-100'
+            }`}>
+              <h3 className={`text-2xl font-bold mb-4 ${
+                isDark ? 'text-white' : 'text-gray-900'
+              }`}>{t.about.values}</h3>
+              <div className="relative h-24 flex items-center">
+                <p className={`text-lg leading-relaxed transition-all duration-500 ${
+                  isDark ? 'text-gray-200' : 'text-gray-800'
+                }`}>
+                  <span className="inline-block animate-pulse mr-2">✨</span>
+                  {t.about.valuesList[currentValueIndex]}
+                </p>
+              </div>
+            </div>
+
+            {/* Philosophie avec rotation */}
+            <div className={`rounded-xl shadow-lg p-8 min-h-[200px] flex flex-col justify-center ${
+              isDark ? 'bg-gradient-to-br from-green-900 to-teal-900' : 'bg-gradient-to-br from-green-100 to-teal-100'
+            }`}>
+              <h3 className={`text-2xl font-bold mb-4 ${
+                isDark ? 'text-white' : 'text-gray-900'
+              }`}>{t.about.philosophy}</h3>
+              <div className="relative h-24 flex items-center">
+                <p className={`text-lg leading-relaxed italic transition-all duration-500 ${
+                  isDark ? 'text-gray-200' : 'text-gray-800'
+                }`}>
+                  <span className="inline-block mr-2">💡</span>
+                  "{t.about.philosophyList[currentPhilosophyIndex]}"
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -911,9 +1247,76 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
         </div>
       </section>
 
+      {/* Process Section */}
+      <section id="process" className={`py-16 transition-all duration-1000 ${
+        isDark ? 'bg-gray-900' : 'bg-white'
+      } ${
+        visibleSections.has('process')
+          ? 'opacity-100 translate-y-0'
+          : 'opacity-0 translate-y-20'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className={`text-4xl font-bold mb-4 transition-colors duration-300 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>{t.process.title}</h2>
+            <p className={`text-lg transition-colors duration-300 ${
+              isDark ? 'text-gray-300' : 'text-gray-600'
+            }`}>{t.process.subtitle}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {workProcess.map((step, index) => {
+              const stepData = t.process[step.titleKey];
+              const IconComponent = step.icon;
+
+              return (
+                <div
+                  key={index}
+                  className={`relative rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${
+                    isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'
+                  }`}
+                >
+                  <div className="p-8">
+                    {/* Step Number Badge */}
+                    <div className={`absolute -top-4 -right-4 w-12 h-12 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-lg`}>
+                      <span className="text-white text-xl font-bold">{step.step}</span>
+                    </div>
+
+                    {/* Icon with gradient background */}
+                    <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${step.gradient} flex items-center justify-center mb-6 shadow-lg`}>
+                      <IconComponent className="h-8 w-8 text-white" />
+                    </div>
+
+                    {/* Step Title */}
+                    <h3 className={`text-2xl font-bold mb-4 transition-colors duration-300 ${
+                      isDark ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {stepData.title}
+                    </h3>
+
+                    {/* Step Description */}
+                    <p className={`leading-relaxed transition-colors duration-300 ${
+                      isDark ? 'text-gray-300' : 'text-gray-600'
+                    }`}>
+                      {stepData.description}
+                    </p>
+                  </div>
+
+                  {/* Connection Line (not on last item in row) */}
+                  {index < workProcess.length - 1 && (
+                    <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-gray-300 to-transparent" />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Professional Projects Section */}
       <section id="professional-projects" className={`py-16 transition-all duration-1000 ${
-        isDark ? 'bg-gray-900' : 'bg-white'
+        isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
       } ${
         visibleSections.has('professional-projects')
           ? 'opacity-100 translate-x-0 rotate-0'
@@ -1164,6 +1567,17 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                   <span className="font-medium">Facebook</span>
                 </a>
                 <a
+                  href="https://m.me/fanyah.rabemanantsoa.90"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <FaFacebookMessenger className="h-5 w-5 mr-3" />
+                  <span className="font-medium">Messenger</span>
+                </a>
+                <a
                   href="https://www.instagram.com/clement_randrianasolo/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1196,6 +1610,32 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                   <Briefcase className="h-5 w-5 mr-3" />
                   <span className="font-medium">Malt</span>
                 </a>
+              </div>
+
+              {/* Heures d'ouverture */}
+              <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <h3 className={`text-xl font-bold mb-4 flex items-center ${
+                  isDark ? 'text-white' : 'text-gray-900'
+                }`}>
+                  <Clock className="h-5 w-5 mr-2" />
+                  {t.contact.openingHours.title}
+                </h3>
+                <div className={`space-y-3 ${
+                  isDark ? 'text-gray-300' : 'text-gray-700'
+                }`}>
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium">{t.contact.openingHours.weekdays}</span>
+                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      isDark ? 'bg-green-900 text-green-300' : 'bg-green-100 text-green-800'
+                    }`}>{t.contact.openingHours.hours}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium">{t.contact.openingHours.sunday}</span>
+                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      isDark ? 'bg-red-900 text-red-300' : 'bg-red-100 text-red-800'
+                    }`}>{t.contact.openingHours.closed}</span>
+                  </div>
+                </div>
               </div>
             </div>
 
