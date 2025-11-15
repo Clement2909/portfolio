@@ -3,6 +3,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Portfolio from './components/Portfolio';
 import FAQ from './components/FAQ';
 import Blog from './components/Blog';
+import BlogArticle from './components/BlogArticle';
 import './App.css';
 
 function App() {
@@ -39,6 +40,17 @@ function App() {
             path="/blog"
             element={
               <Blog
+                isDark={isDark}
+                setIsDark={setIsDark}
+                currentLang={currentLang}
+                setCurrentLang={setCurrentLang}
+              />
+            }
+          />
+          <Route
+            path="/blog/:id"
+            element={
+              <BlogArticle
                 isDark={isDark}
                 setIsDark={setIsDark}
                 currentLang={currentLang}

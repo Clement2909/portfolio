@@ -304,6 +304,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
 
                   {/* Read More Button */}
                   <button
+                    onClick={() => navigate(`/blog/${article.id}`)}
                     className={`inline-flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 bg-gradient-to-r ${getCategoryColor(article.category)} text-white shadow-md hover:shadow-lg`}
                   >
                     {t.readMore}
