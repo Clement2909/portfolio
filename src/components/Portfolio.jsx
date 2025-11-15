@@ -1632,7 +1632,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                   <div className="flex justify-between items-center">
                     <span className="font-medium">{t.contact.openingHours.sunday}</span>
                     <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      isDark ? 'bg-red-900 text-red-300' : 'bg-red-100 text-red-800'
+                      isDark ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'
                     }`}>{t.contact.openingHours.closed}</span>
                   </div>
                 </div>
