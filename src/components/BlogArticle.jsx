@@ -1,4 +1,4 @@
-import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Tag, User, BookOpen } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const BlogArticle = ({ isDark, currentLang }) => {
