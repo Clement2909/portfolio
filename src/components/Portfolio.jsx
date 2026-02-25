@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin } from "lucide-react";
+import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin, Download, FileText } from "lucide-react";
 import { FaDiscord, FaFacebook, FaFacebookMessenger, FaInstagram, FaTelegram, FaMicrosoft } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
@@ -181,6 +181,13 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
           title: "Maintenance & Support",
           description: "Assurer le suivi, les mises à jour et le support technique continu."
         }
+      },
+      cv: {
+        title: "Mon CV",
+        subtitle: "Téléchargez mon curriculum vitae",
+        downloadBtn: "Télécharger mon CV",
+        downloadHint: "Format PDF",
+        description: "Retrouvez mon parcours, mes expériences et mes compétences dans mon CV."
       },
       contact: {
         title: "Me Contacter",
@@ -371,6 +378,13 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
           title: "Maintenance & Support",
           description: "Providing ongoing monitoring, updates and technical support."
         }
+      },
+      cv: {
+        title: "My Resume",
+        subtitle: "Download my curriculum vitae",
+        downloadBtn: "Download my Resume",
+        downloadHint: "PDF Format",
+        description: "Find my background, experience and skills in my resume."
       },
       contact: {
         title: "Contact Me",
@@ -732,7 +746,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       }
 
       // Animation unique au scroll pour les sections
-      const sections = ['about', 'services', 'skills', 'process', 'professional-projects', 'games', 'contact'];
+      const sections = ['about', 'services', 'skills', 'process', 'professional-projects', 'games', 'cv', 'contact'];
       const newVisibleSections = new Set(visibleSections);
 
       sections.forEach(sectionId => {
@@ -795,6 +809,9 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
               </button>
               <button onClick={() => navigate('/blog')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.blog}
+              </button>
+              <button onClick={() => scrollToSection('cv')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+                {t.cv.title}
               </button>
               <button onClick={() => scrollToSection('contact')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.contact}
@@ -936,6 +953,14 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                   }`}
                 >
                   {t.nav.blog}
+                </button>
+                <button
+                  onClick={() => scrollToSection('cv')}
+                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
+                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+                  }`}
+                >
+                  {t.cv.title}
                 </button>
                 <button
                   onClick={() => scrollToSection('contact')}
@@ -1470,6 +1495,60 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CV Section */}
+      <section id="cv" className={`py-16 transition-all duration-1000 ${
+        isDark ? 'bg-gray-800' : 'bg-white'
+      } ${
+        visibleSections.has('cv')
+          ? 'opacity-100 translate-y-0'
+          : 'opacity-0 translate-y-10'
+      }`}>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mb-10">
+            <h2 className={`text-4xl font-bold mb-4 transition-colors duration-300 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>{t.cv.title}</h2>
+            <p className={`text-lg transition-colors duration-300 ${
+              isDark ? 'text-gray-300' : 'text-gray-600'
+            }`}>{t.cv.description}</p>
+          </div>
+
+          <div className={`rounded-2xl shadow-xl p-10 border transition-colors duration-300 ${
+            isDark ? 'bg-gray-900 border-gray-700' : 'bg-gray-50 border-gray-100'
+          }`}>
+            <div className="flex justify-center mb-8">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                <FileText className="h-12 w-12 text-white" />
+              </div>
+            </div>
+
+            <h3 className={`text-2xl font-semibold mb-2 transition-colors duration-300 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>{t.cv.subtitle}</h3>
+            <p className={`text-sm mb-8 transition-colors duration-300 ${
+              isDark ? 'text-gray-400' : 'text-gray-500'
+            }`}>{t.cv.downloadHint}</p>
+
+            <a
+              href={
+                currentLang === 'fr'
+                  ? '/portfolio/documents/CV_Francais_Cl%C3%A9ment%20Randrianasolo%20.pdf'
+                  : '/portfolio/documents/English_Resume%20.pdf'
+              }
+              download={
+                currentLang === 'fr'
+                  ? 'CV_Clement_Randrianasolo_FR.pdf'
+                  : 'CV_Clement_Randrianasolo_EN.pdf'
+              }
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-2xl text-lg font-semibold"
+            >
+              <Download className="h-6 w-6 mr-3" />
+              {t.cv.downloadBtn}
+            </a>
           </div>
         </div>
       </section>
