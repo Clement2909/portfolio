@@ -476,6 +476,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
     { name: "Postgres,Mysql,Oracle", percentage: 85, color: "#9fb6a0ff" },
     { name: "JavaScript", percentage: 80, color: "#F7DF1E" },
     { name: "TypeScript", percentage: 80, color: "#3178C6" },
+    { name: "Next.js", percentage: 80, color: "#000000" },
     { name: "Vue.js", percentage: 70, color: "#4FC08D" },
     { name: "Python", percentage: 60, color: "#3776AB" },
     { name: "Java", percentage: 60, color: "#339933" },
@@ -532,6 +533,28 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
   // PERSONNALISATION DES PROJETS PROFESSIONNELS
   const professionalProjects = [
     {
+      title: "Aurora Mg",
+      description: {
+        fr: "Site de vente en ligne de mode à Madagascar",
+        en: "Online fashion e-commerce store in Madagascar"
+      },
+      tech: ["Next.js", "TypeScript", "Firebase", "Vercel", "OVH"],
+      isPrivate: false,
+      siteUrl: "https://www.aurora-mg.shop/",
+      image: "/portfolio/images/aurora_logo.jpeg"
+    },
+    {
+      title: "Sigma Technologie",
+      description: {
+        fr: "Domotique, Sécurité, Électricité, Climatisation & Recharge EV : L'Expert de Vos Projets à La Réunion. Particuliers ou professionnels, sécurisez votre patrimoine et simplifiez votre quotidien avec l'expert réunionnais de la domotique. SIGMA TECHNOLOGIE déploie des solutions intelligentes, fiables et aux normes sur toute l'île.",
+        en: "Home Automation, Security, Electricity, Air Conditioning & EV Charging: Your Project Expert in Réunion. Individuals or professionals, secure your assets and simplify your daily life with the Réunion expert in home automation. SIGMA TECHNOLOGIE deploys intelligent, reliable and standards-compliant solutions across the island."
+      },
+      tech: ["Next.js", "JavaScript", "Vercel", "OVH"],
+      isPrivate: false,
+      siteUrl: "https://www.sigma-technologie.re/",
+      image: "/portfolio/images/sigma_logo.jpeg"
+    },
+    {
       title: "Website overhaul",
       description: {
         fr: "Refonte de site web en PHP brut en Laravel + Vue.js",
@@ -572,6 +595,28 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       isPrivate: false,
       siteUrl: "https://scandalebouffe.netlify.app/",
       image: "/portfolio/images/scandale_logo.jpg"
+    },
+    {
+      title: "Traits d'Esprits",
+      description: {
+        fr: "Site vitrine pour une entreprise de rénovation intérieure et extérieure à La Réunion",
+        en: "Showcase website for an interior and exterior renovation company in Réunion"
+      },
+      tech: ["Next.js", "TypeScript", "Vercel", "OVH"],
+      isPrivate: false,
+      siteUrl: "https://traits-d-esprits.vercel.app/",
+      image: "/portfolio/images/traits_logo.png"
+    },
+    {
+      title: "Miralux",
+      description: {
+        fr: "Domotique, Sécurité, Électricité, Climatisation & Recharge EV à Madagascar. Solutions intelligentes, fiables et aux normes pour particuliers et professionnels.",
+        en: "Home Automation, Security, Electricity, Air Conditioning & EV Charging in Madagascar. Smart, reliable and standards-compliant solutions for individuals and professionals."
+      },
+      tech: ["Next.js", "JavaScript", "Vercel", "OVH"],
+      isPrivate: false,
+      siteUrl: "https://miralux-gamma.vercel.app/",
+      image: "/portfolio/images/mira_logo.png"
     }
 /*{
       title: "Weather Dashboard",
@@ -604,7 +649,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
         fr: "Domino aux règles malgaches développé avec React",
         en: "Malagasy rules domino game developed with React"
       },
-      tech: ["React", "JavaScript", "Vercel", "Firebase"],
+      tech: ["React", "JavaScript", "Vercel", "Firebase", "PWA", "APK Android"],
       isPrivate: false,
       siteUrl: "https://domy-delta.vercel.app",
       image: "/portfolio/images/logo_domy.png"
