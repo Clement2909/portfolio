@@ -546,8 +546,8 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
     {
       title: "Sigma Technologie",
       description: {
-        fr: "Domotique, Sécurité, Électricité, Climatisation & Recharge EV : L'Expert de Vos Projets à La Réunion. Particuliers ou professionnels, sécurisez votre patrimoine et simplifiez votre quotidien avec l'expert réunionnais de la domotique. SIGMA TECHNOLOGIE déploie des solutions intelligentes, fiables et aux normes sur toute l'île.",
-        en: "Home Automation, Security, Electricity, Air Conditioning & EV Charging: Your Project Expert in Réunion. Individuals or professionals, secure your assets and simplify your daily life with the Réunion expert in home automation. SIGMA TECHNOLOGIE deploys intelligent, reliable and standards-compliant solutions across the island."
+        fr: "Site vitrine pour une entreprise de domotique, sécurité et électricité à La Réunion",
+        en: "Showcase website for a home automation, security and electrical company in Réunion"
       },
       tech: ["Next.js", "JavaScript", "Vercel", "OVH"],
       isPrivate: false,
@@ -610,8 +610,8 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
     {
       title: "Miralux",
       description: {
-        fr: "Domotique, Sécurité, Électricité, Climatisation & Recharge EV à Madagascar. Solutions intelligentes, fiables et aux normes pour particuliers et professionnels.",
-        en: "Home Automation, Security, Electricity, Air Conditioning & EV Charging in Madagascar. Smart, reliable and standards-compliant solutions for individuals and professionals."
+        fr: "Site vitrine pour une entreprise de domotique, sécurité et électricité à Madagascar",
+        en: "Showcase website for a home automation, security and electrical company in Madagascar"
       },
       tech: ["Next.js", "JavaScript", "Vercel", "OVH"],
       isPrivate: false,
