@@ -555,7 +555,10 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       image: "/portfolio/images/sigma_logo.jpeg"
     },
     {
-      title: "Website overhaul",
+      title: {
+        fr: "Refonte de site web",
+        en: "Website overhaul"
+      },
       description: {
         fr: "Refonte de site web en PHP brut en Laravel + Vue.js",
         en: "Replatforming a raw PHP site to Laravel + Vue.js"
@@ -565,7 +568,10 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       image: "/portfolio/images/dgi_logo.png"
     },
     {
-      title: "Automated attendance tracking",
+      title: {
+        fr: "Pointage automatisé",
+        en: "Automated attendance tracking"
+      },
       description: {
         fr: "Automatisation du pointage en temps réel",
         en: "Real-time attendance tracking automation"
@@ -575,7 +581,10 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       image: "/portfolio/images/pointage_logo.png"
     },
     {
-      title: "Architect's portfolio website",
+      title: {
+        fr: "Site portfolio d'architecte",
+        en: "Architect's portfolio website"
+      },
       description: {
         fr: "Site web pour le portfolio d'un architecte",
         en: "Website for an architect"
@@ -633,7 +642,10 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
   // PERSONNALISATION DES JEUX
   const games = [
     {
-      title: "Puzzle Game",
+      title: {
+        fr: "Jeu de Puzzle",
+        en: "Puzzle Game"
+      },
       description: {
         fr: "Jeu de puzzle interactif développé en JavaScript avec interface HTML/CSS et Python",
         en: "Interactive puzzle game developed in JavaScript with HTML/CSS interface and Python"
@@ -644,7 +656,10 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       image: "/portfolio/images/puzzle_logo.png"
     },
     {
-      title: "Domy - Malagasy Rules",
+      title: {
+        fr: "Domy - Règles Malgaches",
+        en: "Domy - Malagasy Rules"
+      },
       description: {
         fr: "Domino aux règles malgaches développé avec React",
         en: "Malagasy rules domino game developed with React"
@@ -1419,7 +1434,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                 <div className="p-6">
                   <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 ${
                     isDark ? 'text-white' : 'text-gray-900'
-                  }`}>{project.title}</h3>
+                  }`}>{typeof project.title === 'object' ? project.title[currentLang] : project.title}</h3>
                   <p className={`mb-4 leading-relaxed transition-colors duration-300 ${
                     isDark ? 'text-gray-300' : 'text-gray-600'
                   }`}>{project.description[currentLang]}</p>
@@ -1498,7 +1513,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                 <div className="p-6">
                   <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 ${
                     isDark ? 'text-white' : 'text-gray-900'
-                  }`}>{game.title}</h3>
+                  }`}>{typeof game.title === 'object' ? game.title[currentLang] : game.title}</h3>
                   <p className={`mb-4 leading-relaxed transition-colors duration-300 ${
                     isDark ? 'text-gray-300' : 'text-gray-600'
                   }`}>{game.description[currentLang]}</p>
