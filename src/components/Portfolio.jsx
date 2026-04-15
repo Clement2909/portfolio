@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Globe, User, Code, Mail, Linkedin, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin, Download, FileText } from "lucide-react";
-import { FaDiscord, FaFacebook, FaFacebookMessenger, FaInstagram, FaTelegram, FaMicrosoft } from 'react-icons/fa';
+import { Globe, User, Code, Mail, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin, Download, FileText } from "lucide-react";
+import { FaDiscord, FaFacebook, FaFacebookMessenger, FaInstagram, FaTelegram, FaMicrosoft, FaLinkedin } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
 
@@ -149,6 +149,54 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
             "Génération automatique de rapports et statistiques",
             "Intégration avec vos outils existants",
             "Gain de temps et réduction des erreurs"
+          ]
+        },
+        service4: {
+          title: "Création de Site avec CMS & E-commerce",
+          description: "Vous voulez un site simple à gérer vous-même ? Je crée votre site avec des outils accessibles comme WordPress, PrestaShop ou Shopify. Pas besoin de connaissances techniques, vous serez autonome.",
+          features: [
+            "Site vitrine ou boutique en ligne clé en main",
+            "Facile à modifier sans compétences techniques",
+            "Ajout et gestion de vos produits simplement",
+            "Paiement en ligne sécurisé",
+            "Formation pour gérer votre site en autonomie",
+            "Mise en ligne rapide"
+          ]
+        },
+        service5: {
+          title: "Référencement & Visibilité sur Google",
+          description: "Votre site existe mais personne ne le trouve ? Je travaille sur votre visibilité pour que vous apparaissiez dans les premiers résultats Google et attirez plus de clients, naturellement et sans publicité.",
+          features: [
+            "Apparaître en 1ère page de Google",
+            "Analyse des mots-clés de votre secteur",
+            "Optimisation du contenu de votre site",
+            "Suivi de vos positions sur Google",
+            "Rapports clairs sur vos progrès",
+            "Plus de visiteurs sans payer de publicité"
+          ]
+        },
+        service6: {
+          title: "Marketing Digital & Publicité en Ligne",
+          description: "Touchez vos clients là où ils se trouvent. Je gère vos campagnes publicitaires sur Google, votre fiche Google Business et vos outils de suivi pour vous aider à attirer plus de clients et mesurer vos résultats.",
+          features: [
+            "Campagnes publicitaires Google Ads",
+            "Création et optimisation de votre fiche Google Business",
+            "Suivi du nombre de visiteurs sur votre site",
+            "Analyse du comportement de vos visiteurs",
+            "Résultats mesurables et transparents",
+            "Ciblage précis de votre clientèle"
+          ]
+        },
+        service7: {
+          title: "Mise en Ligne & Hébergement",
+          description: "Je m'occupe de tout pour que votre site soit accessible sur Internet : nom de domaine, hébergement, adresse email professionnelle et maintenance. Vous n'avez rien à faire, je gère tout.",
+          features: [
+            "Achat et configuration de votre nom de domaine",
+            "Création d'adresses email professionnelles",
+            "Mise en ligne de votre site",
+            "Certificat de sécurité (cadenas HTTPS)",
+            "Maintenance et mises à jour régulières",
+            "Site disponible 24h/24, 7j/7"
           ]
         }
       },
@@ -347,6 +395,54 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
             "Integration with your existing tools",
             "Time savings and error reduction"
           ]
+        },
+        service4: {
+          title: "CMS & E-commerce Website Creation",
+          description: "Want a website you can manage yourself? I build your site using easy-to-use tools like WordPress, PrestaShop or Shopify. No technical knowledge needed — you'll be fully independent.",
+          features: [
+            "Turnkey showcase or online store",
+            "Easy to update without technical skills",
+            "Simple product and catalog management",
+            "Secure online payment integration",
+            "Training to manage your site independently",
+            "Fast go-live"
+          ]
+        },
+        service5: {
+          title: "SEO & Google Visibility",
+          description: "Your website exists but nobody finds it? I work on your visibility so you appear at the top of Google results and attract more customers — naturally, without paid ads.",
+          features: [
+            "Appear on the 1st page of Google",
+            "Keyword research for your industry",
+            "Website content optimization",
+            "Google ranking tracking",
+            "Clear progress reports",
+            "More visitors without paying for ads"
+          ]
+        },
+        service6: {
+          title: "Digital Marketing & Online Advertising",
+          description: "Reach your customers where they are. I manage your Google ad campaigns, your Google Business profile and your analytics tools to help you attract more customers and measure your results.",
+          features: [
+            "Google Ads advertising campaigns",
+            "Google Business profile creation and optimization",
+            "Website visitor tracking",
+            "Visitor behavior analysis",
+            "Measurable and transparent results",
+            "Precise targeting of your audience"
+          ]
+        },
+        service7: {
+          title: "Go Live & Hosting",
+          description: "I take care of everything to get your website online: domain name, hosting, professional email address and maintenance. You don't have to do a thing — I handle it all.",
+          features: [
+            "Domain name purchase and setup",
+            "Professional email address creation",
+            "Website deployment",
+            "Security certificate (HTTPS padlock)",
+            "Regular maintenance and updates",
+            "Website available 24/7"
+          ]
         }
       },
       skills: {
@@ -474,23 +570,90 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       iconColor: "#F59E0B",
       titleKey: "service3",
       gradient: "from-orange-500 to-yellow-500"
+    },
+    {
+      icon: Globe,
+      iconColor: "#8B5CF6",
+      titleKey: "service4",
+      gradient: "from-purple-500 to-violet-500"
+    },
+    {
+      icon: Search,
+      iconColor: "#EF4444",
+      titleKey: "service5",
+      gradient: "from-red-500 to-orange-500"
+    },
+    {
+      icon: Send,
+      iconColor: "#EC4899",
+      titleKey: "service6",
+      gradient: "from-pink-500 to-rose-500"
+    },
+    {
+      icon: Rocket,
+      iconColor: "#6366F1",
+      titleKey: "service7",
+      gradient: "from-indigo-500 to-purple-500"
     }
   ];
 
   // PERSONNALISATION DES COMPÉTENCES
-  const skills = [
-    { name: "Laravel", percentage: 90, color: "#9966CC" },
-    { name: "PHP", percentage: 90, color: "#777BB4" },
-    { name: "CSS/SCSS", percentage: 90, color: "#1572B6" },
-    { name: "Postgres,Mysql,Oracle", percentage: 85, color: "#9fb6a0ff" },
-    { name: "JavaScript", percentage: 80, color: "#F7DF1E" },
-    { name: "TypeScript", percentage: 80, color: "#3178C6" },
-    { name: "Next.js", percentage: 80, color: "#6366f1" },
-    { name: "Vue.js", percentage: 70, color: "#4FC08D" },
-    { name: "Python", percentage: 60, color: "#3776AB" },
-    { name: "Java", percentage: 60, color: "#339933" },
-    { name: "React", percentage: 60, color: "#61DAFB" },
-    { name: "NoSQL (Firebase)", percentage: 60, color: "#2E8B57" }
+  const skillGroups = [
+    {
+      label: { fr: "Backend", en: "Backend" },
+      skills: [
+        { name: "Laravel", percentage: 90, color: "#9966CC" },
+        { name: "PHP", percentage: 90, color: "#777BB4" },
+        { name: "Python", percentage: 60, color: "#3776AB" },
+        { name: "Java", percentage: 60, color: "#339933" },
+      ]
+    },
+    {
+      label: { fr: "Frontend", en: "Frontend" },
+      skills: [
+        { name: "CSS/SCSS", percentage: 90, color: "#1572B6" },
+        { name: "JavaScript", percentage: 80, color: "#F7DF1E" },
+        { name: "TypeScript", percentage: 80, color: "#3178C6" },
+        { name: "Next.js", percentage: 80, color: "#6366f1" },
+        { name: "Vue.js", percentage: 70, color: "#4FC08D" },
+        { name: "React", percentage: 60, color: "#61DAFB" },
+      ]
+    },
+    {
+      label: { fr: "Bases de données", en: "Databases" },
+      skills: [
+        { name: "SQL (Postgres, MySQL, Oracle...)", percentage: 90, color: "#9fb6a0ff" },
+        { name: "NoSQL (Firebase)", percentage: 70, color: "#2E8B57" },
+      ]
+    },
+    {
+      label: { fr: "CMS", en: "CMS" },
+      skills: [
+        { name: "WordPress", percentage: 75, color: "#21759B" },
+        { name: "PrestaShop", percentage: 65, color: "#DF0067" },
+        { name: "Shopify", percentage: 65, color: "#96BF48" },
+        { name: "Wix", percentage: 60, color: "#FAAD4D" },
+      ]
+    },
+    {
+      label: { fr: "Déploiement", en: "Deployment" },
+      skills: [
+        { name: "Vercel", percentage: 90, color: "#000000" },
+        { name: "GitHub Pages", percentage: 65, color: "#6e5494" },
+        { name: "Netlify", percentage: 60, color: "#00C7B7" },
+      ]
+    },
+    {
+      label: { fr: "Web Mastering", en: "Web Mastering" },
+      skills: [
+        { name: "OVH (domaine, email pro)", percentage: 90, color: "#123F6D" },
+        { name: "Google Business", percentage: 90, color: "#4285F4" },
+        { name: "SEO (Search Console, Semrush, TextGuru...)", percentage: 80, color: "#34A853" },
+        { name: "Google Analytics", percentage: 80, color: "#E37400" },
+        { name: "Google Ads", percentage: 75, color: "#FBBC04" },
+        { name: "Cloudflare Registrar (domaine, email pro)", percentage: 65, color: "#F6821F" },
+      ]
+    },
   ];
 
   // PROCESSUS DE TRAVAIL
@@ -1324,17 +1487,28 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
             }`}>{t.skills.subtitle}</p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {skills.map((skill, index) => (
-              <div key={index} className={`rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${
-                isDark ? 'bg-gray-900 border border-gray-700' : 'bg-white'
-              }`}>
-                <CircularProgress
-                  percentage={skill.percentage}
-                  color={skill.color}
-                  name={skill.name}
-                  isDark={isDark}
-                />
+          <div className="space-y-10">
+            {skillGroups.map((group, groupIndex) => (
+              <div key={groupIndex}>
+                <h3 className={`text-xl font-semibold mb-6 pb-2 border-b ${
+                  isDark ? 'text-blue-400 border-gray-700' : 'text-blue-600 border-gray-200'
+                }`}>
+                  {group.label[currentLang]}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                  {group.skills.map((skill, index) => (
+                    <div key={index} className={`rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${
+                      isDark ? 'bg-gray-900 border border-gray-700' : 'bg-white'
+                    }`}>
+                      <CircularProgress
+                        percentage={skill.percentage}
+                        color={skill.color}
+                        name={skill.name}
+                        isDark={isDark}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -1730,7 +1904,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
                     isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
                   }`}
                 >
-                  <Linkedin className="h-5 w-5 mr-3" />
+                  <FaLinkedin className="h-5 w-5 mr-3" />
                   <span className="font-medium">LinkedIn</span>
                 </a>
                 <a
