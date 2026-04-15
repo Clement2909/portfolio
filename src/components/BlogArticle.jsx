@@ -276,7 +276,7 @@ Ne faites jamais confiance aux données utilisateur :
 \`\`\`javascript
 // Validation côté serveur obligatoire
 function validateEmail(email) {
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  const regex = /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/
   return regex.test(email)
 }
 \`\`\`
@@ -887,7 +887,7 @@ These optimizations can improve your Laravel application performance by 40 to 60
   };
 
   return (
-    <div className={`min-h-screen transition-all duration-300 ${
+    <div className={`min-h-screen overflow-x-hidden transition-all duration-300 ${
       isDark
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'

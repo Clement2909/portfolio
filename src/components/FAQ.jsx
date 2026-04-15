@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, ArrowLeft, HelpCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -195,6 +195,34 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
 
   const t = translations[currentLang];
 
+  useEffect(() => {
+    const allQuestions = t.faqs.flatMap(section =>
+      section.questions.map(faq => ({
+        "@type": "Question",
+        "name": faq.q,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+      }))
+    );
+
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = "faq-jsonld";
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": allQuestions
+    });
+
+    const existing = document.getElementById("faq-jsonld");
+    if (existing) existing.remove();
+    document.head.appendChild(script);
+
+    return () => {
+      const el = document.getElementById("faq-jsonld");
+      if (el) el.remove();
+    };
+  }, [currentLang, t.faqs]);
+
   const toggleQuestion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -202,7 +230,7 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
   let questionCounter = 0;
 
   return (
-    <div className={`min-h-screen transition-all duration-300 ${
+    <div className={`min-h-screen overflow-x-hidden transition-all duration-300 ${
       isDark
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'

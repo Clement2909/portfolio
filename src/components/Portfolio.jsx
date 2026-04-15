@@ -28,6 +28,15 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
     description: ''
   });
   const [formStatus, setFormStatus] = useState({ type: '', message: '' });
+  const [flippedCards, setFlippedCards] = useState(new Set());
+
+  const toggleCard = (key) => {
+    setFlippedCards(prev => {
+      const next = new Set(prev);
+      next.has(key) ? next.delete(key) : next.add(key);
+      return next;
+    });
+  };
 
   // Sync with parent props
   useEffect(() => {
@@ -476,7 +485,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
     { name: "Postgres,Mysql,Oracle", percentage: 85, color: "#9fb6a0ff" },
     { name: "JavaScript", percentage: 80, color: "#F7DF1E" },
     { name: "TypeScript", percentage: 80, color: "#3178C6" },
-    { name: "Next.js", percentage: 80, color: "#000000" },
+    { name: "Next.js", percentage: 80, color: "#6366f1" },
     { name: "Vue.js", percentage: 70, color: "#4FC08D" },
     { name: "Python", percentage: 60, color: "#3776AB" },
     { name: "Java", percentage: 60, color: "#339933" },
@@ -830,7 +839,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
   }, [visibleSections]);
 
   return (
-    <div className={`min-h-screen transition-all duration-300 ${
+    <div className={`min-h-screen overflow-x-hidden transition-all duration-300 ${
       isDark
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
@@ -1415,65 +1424,92 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {professionalProjects.map((project, index) => (
-              <div key={index} className={`rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${
-                isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'
-              }`}>
-                {project.image && (
-                  <div className="h-48 overflow-hidden rounded-t-xl bg-gray-50 flex items-center justify-center p-4">
-                    <img
-                      src={project.image}
-                      alt={`Logo du projet ${project.title} - ${project.description[currentLang]}`}
-                      className="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                  </div>
-                )}
-                <div className="p-6">
-                  <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 ${
-                    isDark ? 'text-white' : 'text-gray-900'
-                  }`}>{typeof project.title === 'object' ? project.title[currentLang] : project.title}</h3>
-                  <p className={`mb-4 leading-relaxed transition-colors duration-300 ${
-                    isDark ? 'text-gray-300' : 'text-gray-600'
-                  }`}>{project.description[currentLang]}</p>
+            {professionalProjects.map((project, index) => {
+              const cardKey = `pro-${index}`;
+              const isFlipped = flippedCards.has(cardKey);
+              return (
+                <div
+                  key={index}
+                  style={{ perspective: '1000px', height: '380px' }}
+                  className="cursor-pointer"
+                  onClick={() => toggleCard(cardKey)}
+                >
+                  <div style={{
+                    transformStyle: 'preserve-3d',
+                    transition: 'transform 0.6s',
+                    transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                    position: 'relative',
+                    width: '100%',
+                    height: '100%'
+                  }}>
+                    {/* Face avant */}
+                    <div style={{ backfaceVisibility: 'hidden', position: 'absolute', inset: 0 }}
+                      className={`rounded-xl shadow-lg flex flex-col ${isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'}`}>
+                      {project.image ? (
+                        <div className="h-48 overflow-hidden rounded-t-xl bg-gray-50 flex items-center justify-center p-4 flex-shrink-0">
+                          <img
+                            src={project.image}
+                            alt={`Logo du projet ${project.title}`}
+                            className="max-w-full max-h-full object-contain"
+                            onError={(e) => { e.target.style.display = 'none'; }}
+                          />
+                        </div>
+                      ) : (
+                        <div className={`h-48 rounded-t-xl flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-gray-700' : 'bg-blue-50'}`}>
+                          <Briefcase className={`h-16 w-16 ${isDark ? 'text-gray-500' : 'text-blue-200'}`} />
+                        </div>
+                      )}
+                      <div className="p-6 flex flex-col flex-1 justify-between">
+                        <h3 className={`text-xl font-bold transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                          {typeof project.title === 'object' ? project.title[currentLang] : project.title}
+                        </h3>
+                        <p className={`text-sm mt-3 ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
+                          {currentLang === 'fr' ? 'Cliquez pour en savoir plus →' : 'Click to learn more →'}
+                        </p>
+                      </div>
+                    </div>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech, techIndex) => (
-                      <span key={techIndex} className={`px-3 py-1 rounded-full text-sm font-medium transition-colors duration-300 ${
-                        isDark
-                          ? 'bg-gradient-to-r from-blue-900 to-purple-900 text-blue-300'
-                          : 'bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800'
-                      }`}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex space-x-3">
-                    {project.isPrivate ? (
-                      <span className={`flex items-center px-4 py-2 rounded-lg cursor-not-allowed transition-colors duration-300 ${
-                        isDark ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-500'
-                      }`}>
-                        <User className="h-4 w-4 mr-2" />
-                        {t.projects.private}
-                      </span>
-                    ) : (
-                      <a
-                        href={project.siteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
-                      >
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        {t.projects.viewSite}
-                      </a>
-                    )}
+                    {/* Face arrière */}
+                    <div style={{ backfaceVisibility: 'hidden', position: 'absolute', inset: 0, transform: 'rotateY(180deg)' }}
+                      className={`rounded-xl shadow-lg p-6 flex flex-col justify-between ${isDark ? 'bg-gray-700 border border-gray-600' : 'bg-blue-50 border border-blue-100'}`}>
+                      <div>
+                        <h3 className={`text-xl font-bold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                          {typeof project.title === 'object' ? project.title[currentLang] : project.title}
+                        </h3>
+                        <p className={`text-sm leading-relaxed mb-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                          {project.description[currentLang]}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {project.tech.map((tech, techIndex) => (
+                            <span key={techIndex} className={`px-2 py-1 rounded-full text-xs font-medium ${isDark ? 'bg-blue-900/60 text-blue-300' : 'bg-blue-100 text-blue-800'}`}>
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="mt-4 flex gap-3" onClick={(e) => e.stopPropagation()}>
+                        {project.isPrivate ? (
+                          <span className={`flex items-center px-4 py-2 rounded-lg cursor-not-allowed text-sm ${isDark ? 'bg-gray-600 text-gray-400' : 'bg-gray-200 text-gray-500'}`}>
+                            <User className="h-4 w-4 mr-2" />
+                            {t.projects.private}
+                          </span>
+                        ) : (
+                          <a
+                            href={project.siteUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm shadow-md"
+                          >
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            {t.projects.viewSite}
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -1494,67 +1530,92 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {games.map((game, index) => (
-              <div key={index} className={`rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 ${
-                isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'
-              }`}>
-                {game.image && (
-                  <div className="h-48 overflow-hidden rounded-t-xl bg-gray-50 flex items-center justify-center p-4">
-                    <img
-                      src={game.image}
-                      alt={`Capture d'écran du jeu ${game.title} - ${game.description[currentLang]}`}
-                      className="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                  </div>
-                )}
-                <div className="p-6">
-                  <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 ${
-                    isDark ? 'text-white' : 'text-gray-900'
-                  }`}>{typeof game.title === 'object' ? game.title[currentLang] : game.title}</h3>
-                  <p className={`mb-4 leading-relaxed transition-colors duration-300 ${
-                    isDark ? 'text-gray-300' : 'text-gray-600'
-                  }`}>{game.description[currentLang]}</p>
+            {games.map((game, index) => {
+              const cardKey = `game-${index}`;
+              const isFlipped = flippedCards.has(cardKey);
+              return (
+                <div
+                  key={index}
+                  style={{ perspective: '1000px', height: '380px' }}
+                  className="cursor-pointer"
+                  onClick={() => toggleCard(cardKey)}
+                >
+                  <div style={{
+                    transformStyle: 'preserve-3d',
+                    transition: 'transform 0.6s',
+                    transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                    position: 'relative',
+                    width: '100%',
+                    height: '100%'
+                  }}>
+                    {/* Face avant */}
+                    <div style={{ backfaceVisibility: 'hidden', position: 'absolute', inset: 0 }}
+                      className={`rounded-xl shadow-lg flex flex-col ${isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-100'}`}>
+                      {game.image ? (
+                        <div className="h-48 overflow-hidden rounded-t-xl bg-gray-50 flex items-center justify-center p-4 flex-shrink-0">
+                          <img
+                            src={game.image}
+                            alt={`Capture d'écran du jeu ${game.title}`}
+                            className="max-w-full max-h-full object-contain"
+                            onError={(e) => { e.target.style.display = 'none'; }}
+                          />
+                        </div>
+                      ) : (
+                        <div className={`h-48 rounded-t-xl flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-gray-700' : 'bg-purple-50'}`}>
+                          <Rocket className={`h-16 w-16 ${isDark ? 'text-gray-500' : 'text-purple-200'}`} />
+                        </div>
+                      )}
+                      <div className="p-6 flex flex-col flex-1 justify-between">
+                        <h3 className={`text-xl font-bold transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                          {typeof game.title === 'object' ? game.title[currentLang] : game.title}
+                        </h3>
+                        <p className={`text-sm mt-3 ${isDark ? 'text-purple-400' : 'text-purple-600'}`}>
+                          {currentLang === 'fr' ? 'Cliquez pour en savoir plus →' : 'Click to learn more →'}
+                        </p>
+                      </div>
+                    </div>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {game.tech.map((tech, techIndex) => (
-                      <span key={techIndex} className={`px-3 py-1 rounded-full text-sm font-medium transition-colors duration-300 ${
-                        isDark
-                          ? 'bg-gradient-to-r from-purple-900 to-pink-900 text-purple-300'
-                          : 'bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800'
-                      }`}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex space-x-3">
-                    {game.isPrivate ? (
-                      <span className={`flex items-center px-4 py-2 rounded-lg cursor-not-allowed transition-colors duration-300 ${
-                        isDark ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-500'
-                      }`}>
-                        <User className="h-4 w-4 mr-2" />
-                        {t.projects.private}
-                      </span>
-                    ) : (
-                      <a
-                        href={game.siteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex items-center px-4 py-2 text-white rounded-lg transition-colors shadow-md hover:shadow-lg ${
-                          isDark ? 'bg-purple-700 hover:bg-purple-800' : 'bg-purple-600 hover:bg-purple-700'
-                        }`}
-                      >
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        {t.projects.viewSite}
-                      </a>
-                    )}
+                    {/* Face arrière */}
+                    <div style={{ backfaceVisibility: 'hidden', position: 'absolute', inset: 0, transform: 'rotateY(180deg)' }}
+                      className={`rounded-xl shadow-lg p-6 flex flex-col justify-between ${isDark ? 'bg-gray-700 border border-gray-600' : 'bg-purple-50 border border-purple-100'}`}>
+                      <div>
+                        <h3 className={`text-xl font-bold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                          {typeof game.title === 'object' ? game.title[currentLang] : game.title}
+                        </h3>
+                        <p className={`text-sm leading-relaxed mb-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                          {game.description[currentLang]}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {game.tech.map((tech, techIndex) => (
+                            <span key={techIndex} className={`px-2 py-1 rounded-full text-xs font-medium ${isDark ? 'bg-purple-900/60 text-purple-300' : 'bg-purple-100 text-purple-800'}`}>
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="mt-4 flex gap-3" onClick={(e) => e.stopPropagation()}>
+                        {game.isPrivate ? (
+                          <span className={`flex items-center px-4 py-2 rounded-lg cursor-not-allowed text-sm ${isDark ? 'bg-gray-600 text-gray-400' : 'bg-gray-200 text-gray-500'}`}>
+                            <User className="h-4 w-4 mr-2" />
+                            {t.projects.private}
+                          </span>
+                        ) : (
+                          <a
+                            href={game.siteUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`flex items-center px-4 py-2 text-white rounded-lg transition-colors text-sm shadow-md ${isDark ? 'bg-purple-700 hover:bg-purple-800' : 'bg-purple-600 hover:bg-purple-700'}`}
+                          >
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            {t.projects.viewSite}
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
