@@ -1062,7 +1062,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
               {/* 🔧 AJOUTEZ VOTRE PHOTO ICI */}
               <div className="w-64 h-64 mx-auto rounded-full mb-6 shadow-2xl overflow-hidden border-4 border-white">
                 <img
-                  src="/portfolio/images/profile.jpg"
+                  src="/portfolio/images/profile.png"
                   alt="Clément Randrianasolo, développeur Full Stack"
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                   onError={(e) => {
