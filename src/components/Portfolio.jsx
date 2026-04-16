@@ -280,16 +280,28 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
             mobile: "Application Mobile",
             database: "Base de données",
             automation: "Automatisation",
+            cms: "Création de site CMS (WordPress, Shopify...)",
+            seo: "Référencement SEO",
+            marketing: "Marketing Digital & Publicité Google",
+            hosting: "Mise en ligne & Hébergement",
             other: "Autre"
           },
           sectors: {
             health: "Santé/Médecine",
             education: "Éducation",
-            finance: "Finance",
-            retail: "Commerce",
-            technology: "Technologie",
+            finance: "Finance/Banque",
+            retail: "Commerce/Distribution",
+            technology: "Technologie/Informatique",
             hospitality: "Hôtellerie/Restauration",
             agriculture: "Agriculture",
+            realestate: "Immobilier",
+            beauty: "Beauté/Bien-être",
+            transport: "Transport/Logistique",
+            construction: "Construction/BTP",
+            consulting: "Conseil/Consulting",
+            artisan: "Artisanat/Métiers de bouche",
+            sport: "Sport/Loisirs",
+            association: "Association/ONG",
             other: "Autre"
           },
           deadlines: {
@@ -525,16 +537,28 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
             mobile: "Mobile App",
             database: "Database",
             automation: "Automation",
+            cms: "CMS Website (WordPress, Shopify...)",
+            seo: "SEO & Google Visibility",
+            marketing: "Digital Marketing & Google Ads",
+            hosting: "Go Live & Hosting",
             other: "Other"
           },
           sectors: {
             health: "Health/Medicine",
             education: "Education",
-            finance: "Finance",
-            retail: "Retail",
-            technology: "Technology",
+            finance: "Finance/Banking",
+            retail: "Retail/Distribution",
+            technology: "Technology/IT",
             hospitality: "Hospitality/Restaurant",
             agriculture: "Agriculture",
+            realestate: "Real Estate",
+            beauty: "Beauty/Wellness",
+            transport: "Transport/Logistics",
+            construction: "Construction/Building",
+            consulting: "Consulting",
+            artisan: "Crafts/Food trades",
+            sport: "Sport/Leisure",
+            association: "Association/NGO",
             other: "Other"
           },
           deadlines: {
@@ -934,10 +958,21 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
     setFormStatus({ type: 'sending', message: '' });
 
     try {
-      await emailjs.sendForm(
+      await emailjs.send(
         'service_68iqopf',
         'template_fd4kibz',
-        formRef.current,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          project_type: t.contact.form.projectTypes[formData.projectType] || formData.projectType,
+          sector: t.contact.form.sectors[formData.sector] || formData.sector,
+          budget: formData.budget,
+          currency: formData.currency,
+          deadline: formData.deadline,
+          message: formData.description,
+        },
         'zdktpGXKNobTcjCmc'
       );
 
