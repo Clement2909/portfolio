@@ -959,7 +959,7 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
 
     try {
       await emailjs.send(
-        'service_68iqopf',
+        'service_dlsgeun',
         'template_fd4kibz',
         {
           name: formData.name,
@@ -989,7 +989,9 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
         description: ''
       });
     } catch (error) {
-      console.error('Erreur EmailJS:', error);
+      console.error('Erreur EmailJS - status:', error?.status);
+      console.error('Erreur EmailJS - text:', error?.text);
+      console.error('Erreur EmailJS - complet:', JSON.stringify(error));
       setFormStatus({ type: 'error', message: t.contact.form.error });
     }
   };
