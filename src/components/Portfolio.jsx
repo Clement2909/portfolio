@@ -962,16 +962,15 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
         'service_68iqopf',
         'template_fd4kibz',
         {
-          from_name: formData.name,
-          from_email: formData.email,
+          name: formData.name,
+          email: formData.email,
           phone: formData.phone,
           company: formData.company,
-          project_type: t.contact.form.projectTypes[formData.projectType] || formData.projectType,
+          projectType: t.contact.form.projectTypes[formData.projectType] || formData.projectType,
           sector: t.contact.form.sectors[formData.sector] || formData.sector,
-          budget: formData.budget,
-          currency: formData.currency,
+          budget: `${formData.budget} ${formData.currency}`,
           deadline: formData.deadline,
-          message: formData.description,
+          description: formData.description,
         },
         'zdktpGXKNobTcjCmc'
       );
