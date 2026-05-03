@@ -740,6 +740,17 @@ const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: 
       image: "/portfolio/images/aurora_logo.jpeg"
     },
     {
+      title: "Prisme",
+      description: {
+        fr: "Cabinet de Conception Architecturale et de Construction basé à Madagascar",
+        en: "Architectural design and construction firm based in Madagascar"
+      },
+      tech: ["Next.js", "JavaScript", "Vercel", "Cloudflare Registrar"],
+      isPrivate: false,
+      siteUrl: "https://www.prismeconcept.com/",
+      image: "/portfolio/images/prisme_logo.png"
+    },
+    {
       title: "Sigma Technologie",
       description: {
         fr: "Site vitrine pour une entreprise de domotique, sécurité et électricité à La Réunion",
