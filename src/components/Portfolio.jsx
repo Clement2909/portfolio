@@ -4,7 +4,7 @@ import { FaDiscord, FaFacebook, FaFacebookMessenger, FaInstagram, FaTelegram, Fa
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
 
-const Portfolio = ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, setCurrentLang: propSetCurrentLang }) => {
+const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, setCurrentLang: propSetCurrentLang }) => {
   const navigate = useNavigate();
   const formRef = useRef();
   const [currentLang, setCurrentLang] = useState(propCurrentLang || 'fr');
