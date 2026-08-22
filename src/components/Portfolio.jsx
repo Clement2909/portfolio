@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Globe, User, Code, Mail, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin, Download, FileText } from "lucide-react";
+import { Globe, User, Code, Mail, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin, Download, FileText, Star } from "lucide-react";
 import { FaDiscord, FaFacebook, FaFacebookMessenger, FaInstagram, FaTelegram, FaMicrosoft, FaLinkedin } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
@@ -272,6 +272,9 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
         description: "Intéressé par une collaboration ? N'hésitez pas à me contacter !",
         email: "randrianasolo.clementvictorin@gmail.com",
         quickContact: "Contact Rapide",
+        location: "Ma localisation",
+        review: "Donner votre avis sur mon travail",
+        estimate: "Estimer votre projet",
         quoteForm: "Demande de Devis",
         availability: "Disponibilité",
         openingHours: {
@@ -529,6 +532,9 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
         description: "Interested in collaboration? Feel free to reach out!",
         email: "randrianasolo.clementvictorin@gmail.com",
         quickContact: "Quick Contact",
+        location: "My location",
+        review: "Leave a review about my work",
+        estimate: "Estimate your project",
         quoteForm: "Request a Quote",
         availability: "Availability",
         openingHours: {
@@ -1901,6 +1907,32 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                 >
                   <Mail className="h-5 w-5 mr-3" />
                   <span className="font-medium">Email</span>
+                </a>
+                <a
+                  href="https://share.google/px4gEl4yoEWp36c4C"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 ${
+                    isDark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <MapPin className="h-5 w-5 mr-3" />
+                  <span className="font-medium">{t.contact.location}</span>
+                  <ExternalLink className="h-4 w-4 ml-auto" />
+                </a>
+                <a
+                  href="https://g.page/r/CYFgrr67vcwGEAI/review"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center px-6 py-4 rounded-lg border-2 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] ${
+                    isDark
+                      ? 'bg-yellow-500/10 border-yellow-400 text-yellow-300 hover:bg-yellow-500/20'
+                      : 'bg-yellow-50 border-yellow-400 text-yellow-700 hover:bg-yellow-100'
+                  }`}
+                >
+                  <Star className="h-6 w-6 mr-3 fill-current" />
+                  <span className="font-semibold">{t.contact.review}</span>
+                  <ExternalLink className="h-4 w-4 ml-auto" />
                 </a>
                 <a
                   href="https://wa.me/261326312603"

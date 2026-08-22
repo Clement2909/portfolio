@@ -115,6 +115,14 @@ export const SiteFooter = ({ currentLang, isDark, activePage }) => {
               {label}
             </button>
           ))}
+          <a
+            href="https://devis-calculateur-estimation.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-blue-400 transition-colors"
+          >
+            {isFrench ? 'Estimer un devis' : 'Estimate a quote'}
+          </a>
         </nav>
         <p className="text-center">&copy; {new Date().getFullYear()} Portfolio. {isFrench ? 'Tous droits réservés' : 'All rights reserved'}.</p>
       </div>
