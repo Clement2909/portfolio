@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowLeft, Calendar, Clock, BookOpen, Tag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { localizedPath } from "../routes";
 
 const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -184,13 +185,19 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate(localizedPath(currentLang))}
             className={`flex items-center transition-colors ${
               isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'
             }`}
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
             {t.backButton}
+          </button>
+          <button
+            onClick={() => navigate(localizedPath(currentLang === 'fr' ? 'en' : 'fr', 'blog'))}
+            className="ml-4 text-sm font-medium text-blue-500 hover:text-blue-400"
+          >
+            {currentLang === 'fr' ? 'EN' : 'FR'}
           </button>
         </div>
       </div>
@@ -304,7 +311,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
 
                   {/* Read More Button */}
                   <button
-                    onClick={() => navigate(`/blog/${article.id}`)}
+                    onClick={() => navigate(localizedPath(currentLang, 'article', article.id))}
                     className={`inline-flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 bg-gradient-to-r ${getCategoryColor(article.category)} text-white shadow-md hover:shadow-lg`}
                   >
                     {t.readMore}

@@ -1,67 +1,57 @@
-import { useState } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useLocation } from 'react-router-dom';
 import Portfolio from './components/Portfolio';
 import FAQ from './components/FAQ';
 import Blog from './components/Blog';
 import BlogArticle from './components/BlogArticle';
+import LegalNotice from './components/LegalNotice';
 import './App.css';
 
 function App() {
   const [isDark, setIsDark] = useState(true);
-  const [currentLang, setCurrentLang] = useState('fr');
 
   return (
     <div className="App">
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Portfolio
-                isDark={isDark}
-                setIsDark={setIsDark}
-                currentLang={currentLang}
-                setCurrentLang={setCurrentLang}
-              />
-            }
-          />
-          <Route
-            path="/faq"
-            element={
-              <FAQ
-                isDark={isDark}
-                setIsDark={setIsDark}
-                currentLang={currentLang}
-                setCurrentLang={setCurrentLang}
-              />
-            }
-          />
-          <Route
-            path="/blog"
-            element={
-              <Blog
-                isDark={isDark}
-                setIsDark={setIsDark}
-                currentLang={currentLang}
-                setCurrentLang={setCurrentLang}
-              />
-            }
-          />
-          <Route
-            path="/blog/:id"
-            element={
-              <BlogArticle
-                isDark={isDark}
-                setIsDark={setIsDark}
-                currentLang={currentLang}
-                setCurrentLang={setCurrentLang}
-              />
-            }
-          />
+          <Route path="/" element={<Navigate to="/fr" replace />} />
+          <Route path="/:lang" element={<LocalizedPage page="home" isDark={isDark} />} />
+          <Route path="/:lang/about" element={<LocalizedPage page="about" isDark={isDark} />} />
+          <Route path="/:lang/services" element={<LocalizedPage page="services" isDark={isDark} />} />
+          <Route path="/:lang/skills" element={<LocalizedPage page="skills" isDark={isDark} />} />
+          <Route path="/:lang/process" element={<LocalizedPage page="process" isDark={isDark} />} />
+          <Route path="/:lang/projects" element={<LocalizedPage page="projects" isDark={isDark} />} />
+          <Route path="/:lang/cv" element={<LocalizedPage page="cv" isDark={isDark} />} />
+          <Route path="/:lang/contact" element={<LocalizedPage page="contact" isDark={isDark} />} />
+          <Route path="/:lang/faq" element={<LocalizedPage page="faq" isDark={isDark} />} />
+          <Route path="/:lang/blog" element={<LocalizedPage page="blog" isDark={isDark} />} />
+          <Route path="/:lang/blog/:id" element={<LocalizedPage page="article" isDark={isDark} />} />
+          <Route path="/:lang/mentions-legales" element={<LocalizedPage page="legal" isDark={isDark} />} />
+          <Route path="*" element={<Navigate to="/fr" replace />} />
         </Routes>
       </Router>
     </div>
   );
+}
+
+function LocalizedPage({ page, isDark }) {
+  const { lang } = useParams();
+  const location = useLocation();
+  const currentLang = lang === 'en' ? 'en' : lang === 'fr' ? 'fr' : null;
+
+  useEffect(() => {
+    document.documentElement.lang = currentLang || 'fr';
+  }, [currentLang, location.pathname]);
+
+  if (!currentLang) return <Navigate to="/fr" replace />;
+
+  const props = { isDark, currentLang };
+
+  if (page === 'faq') return <FAQ {...props} />;
+  if (page === 'blog') return <Blog {...props} />;
+  if (page === 'article') return <BlogArticle {...props} />;
+  if (page === 'legal') return <LegalNotice {...props} />;
+  return <Portfolio {...props} page={page} />;
 }
 
 export default App;

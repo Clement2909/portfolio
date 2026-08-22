@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { Globe, User, Code, Mail, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, HelpCircle, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin, Download, FileText } from "lucide-react";
+import { Globe, User, Code, Mail, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin, Download, FileText } from "lucide-react";
 import { FaDiscord, FaFacebook, FaFacebookMessenger, FaInstagram, FaTelegram, FaMicrosoft, FaLinkedin } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
+import { localizedPath } from '../routes';
 
-const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, setCurrentLang: propSetCurrentLang }) => {
+const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, setCurrentLang: propSetCurrentLang, page = 'home' }) => {
   const navigate = useNavigate();
   const formRef = useRef();
   const [currentLang, setCurrentLang] = useState(propCurrentLang || 'fr');
@@ -51,12 +52,15 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
   const handleLangChange = (newLang) => {
     setCurrentLang(newLang);
     if (propSetCurrentLang) propSetCurrentLang(newLang);
+    navigate(localizedPath(newLang, page === 'home' ? 'portfolio' : page));
   };
 
   const handleThemeChange = (newIsDark) => {
     setIsDark(newIsDark);
     if (propSetIsDark) propSetIsDark(newIsDark);
   };
+
+  const shouldShow = (section) => page === 'home' || page === section || (page === 'projects' && ['professional-projects', 'games'].includes(section));
 
   const translations = {
     fr: {
@@ -930,11 +934,6 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
     );
   };
 
-  const scrollToSection = (sectionId) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-    setMobileMenuOpen(false);
-  };
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -1068,36 +1067,26 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             </div>
             
             <div className="hidden md:flex items-center space-x-8">
-              <button onClick={() => scrollToSection('about')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'about'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.about}
               </button>
-              <button onClick={() => scrollToSection('services')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'services'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.services}
               </button>
-              <button onClick={() => scrollToSection('skills')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'skills'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.skills}
               </button>
-              <button onClick={() => scrollToSection('process')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'process'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.process}
               </button>
-              <button onClick={() => scrollToSection('professional-projects')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'projects'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.projects.professionalTitle}
               </button>
-              <button onClick={() => scrollToSection('games')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'projects'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.projects.gamesTitle}
               </button>
-              <button onClick={() => navigate('/blog')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
-                {t.nav.blog}
-              </button>
-              <button onClick={() => scrollToSection('cv')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
-                {t.cv.title}
-              </button>
-              <button onClick={() => scrollToSection('contact')} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'contact'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
                 {t.nav.contact}
-              </button>
-              <button onClick={() => navigate('/faq')} className={`flex items-center transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
-                <HelpCircle className="h-4 w-4 mr-1" />
-                {t.nav.faq}
               </button>
             </div>
 
@@ -1178,7 +1167,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                 </div>
 
                 <button
-                  onClick={() => scrollToSection('about')}
+                  onClick={() => navigate(localizedPath(currentLang, 'about'))}
                   className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
                     isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
                   }`}
@@ -1186,7 +1175,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                   {t.nav.about}
                 </button>
                 <button
-                  onClick={() => scrollToSection('services')}
+                  onClick={() => navigate(localizedPath(currentLang, 'services'))}
                   className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
                     isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
                   }`}
@@ -1194,7 +1183,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                   {t.nav.services}
                 </button>
                 <button
-                  onClick={() => scrollToSection('skills')}
+                  onClick={() => navigate(localizedPath(currentLang, 'skills'))}
                   className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
                     isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
                   }`}
@@ -1202,7 +1191,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                   {t.nav.skills}
                 </button>
                 <button
-                  onClick={() => scrollToSection('process')}
+                  onClick={() => navigate(localizedPath(currentLang, 'process'))}
                   className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
                     isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
                   }`}
@@ -1210,7 +1199,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                   {t.nav.process}
                 </button>
                 <button
-                  onClick={() => scrollToSection('professional-projects')}
+                  onClick={() => navigate(localizedPath(currentLang, 'projects'))}
                   className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
                     isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
                   }`}
@@ -1218,7 +1207,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                   {t.projects.professionalTitle}
                 </button>
                 <button
-                  onClick={() => scrollToSection('games')}
+                  onClick={() => navigate(localizedPath(currentLang, 'projects'))}
                   className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
                     isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
                   }`}
@@ -1226,37 +1215,12 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                   {t.projects.gamesTitle}
                 </button>
                 <button
-                  onClick={() => { navigate('/blog'); setMobileMenuOpen(false); }}
-                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
-                >
-                  {t.nav.blog}
-                </button>
-                <button
-                  onClick={() => scrollToSection('cv')}
-                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
-                >
-                  {t.cv.title}
-                </button>
-                <button
-                  onClick={() => scrollToSection('contact')}
+                  onClick={() => navigate(localizedPath(currentLang, 'contact'))}
                   className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
                     isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
                   }`}
                 >
                   {t.nav.contact}
-                </button>
-                <button
-                  onClick={() => { navigate('/faq'); setMobileMenuOpen(false); }}
-                  className={`flex items-center w-full text-left px-4 py-3 rounded-md transition-colors ${
-                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
-                >
-                  <HelpCircle className="h-4 w-4 mr-2" />
-                  {t.nav.faq}
                 </button>
               </div>
             </div>
@@ -1265,7 +1229,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-20 pb-16">
+      {shouldShow('hero') && <section className="pt-20 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center py-20">
             <div className="mb-8">
@@ -1293,7 +1257,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                 {t.hero.subtitle}
               </p>
               <button
-                onClick={() => scrollToSection('professional-projects')}
+                onClick={() => navigate(localizedPath(currentLang, 'projects'))}
                 className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-2xl"
               >
                 {t.hero.cta}
@@ -1302,10 +1266,10 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             </div>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* About Section */}
-      <section id="about" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('about') && <section id="about" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gray-800' : 'bg-white'
       } ${
         visibleSections.has('about')
@@ -1434,10 +1398,10 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             </div>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Services Section */}
-      <section id="services" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('services') && <section id="services" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
       } ${
         visibleSections.has('services')
@@ -1503,7 +1467,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
 
                     {/* Contact Button */}
                     <button
-                      onClick={() => scrollToSection('contact')}
+                      onClick={() => navigate(localizedPath(currentLang, 'contact'))}
                       className={`w-full px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg bg-gradient-to-r ${service.gradient} text-white`}
                     >
                       {t.services.contactButton}
@@ -1514,10 +1478,10 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             })}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Skills Section */}
-      <section id="skills" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('skills') && <section id="skills" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
       } ${
         visibleSections.has('skills')
@@ -1560,10 +1524,10 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             ))}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Process Section */}
-      <section id="process" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('process') && <section id="process" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gray-900' : 'bg-white'
       } ${
         visibleSections.has('process')
@@ -1627,10 +1591,10 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             })}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Professional Projects Section */}
-      <section id="professional-projects" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('professional-projects') && <section id="professional-projects" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
       } ${
         visibleSections.has('professional-projects')
@@ -1733,10 +1697,10 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             })}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Games Section */}
-      <section id="games" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('games') && <section id="games" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-800 to-gray-700' : 'bg-gradient-to-r from-purple-50 to-pink-50'
       } ${
         visibleSections.has('games')
@@ -1839,10 +1803,10 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             })}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* CV Section */}
-      <section id="cv" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('cv') && <section id="cv" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gray-800' : 'bg-white'
       } ${
         visibleSections.has('cv')
@@ -1893,10 +1857,10 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             </a>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Contact Section */}
-      <section id="contact" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('contact') && <section id="contact" className={`py-16 transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-blue-600 to-purple-600'
       } ${
         visibleSections.has('contact')
@@ -2302,7 +2266,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             </div>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Bouton retour en haut */}
       <button
@@ -2326,7 +2290,21 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
         isDark ? 'bg-black text-gray-300' : 'bg-gray-900 text-white'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+          <div className="flex flex-col items-center gap-4">
+            <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2" aria-label="Footer">
+              <button onClick={() => navigate(localizedPath(currentLang, 'blog'))} className="hover:text-blue-400 transition-colors">
+                {t.nav.blog}
+              </button>
+              <button onClick={() => navigate(localizedPath(currentLang, 'cv'))} className="hover:text-blue-400 transition-colors">
+                {t.cv.title}
+              </button>
+              <button onClick={() => navigate(localizedPath(currentLang, 'faq'))} className="hover:text-blue-400 transition-colors">
+                {t.nav.faq}
+              </button>
+              <button onClick={() => navigate(localizedPath(currentLang, 'legal'))} className="hover:text-blue-400 transition-colors">
+                {currentLang === 'fr' ? 'Mentions légales' : 'Legal notice'}
+              </button>
+            </nav>
             <p>&copy; {new Date().getFullYear()} Portfolio. {currentLang === 'fr' ? 'Tous droits réservés' : 'All rights reserved'}.</p>
           </div>
         </div>

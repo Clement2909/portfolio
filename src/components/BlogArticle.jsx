@@ -1,9 +1,11 @@
 import { ArrowLeft, Calendar, Clock, Tag, User, BookOpen } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
+import { localizedPath } from "../routes";
 
 const BlogArticle = ({ isDark, currentLang }) => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const alternateLang = currentLang === 'fr' ? 'en' : 'fr';
 
   const articles = {
     fr: {
@@ -861,7 +863,7 @@ These optimizations can improve your Laravel application performance by 40 to 60
             {currentLang === 'fr' ? 'Article non trouvé' : 'Article not found'}
           </h1>
           <button
-            onClick={() => navigate('/blog')}
+            onClick={() => navigate(localizedPath(currentLang, 'blog'))}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             {currentLang === 'fr' ? 'Retour au blog' : 'Back to blog'}
@@ -898,13 +900,19 @@ These optimizations can improve your Laravel application performance by 40 to 60
       }`}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <button
-            onClick={() => navigate('/blog')}
+            onClick={() => navigate(localizedPath(currentLang, 'blog'))}
             className={`flex items-center transition-colors ${
               isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'
             }`}
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
             {currentLang === 'fr' ? 'Retour aux articles' : 'Back to articles'}
+          </button>
+          <button
+            onClick={() => navigate(localizedPath(alternateLang, 'article', id))}
+            className="ml-4 text-sm font-medium text-blue-500 hover:text-blue-400"
+          >
+            {currentLang === 'fr' ? 'EN' : 'FR'}
           </button>
         </div>
       </div>
@@ -965,7 +973,7 @@ These optimizations can improve your Laravel application performance by 40 to 60
         {/* Back Button */}
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <button
-            onClick={() => navigate('/blog')}
+            onClick={() => navigate(localizedPath(currentLang, 'blog'))}
             className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 bg-gradient-to-r ${getCategoryColor(article.category)} text-white shadow-md hover:shadow-lg`}
           >
             <ArrowLeft className="h-5 w-5 inline mr-2" />

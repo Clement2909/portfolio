@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronDown, ArrowLeft, HelpCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { localizedPath } from "../routes";
 
 const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -241,7 +242,7 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate(localizedPath(currentLang))}
             className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
               isDark
                 ? 'text-gray-300 hover:text-blue-400 hover:bg-gray-700'
@@ -250,6 +251,12 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
             {t.backButton}
+          </button>
+          <button
+            onClick={() => navigate(localizedPath(currentLang === 'fr' ? 'en' : 'fr', 'faq'))}
+            className="ml-4 text-sm font-medium text-blue-500 hover:text-blue-400"
+          >
+            {currentLang === 'fr' ? 'EN' : 'FR'}
           </button>
         </div>
       </div>
@@ -348,7 +355,7 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           </p>
           <button
             onClick={() => {
-              navigate('/');
+              navigate(`${localizedPath(currentLang)}#contact`);
               setTimeout(() => {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }, 100);
