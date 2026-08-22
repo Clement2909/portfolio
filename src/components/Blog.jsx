@@ -183,7 +183,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
       <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={setIsDark} activePage="blog" />
 
       {/* Hero Section */}
-      <section className="pt-16 pb-8">
+      <section className="pt-32 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex justify-center mb-6">

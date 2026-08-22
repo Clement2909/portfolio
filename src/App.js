@@ -13,7 +13,25 @@ function App() {
   return (
     <div className="App">
       <Router basename={process.env.PUBLIC_URL}>
-        <Routes>
+        <PageTransition isDark={isDark} setIsDark={setIsDark} />
+      </Router>
+    </div>
+  );
+}
+
+function PageTransition({ isDark, setIsDark }) {
+  const location = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = window.setTimeout(() => setIsLoading(false), 350);
+    return () => window.clearTimeout(timer);
+  }, [location.key]);
+
+  return (
+    <>
+      <Routes>
           <Route path="/" element={<Navigate to="/fr" replace />} />
           <Route path="/:lang" element={<LocalizedPage page="home" isDark={isDark} setIsDark={setIsDark} />} />
           <Route path="/:lang/about" element={<LocalizedPage page="about" isDark={isDark} setIsDark={setIsDark} />} />
@@ -27,10 +45,15 @@ function App() {
           <Route path="/:lang/blog" element={<LocalizedPage page="blog" isDark={isDark} setIsDark={setIsDark} />} />
           <Route path="/:lang/blog/:id" element={<LocalizedPage page="article" isDark={isDark} setIsDark={setIsDark} />} />
           <Route path="/:lang/mentions-legales" element={<LocalizedPage page="legal" isDark={isDark} setIsDark={setIsDark} />} />
-          <Route path="*" element={<Navigate to="/fr" replace />} />
-        </Routes>
-      </Router>
-    </div>
+        <Route path="*" element={<Navigate to="/fr" replace />} />
+      </Routes>
+      {isLoading && (
+        <div className={`page-loader ${isDark ? 'page-loader-dark' : 'page-loader-light'}`} role="status" aria-live="polite">
+          <div className="page-loader-spinner" />
+          <span>{location.pathname.includes('/en') ? 'Loading' : 'Chargement'}</span>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -28,6 +28,48 @@
   color: #61dafb;
 }
 
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  animation: page-loader-in 160ms ease-out;
+}
+
+.page-loader-dark {
+  background: rgba(17, 24, 39, 0.94);
+  color: #bfdbfe;
+}
+
+.page-loader-light {
+  background: rgba(248, 250, 252, 0.96);
+  color: #2563eb;
+}
+
+.page-loader-spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: page-loader-spin 700ms linear infinite;
+}
+
+@keyframes page-loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes page-loader-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

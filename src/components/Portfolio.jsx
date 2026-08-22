@@ -1275,7 +1275,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       </section>}
 
       {/* About Section */}
-      {shouldShow('about') && <section id="about" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('about') && <section id="about" className={`${page === 'about' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gray-800' : 'bg-white'
       } ${
         visibleSections.has('about')
@@ -1407,7 +1407,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       </section>}
 
       {/* Services Section */}
-      {shouldShow('services') && <section id="services" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('services') && <section id="services" className={`${page === 'services' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
       } ${
         visibleSections.has('services')
@@ -1487,7 +1487,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       </section>}
 
       {/* Skills Section */}
-      {shouldShow('skills') && <section id="skills" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('skills') && <section id="skills" className={`${page === 'skills' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
       } ${
         visibleSections.has('skills')
@@ -1533,7 +1533,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       </section>}
 
       {/* Process Section */}
-      {shouldShow('process') && <section id="process" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('process') && <section id="process" className={`${page === 'process' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gray-900' : 'bg-white'
       } ${
         visibleSections.has('process')
@@ -1600,7 +1600,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       </section>}
 
       {/* Professional Projects Section */}
-      {shouldShow('professional-projects') && <section id="professional-projects" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('professional-projects') && <section id="professional-projects" className={`${page === 'projects' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
       } ${
         visibleSections.has('professional-projects')
@@ -1706,7 +1706,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       </section>}
 
       {/* Games Section */}
-      {shouldShow('games') && <section id="games" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('games') && <section id="games" className={`${page === 'projects' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-800 to-gray-700' : 'bg-gradient-to-r from-purple-50 to-pink-50'
       } ${
         visibleSections.has('games')
@@ -1812,7 +1812,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       </section>}
 
       {/* CV Section */}
-      {shouldShow('cv') && <section id="cv" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('cv') && <section id="cv" className={`${page === 'cv' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gray-800' : 'bg-white'
       } ${
         visibleSections.has('cv')
@@ -1866,7 +1866,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       </section>}
 
       {/* Contact Section */}
-      {shouldShow('contact') && <section id="contact" className={`py-16 transition-all duration-1000 ${
+      {shouldShow('contact') && <section id="contact" className={`${page === 'contact' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-blue-600 to-purple-600'
       } ${
         visibleSections.has('contact')
