@@ -1,4 +1,4 @@
-import { Code, Globe, Menu, Moon, Sun, X } from 'lucide-react';
+import { Code, ExternalLink, Globe, Menu, Moon, Star, Sun, X } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { localizedPath } from '../routes';
@@ -115,6 +115,25 @@ export const SiteFooter = ({ currentLang, isDark, activePage }) => {
               {label}
             </button>
           ))}
+          <a
+            href="https://g.page/r/CYFgrr67vcwGEAI/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-gray-500 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition-all hover:border-yellow-400 hover:bg-white/10"
+          >
+            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+            <span>
+              <span className="text-blue-400">G</span>
+              <span className="text-red-400">o</span>
+              <span className="text-yellow-400">o</span>
+              <span className="text-blue-400">g</span>
+              <span className="text-green-400">l</span>
+              <span className="text-red-400">e</span>
+              {' · '}
+              {isFrench ? 'Donner votre avis' : 'Leave a review'}
+            </span>
+            <ExternalLink className="h-3.5 w-3.5 opacity-70" />
+          </a>
           <a
             href="https://devis-calculateur-estimation.vercel.app/"
             target="_blank"

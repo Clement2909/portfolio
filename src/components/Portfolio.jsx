@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Globe, User, Code, Mail, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin, Download, FileText, Star } from "lucide-react";
+import { Globe, User, Code, Mail, ExternalLink, Sun, Moon, MessageCircle, Monitor, Database, Zap, Check, Menu, X, ArrowUp, Send, Briefcase, Search, Palette, Cog, TestTube, Rocket, Wrench, Clock, MapPin, Download, FileText } from "lucide-react";
 import { FaDiscord, FaFacebook, FaFacebookMessenger, FaInstagram, FaTelegram, FaMicrosoft, FaLinkedin } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
@@ -1918,20 +1918,6 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                 >
                   <MapPin className="h-5 w-5 mr-3" />
                   <span className="font-medium">{t.contact.location}</span>
-                  <ExternalLink className="h-4 w-4 ml-auto" />
-                </a>
-                <a
-                  href="https://g.page/r/CYFgrr67vcwGEAI/review"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex items-center px-6 py-4 rounded-lg border-2 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] ${
-                    isDark
-                      ? 'bg-yellow-500/10 border-yellow-400 text-yellow-300 hover:bg-yellow-500/20'
-                      : 'bg-yellow-50 border-yellow-400 text-yellow-700 hover:bg-yellow-100'
-                  }`}
-                >
-                  <Star className="h-6 w-6 mr-3 fill-current" />
-                  <span className="font-semibold">{t.contact.review}</span>
                   <ExternalLink className="h-4 w-4 ml-auto" />
                 </a>
                 <a
