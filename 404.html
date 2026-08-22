@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      (function () {
+        var base = '/portfolio';
+        var path = window.location.pathname.indexOf(base) === 0
+          ? window.location.pathname.slice(base.length)
+          : window.location.pathname;
+        var target = path + window.location.search + window.location.hash;
+        window.location.replace(base + '/?p=' + encodeURIComponent(target));
+      }());
+    </script>
+  </head>
+  <body></body>
+</html>
