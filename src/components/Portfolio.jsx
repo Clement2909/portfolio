@@ -4,6 +4,7 @@ import { FaDiscord, FaFacebook, FaFacebookMessenger, FaInstagram, FaTelegram, Fa
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
 import { localizedPath } from '../routes';
+import { SiteFooter, SiteHeader } from './SiteChrome';
 
 const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, setCurrentLang: propSetCurrentLang, page = 'home' }) => {
   const navigate = useNavigate();
@@ -60,7 +61,23 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
     if (propSetIsDark) propSetIsDark(newIsDark);
   };
 
-  const shouldShow = (section) => page === 'home' || page === section || (page === 'projects' && ['professional-projects', 'games'].includes(section));
+  const shouldShow = (section) => page === 'home'
+    ? section === 'hero'
+    : page === section || (page === 'projects' && ['professional-projects', 'games'].includes(section));
+
+  const isActivePage = (targetPage) => page === targetPage || (targetPage === 'projects' && page === 'projects');
+
+  const navClass = (targetPage) => `transition-colors ${
+    isActivePage(targetPage)
+      ? 'text-blue-500 font-semibold border-b-2 border-blue-500 pb-1'
+      : isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'
+  }`;
+
+  const mobileNavClass = (targetPage) => `block w-full text-left px-4 py-3 rounded-md transition-colors ${
+    isActivePage(targetPage)
+      ? isDark ? 'bg-gray-700 text-blue-400 font-semibold' : 'bg-blue-50 text-blue-600 font-semibold'
+      : isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
+  }`;
 
   const translations = {
     fr: {
@@ -1053,6 +1070,8 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
     }`}>
+      <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={handleThemeChange} activePage={page} />
+      {false && <>
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-[200] backdrop-blur-md shadow-sm transition-all duration-300 ${
         isDark ? 'bg-gray-800/90' : 'bg-white/90'
@@ -1067,25 +1086,25 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
             </div>
             
             <div className="hidden md:flex items-center space-x-8">
-              <button onClick={() => navigate(localizedPath(currentLang, 'about'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang))} className={navClass('home')}>
+                {currentLang === 'fr' ? 'Accueil' : 'Home'}
+              </button>
+              <button onClick={() => navigate(localizedPath(currentLang, 'about'))} className={navClass('about')}>
                 {t.nav.about}
               </button>
-              <button onClick={() => navigate(localizedPath(currentLang, 'services'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'services'))} className={navClass('services')}>
                 {t.nav.services}
               </button>
-              <button onClick={() => navigate(localizedPath(currentLang, 'skills'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'skills'))} className={navClass('skills')}>
                 {t.nav.skills}
               </button>
-              <button onClick={() => navigate(localizedPath(currentLang, 'process'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'process'))} className={navClass('process')}>
                 {t.nav.process}
               </button>
-              <button onClick={() => navigate(localizedPath(currentLang, 'projects'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'projects'))} className={navClass('projects')}>
                 {t.projects.professionalTitle}
               </button>
-              <button onClick={() => navigate(localizedPath(currentLang, 'projects'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
-                {t.projects.gamesTitle}
-              </button>
-              <button onClick={() => navigate(localizedPath(currentLang, 'contact'))} className={`transition-colors ${isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'}`}>
+              <button onClick={() => navigate(localizedPath(currentLang, 'contact'))} className={navClass('contact')}>
                 {t.nav.contact}
               </button>
             </div>
@@ -1167,58 +1186,44 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                 </div>
 
                 <button
+                  onClick={() => navigate(localizedPath(currentLang))}
+                  className={mobileNavClass('home')}
+                >
+                  {currentLang === 'fr' ? 'Accueil' : 'Home'}
+                </button>
+                <button
                   onClick={() => navigate(localizedPath(currentLang, 'about'))}
-                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
+                  className={mobileNavClass('about')}
                 >
                   {t.nav.about}
                 </button>
                 <button
                   onClick={() => navigate(localizedPath(currentLang, 'services'))}
-                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
+                  className={mobileNavClass('services')}
                 >
                   {t.nav.services}
                 </button>
                 <button
                   onClick={() => navigate(localizedPath(currentLang, 'skills'))}
-                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
+                  className={mobileNavClass('skills')}
                 >
                   {t.nav.skills}
                 </button>
                 <button
                   onClick={() => navigate(localizedPath(currentLang, 'process'))}
-                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
+                  className={mobileNavClass('process')}
                 >
                   {t.nav.process}
                 </button>
                 <button
                   onClick={() => navigate(localizedPath(currentLang, 'projects'))}
-                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
+                  className={mobileNavClass('projects')}
                 >
                   {t.projects.professionalTitle}
                 </button>
                 <button
-                  onClick={() => navigate(localizedPath(currentLang, 'projects'))}
-                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
-                >
-                  {t.projects.gamesTitle}
-                </button>
-                <button
                   onClick={() => navigate(localizedPath(currentLang, 'contact'))}
-                  className={`block w-full text-left px-4 py-3 rounded-md transition-colors ${
-                    isDark ? 'text-gray-300 hover:bg-gray-700 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'
-                  }`}
+                  className={mobileNavClass('contact')}
                 >
                   {t.nav.contact}
                 </button>
@@ -1227,6 +1232,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
           </div>
         )}
       </nav>
+      </>}
 
       {/* Hero Section */}
       {shouldShow('hero') && <section className="pt-20 pb-16">
@@ -2285,30 +2291,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
         <ArrowUp className="h-6 w-6" />
       </button>
 
-      {/* Footer */}
-      <footer className={`py-8 transition-all duration-300 ${
-        isDark ? 'bg-black text-gray-300' : 'bg-gray-900 text-white'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center gap-4">
-            <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2" aria-label="Footer">
-              <button onClick={() => navigate(localizedPath(currentLang, 'blog'))} className="hover:text-blue-400 transition-colors">
-                {t.nav.blog}
-              </button>
-              <button onClick={() => navigate(localizedPath(currentLang, 'cv'))} className="hover:text-blue-400 transition-colors">
-                {t.cv.title}
-              </button>
-              <button onClick={() => navigate(localizedPath(currentLang, 'faq'))} className="hover:text-blue-400 transition-colors">
-                {t.nav.faq}
-              </button>
-              <button onClick={() => navigate(localizedPath(currentLang, 'legal'))} className="hover:text-blue-400 transition-colors">
-                {currentLang === 'fr' ? 'Mentions légales' : 'Legal notice'}
-              </button>
-            </nav>
-            <p>&copy; {new Date().getFullYear()} Portfolio. {currentLang === 'fr' ? 'Tous droits réservés' : 'All rights reserved'}.</p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter currentLang={currentLang} isDark={isDark} activePage={page === 'home' ? null : page} />
     </div>
   );
 };

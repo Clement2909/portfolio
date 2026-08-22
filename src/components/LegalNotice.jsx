@@ -1,8 +1,9 @@
 import { ArrowLeft, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { localizedPath } from "../routes";
+import { SiteFooter, SiteHeader } from './SiteChrome';
 
-const LegalNotice = ({ isDark, currentLang }) => {
+const LegalNotice = ({ isDark, setIsDark, currentLang }) => {
   const navigate = useNavigate();
   const isFrench = currentLang === "fr";
   const content = isFrench
@@ -31,21 +32,8 @@ const LegalNotice = ({ isDark, currentLang }) => {
 
   return (
     <div className={`min-h-screen ${isDark ? "bg-gray-900 text-gray-200" : "bg-gray-50 text-gray-800"}`}>
-      <header className={`sticky top-0 z-10 border-b ${isDark ? "bg-gray-800/95 border-gray-700" : "bg-white/95 border-gray-200"}`}>
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <button onClick={() => navigate(localizedPath(currentLang))} className="flex items-center text-blue-500 hover:text-blue-400">
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            {content.back}
-          </button>
-          <button
-            onClick={() => navigate(localizedPath(isFrench ? 'en' : 'fr', 'legal'))}
-            className="ml-4 text-sm font-medium text-blue-500 hover:text-blue-400"
-          >
-            {isFrench ? 'EN' : 'FR'}
-          </button>
-        </div>
-      </header>
-      <main className="max-w-4xl mx-auto px-4 py-16">
+      <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={setIsDark} activePage="legal" />
+      <main className="max-w-4xl mx-auto px-4 pt-28 pb-16">
         <div className="flex items-center gap-3 mb-10">
           <FileText className="h-8 w-8 text-blue-500" />
           <h1 className="text-4xl font-bold">{content.title}</h1>
@@ -59,9 +47,7 @@ const LegalNotice = ({ isDark, currentLang }) => {
           ))}
         </div>
       </main>
-      <footer className={`py-8 text-center ${isDark ? "bg-black text-gray-400" : "bg-gray-900 text-white"}`}>
-        <p>&copy; {new Date().getFullYear()} Portfolio. {isFrench ? "Tous droits réservés" : "All rights reserved"}.</p>
-      </footer>
+      <SiteFooter currentLang={currentLang} isDark={isDark} activePage="legal" />
     </div>
   );
 };

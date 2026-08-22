@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ChevronDown, ArrowLeft, HelpCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { localizedPath } from "../routes";
+import { SiteFooter, SiteHeader } from './SiteChrome';
 
 const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -236,30 +237,7 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
     }`}>
-      {/* Header */}
-      <div className={`sticky top-0 z-50 backdrop-blur-md shadow-sm transition-all duration-300 ${
-        isDark ? 'bg-gray-800/90' : 'bg-white/90'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <button
-            onClick={() => navigate(localizedPath(currentLang))}
-            className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
-              isDark
-                ? 'text-gray-300 hover:text-blue-400 hover:bg-gray-700'
-                : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-            }`}
-          >
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            {t.backButton}
-          </button>
-          <button
-            onClick={() => navigate(localizedPath(currentLang === 'fr' ? 'en' : 'fr', 'faq'))}
-            className="ml-4 text-sm font-medium text-blue-500 hover:text-blue-400"
-          >
-            {currentLang === 'fr' ? 'EN' : 'FR'}
-          </button>
-        </div>
-      </div>
+      <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={setIsDark} activePage="faq" />
 
       {/* FAQ Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -366,6 +344,7 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           </button>
         </div>
       </div>
+      <SiteFooter currentLang={currentLang} isDark={isDark} activePage="faq" />
     </div>
   );
 };

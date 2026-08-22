@@ -1,8 +1,9 @@
 import { ArrowLeft, Calendar, Clock, Tag, User, BookOpen } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { localizedPath } from "../routes";
+import { SiteFooter, SiteHeader } from './SiteChrome';
 
-const BlogArticle = ({ isDark, currentLang }) => {
+const BlogArticle = ({ isDark, setIsDark, currentLang }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const alternateLang = currentLang === 'fr' ? 'en' : 'fr';
@@ -894,31 +895,10 @@ These optimizations can improve your Laravel application performance by 40 to 60
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
     }`}>
-      {/* Header */}
-      <div className={`sticky top-0 z-50 backdrop-blur-md shadow-sm transition-all duration-300 ${
-        isDark ? 'bg-gray-800/90' : 'bg-white/90'
-      }`}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <button
-            onClick={() => navigate(localizedPath(currentLang, 'blog'))}
-            className={`flex items-center transition-colors ${
-              isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'
-            }`}
-          >
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            {currentLang === 'fr' ? 'Retour aux articles' : 'Back to articles'}
-          </button>
-          <button
-            onClick={() => navigate(localizedPath(alternateLang, 'article', id))}
-            className="ml-4 text-sm font-medium text-blue-500 hover:text-blue-400"
-          >
-            {currentLang === 'fr' ? 'EN' : 'FR'}
-          </button>
-        </div>
-      </div>
+      <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={setIsDark} activePage="blog" pageId={id} />
 
       {/* Article Content */}
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12">
         {/* Header Image/Banner */}
         <div className={`h-64 rounded-xl bg-gradient-to-br ${getCategoryColor(article.category)} mb-8 flex items-center justify-center relative overflow-hidden`}>
           <div className="absolute inset-0 bg-black/20" />
@@ -981,6 +961,7 @@ These optimizations can improve your Laravel application performance by 40 to 60
           </button>
         </div>
       </article>
+      <SiteFooter currentLang={currentLang} isDark={isDark} activePage="blog" />
 
       {/* Footer */}
       <footer className={`py-8 mt-16 transition-all duration-300 ${

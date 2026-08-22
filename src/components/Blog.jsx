@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowLeft, Calendar, Clock, BookOpen, Tag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { localizedPath } from "../routes";
+import { SiteFooter, SiteHeader } from './SiteChrome';
 
 const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -179,28 +180,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
     }`}>
-      {/* Header */}
-      <div className={`sticky top-0 z-50 backdrop-blur-md shadow-sm transition-all duration-300 ${
-        isDark ? 'bg-gray-800/90' : 'bg-white/90'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <button
-            onClick={() => navigate(localizedPath(currentLang))}
-            className={`flex items-center transition-colors ${
-              isDark ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600 hover:text-blue-600'
-            }`}
-          >
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            {t.backButton}
-          </button>
-          <button
-            onClick={() => navigate(localizedPath(currentLang === 'fr' ? 'en' : 'fr', 'blog'))}
-            className="ml-4 text-sm font-medium text-blue-500 hover:text-blue-400"
-          >
-            {currentLang === 'fr' ? 'EN' : 'FR'}
-          </button>
-        </div>
-      </div>
+      <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={setIsDark} activePage="blog" />
 
       {/* Hero Section */}
       <section className="pt-16 pb-8">
@@ -336,16 +316,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className={`py-8 transition-all duration-300 ${
-        isDark ? 'bg-black text-gray-300' : 'bg-gray-900 text-white'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p>&copy; 2025 Portfolio. {currentLang === 'fr' ? 'Tous droits réservés' : 'All rights reserved'}.</p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter currentLang={currentLang} isDark={isDark} activePage="blog" />
     </div>
   );
 };

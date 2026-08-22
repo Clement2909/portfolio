@@ -15,18 +15,18 @@ function App() {
       <Router basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<Navigate to="/fr" replace />} />
-          <Route path="/:lang" element={<LocalizedPage page="home" isDark={isDark} />} />
-          <Route path="/:lang/about" element={<LocalizedPage page="about" isDark={isDark} />} />
-          <Route path="/:lang/services" element={<LocalizedPage page="services" isDark={isDark} />} />
-          <Route path="/:lang/skills" element={<LocalizedPage page="skills" isDark={isDark} />} />
-          <Route path="/:lang/process" element={<LocalizedPage page="process" isDark={isDark} />} />
-          <Route path="/:lang/projects" element={<LocalizedPage page="projects" isDark={isDark} />} />
-          <Route path="/:lang/cv" element={<LocalizedPage page="cv" isDark={isDark} />} />
-          <Route path="/:lang/contact" element={<LocalizedPage page="contact" isDark={isDark} />} />
-          <Route path="/:lang/faq" element={<LocalizedPage page="faq" isDark={isDark} />} />
-          <Route path="/:lang/blog" element={<LocalizedPage page="blog" isDark={isDark} />} />
-          <Route path="/:lang/blog/:id" element={<LocalizedPage page="article" isDark={isDark} />} />
-          <Route path="/:lang/mentions-legales" element={<LocalizedPage page="legal" isDark={isDark} />} />
+          <Route path="/:lang" element={<LocalizedPage page="home" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/about" element={<LocalizedPage page="about" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/services" element={<LocalizedPage page="services" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/skills" element={<LocalizedPage page="skills" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/process" element={<LocalizedPage page="process" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/projects" element={<LocalizedPage page="projects" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/cv" element={<LocalizedPage page="cv" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/contact" element={<LocalizedPage page="contact" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/faq" element={<LocalizedPage page="faq" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/blog" element={<LocalizedPage page="blog" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/blog/:id" element={<LocalizedPage page="article" isDark={isDark} setIsDark={setIsDark} />} />
+          <Route path="/:lang/mentions-legales" element={<LocalizedPage page="legal" isDark={isDark} setIsDark={setIsDark} />} />
           <Route path="*" element={<Navigate to="/fr" replace />} />
         </Routes>
       </Router>
@@ -34,7 +34,7 @@ function App() {
   );
 }
 
-function LocalizedPage({ page, isDark }) {
+function LocalizedPage({ page, isDark, setIsDark }) {
   const { lang } = useParams();
   const location = useLocation();
   const currentLang = lang === 'en' ? 'en' : lang === 'fr' ? 'fr' : null;
@@ -45,7 +45,7 @@ function LocalizedPage({ page, isDark }) {
 
   if (!currentLang) return <Navigate to="/fr" replace />;
 
-  const props = { isDark, currentLang };
+  const props = { isDark, setIsDark, currentLang };
 
   if (page === 'faq') return <FAQ {...props} />;
   if (page === 'blog') return <Blog {...props} />;
