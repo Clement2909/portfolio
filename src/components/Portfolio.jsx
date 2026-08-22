@@ -10,7 +10,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
   const navigate = useNavigate();
   const formRef = useRef();
   const [currentLang, setCurrentLang] = useState(propCurrentLang || 'fr');
-  const [skillsVisible, setSkillsVisible] = useState(false);
+  const [skillsVisible, setSkillsVisible] = useState(page === 'skills');
   const [isDark, setIsDark] = useState(propIsDark !== undefined ? propIsDark : true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -1278,7 +1278,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       {shouldShow('about') && <section id="about" className={`${page === 'about' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gray-800' : 'bg-white'
       } ${
-        visibleSections.has('about')
+        (page !== 'home' || visibleSections.has('about'))
           ? 'opacity-100 translate-x-0 rotate-0'
           : 'opacity-0 -translate-x-20 -rotate-2'
       }`}>
@@ -1410,7 +1410,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       {shouldShow('services') && <section id="services" className={`${page === 'services' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
       } ${
-        visibleSections.has('services')
+        (page !== 'home' || visibleSections.has('services'))
           ? 'opacity-100 translate-x-0 rotate-0'
           : 'opacity-0 translate-x-20 rotate-2'
       }`}>
@@ -1490,7 +1490,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       {shouldShow('skills') && <section id="skills" className={`${page === 'skills' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
       } ${
-        visibleSections.has('skills')
+        (page !== 'home' || visibleSections.has('skills'))
           ? 'opacity-100 translate-x-0 rotate-0'
           : 'opacity-0 -translate-x-20 -rotate-1'
       }`}>
@@ -1536,7 +1536,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       {shouldShow('process') && <section id="process" className={`${page === 'process' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gray-900' : 'bg-white'
       } ${
-        visibleSections.has('process')
+        (page !== 'home' || visibleSections.has('process'))
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-20'
       }`}>
@@ -1603,7 +1603,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       {shouldShow('professional-projects') && <section id="professional-projects" className={`${page === 'projects' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-700 to-gray-800' : 'bg-gradient-to-r from-blue-50 to-purple-50'
       } ${
-        visibleSections.has('professional-projects')
+        (page !== 'home' || visibleSections.has('professional-projects'))
           ? 'opacity-100 translate-x-0 rotate-0'
           : 'opacity-0 translate-x-20 rotate-1'
       }`}>
@@ -1709,7 +1709,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       {shouldShow('games') && <section id="games" className={`${page === 'projects' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-800 to-gray-700' : 'bg-gradient-to-r from-purple-50 to-pink-50'
       } ${
-        visibleSections.has('games')
+        (page !== 'home' || visibleSections.has('games'))
           ? 'opacity-100 translate-x-0 rotate-0'
           : 'opacity-0 -translate-x-20 -rotate-2'
       }`}>
@@ -1815,7 +1815,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       {shouldShow('cv') && <section id="cv" className={`${page === 'cv' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gray-800' : 'bg-white'
       } ${
-        visibleSections.has('cv')
+        (page !== 'home' || visibleSections.has('cv'))
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-10'
       }`}>
@@ -1869,7 +1869,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       {shouldShow('contact') && <section id="contact" className={`${page === 'contact' ? 'pt-32 pb-16' : 'py-16'} transition-all duration-1000 ${
         isDark ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-blue-600 to-purple-600'
       } ${
-        visibleSections.has('contact')
+        (page !== 'home' || visibleSections.has('contact'))
           ? 'opacity-100 translate-x-0 rotate-0'
           : 'opacity-0 translate-x-20 rotate-1'
       }`}>
