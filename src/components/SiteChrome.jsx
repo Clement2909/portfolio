@@ -23,6 +23,15 @@ export const SiteHeader = ({ currentLang, isDark, setIsDark, activePage = 'home'
     navigate(target);
     setMobileMenuOpen(false);
   };
+  const switchLanguage = () => {
+    const nextLanguage = currentLang === 'fr' ? 'en' : 'fr';
+    const targetPage = activePage === 'home' ? 'portfolio' : activePage;
+    const target = activePage === 'blog' && pageId
+      ? localizedPath(nextLanguage, 'article', pageId)
+      : localizedPath(nextLanguage, targetPage);
+    navigate(target);
+    setMobileMenuOpen(false);
+  };
   const linkClass = (page) => `transition-colors ${
     activePage === page
       ? 'text-blue-500 font-semibold border-b-2 border-blue-500 pb-1'
@@ -54,7 +63,7 @@ export const SiteHeader = ({ currentLang, isDark, setIsDark, activePage = 'home'
             <button onClick={() => setIsDark(!isDark)} className={`hidden md:flex items-center px-3 py-2 rounded-md ${isDark ? 'bg-gray-700 text-yellow-400' : 'bg-blue-100 text-blue-600'}`} aria-label={isFrench ? 'Changer de thème' : 'Change theme'}>
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </button>
-            <button onClick={() => goTo(currentLang === 'fr' ? 'en' : 'fr')} className={`hidden md:flex items-center px-3 py-2 rounded-md ${isDark ? 'bg-gray-700 text-gray-300' : 'bg-blue-100 text-blue-600'}`} aria-label={isFrench ? 'Passer en anglais' : 'Switch to French'}>
+            <button onClick={switchLanguage} className={`hidden md:flex items-center px-3 py-2 rounded-md ${isDark ? 'bg-gray-700 text-gray-300' : 'bg-blue-100 text-blue-600'}`} aria-label={isFrench ? 'Passer en anglais' : 'Switch to French'}>
               <Globe className="h-4 w-4 mr-1" />
               {currentLang.toUpperCase()}
             </button>
@@ -71,7 +80,7 @@ export const SiteHeader = ({ currentLang, isDark, setIsDark, activePage = 'home'
               {isDark ? <Sun className="h-5 w-5 mr-2" /> : <Moon className="h-5 w-5 mr-2" />}
               {isFrench ? 'Clair' : 'Light'}
             </button>
-            <button onClick={() => goTo(currentLang === 'fr' ? 'en' : 'fr')} className="flex-1 flex items-center justify-center px-4 py-3 rounded-md bg-gray-700 text-gray-300">
+            <button onClick={switchLanguage} className="flex-1 flex items-center justify-center px-4 py-3 rounded-md bg-gray-700 text-gray-300">
               <Globe className="h-5 w-5 mr-2" />{currentLang === 'fr' ? 'EN' : 'FR'}
             </button>
           </div>

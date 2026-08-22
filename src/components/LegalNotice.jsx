@@ -1,10 +1,7 @@
-import { ArrowLeft, FileText } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { localizedPath } from "../routes";
+import { FileText } from "lucide-react";
 import { SiteFooter, SiteHeader } from './SiteChrome';
 
 const LegalNotice = ({ isDark, setIsDark, currentLang }) => {
-  const navigate = useNavigate();
   const isFrench = currentLang === "fr";
   const content = isFrench
     ? {

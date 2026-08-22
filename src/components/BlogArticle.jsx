@@ -962,17 +962,6 @@ These optimizations can improve your Laravel application performance by 40 to 60
         </div>
       </article>
       <SiteFooter currentLang={currentLang} isDark={isDark} activePage="blog" />
-
-      {/* Footer */}
-      <footer className={`py-8 mt-16 transition-all duration-300 ${
-        isDark ? 'bg-black text-gray-300' : 'bg-gray-900 text-white'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p>&copy; 2025 Portfolio. {currentLang === 'fr' ? 'Tous droits réservés' : 'All rights reserved'}.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronDown, ArrowLeft, HelpCircle } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { localizedPath } from "../routes";
 import { SiteFooter, SiteHeader } from './SiteChrome';
