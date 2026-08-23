@@ -1,12 +1,22 @@
-import { ArrowLeft, Calendar, Clock, Tag, User, BookOpen } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { localizedPath } from "../routes";
 import { SiteFooter, SiteHeader } from './SiteChrome';
 
+const blogImages = {
+  1: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=85',
+  2: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1400&q=85',
+  3: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1400&q=85',
+  4: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=85',
+  5: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1400&q=85',
+  6: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1400&q=85',
+  7: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=85',
+  8: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1400&q=85'
+};
+
 const BlogArticle = ({ isDark, setIsDark, currentLang }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const alternateLang = currentLang === 'fr' ? 'en' : 'fr';
 
   const articles = {
     fr: {
@@ -708,6 +718,60 @@ Python permet d'automatiser pratiquement n'importe quelle tâche répétitive. C
 - Traitement d'images : 30min → 2min
 - Envoi d'emails : 1h → instantané
         `
+      },
+      7: {
+        id: 7,
+        title: "Comprendre le cloud pour un projet web",
+        excerpt: "Les bases pour choisir un hébergement cloud fiable et adapté à votre application.",
+        category: "tech",
+        categoryLabel: "Technologies",
+        readTime: 9,
+        date: "2025-01-02",
+        author: "Clément Randrianasolo",
+        content: `
+# Comprendre le cloud pour un projet web
+
+Le cloud permet de déployer une application sans gérer soi-même toute l'infrastructure physique.
+
+## Les trois questions à se poser
+
+Commencez par estimer le trafic, les besoins de stockage et le niveau de disponibilité attendu. Ces réponses orientent le choix du service et évitent de surdimensionner votre solution.
+
+## Une architecture progressive
+
+Un hébergement simple peut suffire au lancement. Il est ensuite possible d'ajouter une base de données managée, une sauvegarde automatique et un CDN lorsque le projet grandit.
+
+## Conclusion
+
+Le meilleur choix cloud est celui qui reste compréhensible, surveillé et adapté aux besoins réels de votre application.
+        `
+      },
+      8: {
+        id: 8,
+        title: "Intelligence artificielle et automatisation",
+        excerpt: "Des idées concrètes pour utiliser l'intelligence artificielle afin de gagner du temps.",
+        category: "tips",
+        categoryLabel: "Astuces & Conseils",
+        readTime: 7,
+        date: "2024-12-01",
+        author: "Clément Randrianasolo",
+        content: `
+# Intelligence artificielle et automatisation
+
+L'intelligence artificielle peut compléter les outils métier sans remplacer les décisions importantes.
+
+## Commencer par une tâche répétitive
+
+Classement de demandes, résumé de documents et préparation de rapports sont de bons premiers cas d'usage. Mesurez le temps gagné et vérifiez toujours les résultats.
+
+## Garder un contrôle humain
+
+Les données sensibles doivent être protégées et les réponses importantes validées avant envoi. Une automatisation utile reste transparente et réversible.
+
+## Conclusion
+
+Commencez avec un petit workflow mesurable, puis améliorez-le progressivement avec des règles claires.
+        `
       }
     },
     en: {
@@ -846,6 +910,60 @@ These optimizations can improve your Laravel application performance by 40 to 60
         date: "2024-12-08",
         author: "Clément Randrianasolo",
         content: `[Content similar to French version but in English...]`
+      },
+      7: {
+        id: 7,
+        title: "Understanding the Cloud for Web Projects",
+        excerpt: "The essentials for choosing reliable and suitable cloud hosting for your application.",
+        category: "tech",
+        categoryLabel: "Technologies",
+        readTime: 9,
+        date: "2025-01-02",
+        author: "Clément Randrianasolo",
+        content: `
+# Understanding the Cloud for Web Projects
+
+Cloud services let you deploy an application without managing all the physical infrastructure yourself.
+
+## Three questions to ask
+
+Start by estimating traffic, storage needs, and the level of availability you expect. These answers help you choose the right service and avoid overbuilding.
+
+## A progressive architecture
+
+A simple hosting setup may be enough at launch. You can later add a managed database, automatic backups, and a CDN as the project grows.
+
+## Conclusion
+
+The best cloud choice is one that remains understandable, monitored, and aligned with your application's real needs.
+        `
+      },
+      8: {
+        id: 8,
+        title: "Artificial Intelligence and Automation",
+        excerpt: "Practical ideas for using artificial intelligence to save time.",
+        category: "tips",
+        categoryLabel: "Tips & Advice",
+        readTime: 7,
+        date: "2024-12-01",
+        author: "Clément Randrianasolo",
+        content: `
+# Artificial Intelligence and Automation
+
+Artificial intelligence can improve business tools without replacing important decisions.
+
+## Start with a repetitive task
+
+Sorting requests, summarizing documents, and preparing reports are useful first use cases. Measure the time saved and always check the results.
+
+## Keep human oversight
+
+Sensitive data must be protected, and important responses should be reviewed before sending. Useful automation remains transparent and reversible.
+
+## Conclusion
+
+Start with a small, measurable workflow and improve it gradually with clear rules.
+        `
       }
     }
   };
@@ -894,15 +1012,15 @@ These optimizations can improve your Laravel application performance by 40 to 60
       isDark
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
-    }`}>
+    } pb-32`}>
       <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={setIsDark} activePage="blog" pageId={id} />
 
       {/* Article Content */}
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12">
         {/* Header Image/Banner */}
         <div className={`h-64 rounded-xl bg-gradient-to-br ${getCategoryColor(article.category)} mb-8 flex items-center justify-center relative overflow-hidden`}>
-          <div className="absolute inset-0 bg-black/20" />
-          <BookOpen className="h-24 w-24 text-white/50 relative z-10" />
+          <img src={blogImages[article.id]} alt={article.title} className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-black/25" />
 
           {/* Category Badge */}
           <div className="absolute top-4 right-4">

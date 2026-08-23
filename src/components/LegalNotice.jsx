@@ -28,7 +28,7 @@ const LegalNotice = ({ isDark, setIsDark, currentLang }) => {
       };
 
   return (
-    <div className={`min-h-screen ${isDark ? "bg-gray-900 text-gray-200" : "bg-gray-50 text-gray-800"}`}>
+    <div className={`min-h-screen pb-32 ${isDark ? "bg-gray-900 text-gray-200" : "bg-gray-50 text-gray-800"}`}>
       <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={setIsDark} activePage="legal" />
       <main className="max-w-4xl mx-auto px-4 pt-28 pb-16">
         <div className="flex items-center gap-3 mb-10">

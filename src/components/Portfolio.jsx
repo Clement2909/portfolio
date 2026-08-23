@@ -1075,7 +1075,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       isDark
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
-    }`}>
+    } pb-32`}>
       <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={handleThemeChange} activePage={page} />
       {false && <>
       {/* Navigation */}
@@ -1918,7 +1918,6 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
                 >
                   <MapPin className="h-5 w-5 mr-3" />
                   <span className="font-medium">{t.contact.location}</span>
-                  <ExternalLink className="h-4 w-4 ml-auto" />
                 </a>
                 <a
                   href="https://wa.me/261326312603"

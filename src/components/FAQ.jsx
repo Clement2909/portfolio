@@ -236,7 +236,7 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
       isDark
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
-    }`}>
+    } pb-32`}>
       <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={setIsDark} activePage="faq" />
 
       {/* FAQ Content */}

@@ -4,6 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { localizedPath } from "../routes";
 import { SiteFooter, SiteHeader } from './SiteChrome';
 
+const blogImages = {
+  1: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
+  2: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1200&q=80',
+  3: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80',
+  4: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80',
+  5: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
+  6: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1200&q=80',
+  7: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
+  8: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80'
+};
+
 const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const navigate = useNavigate();
@@ -31,7 +42,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "tips",
           readTime: 8,
           date: "2025-01-10",
-          image: "/portfolio/images/blog/laravel-perf.jpg"
+          image: blogImages[1]
         },
         {
           id: 2,
@@ -40,7 +51,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "tutorial",
           readTime: 15,
           date: "2025-01-05",
-          image: "/portfolio/images/blog/vue3-guide.jpg"
+          image: blogImages[2]
         },
         {
           id: 3,
@@ -49,7 +60,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "tech",
           readTime: 12,
           date: "2024-12-28",
-          image: "/portfolio/images/blog/security.jpg"
+          image: blogImages[3]
         },
         {
           id: 4,
@@ -58,7 +69,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "case",
           readTime: 10,
           date: "2024-12-20",
-          image: "/portfolio/images/blog/refonte.jpg"
+          image: blogImages[4]
         },
         {
           id: 5,
@@ -67,7 +78,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "tech",
           readTime: 10,
           date: "2024-12-15",
-          image: "/portfolio/images/blog/react-vs-vue.jpg"
+          image: blogImages[5]
         },
         {
           id: 6,
@@ -76,7 +87,25 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "tutorial",
           readTime: 12,
           date: "2024-12-08",
-          image: "/portfolio/images/blog/python-auto.jpg"
+          image: blogImages[6]
+        },
+        {
+          id: 7,
+          title: "Comprendre le cloud pour un projet web",
+          excerpt: "Les bases pour choisir un hébergement cloud fiable, scalable et adapté à votre application.",
+          category: "tech",
+          readTime: 9,
+          date: "2025-01-02",
+          image: blogImages[7]
+        },
+        {
+          id: 8,
+          title: "Intelligence artificielle et automatisation",
+          excerpt: "Des idées concrètes pour utiliser l'intelligence artificielle afin de gagner du temps au quotidien.",
+          category: "tips",
+          readTime: 7,
+          date: "2024-12-01",
+          image: blogImages[8]
         }
       ]
     },
@@ -102,7 +131,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "tips",
           readTime: 8,
           date: "2025-01-10",
-          image: "/portfolio/images/blog/laravel-perf.jpg"
+          image: blogImages[1]
         },
         {
           id: 2,
@@ -111,7 +140,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "tutorial",
           readTime: 15,
           date: "2025-01-05",
-          image: "/portfolio/images/blog/vue3-guide.jpg"
+          image: blogImages[2]
         },
         {
           id: 3,
@@ -120,7 +149,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "tech",
           readTime: 12,
           date: "2024-12-28",
-          image: "/portfolio/images/blog/security.jpg"
+          image: blogImages[3]
         },
         {
           id: 4,
@@ -129,7 +158,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "case",
           readTime: 10,
           date: "2024-12-20",
-          image: "/portfolio/images/blog/refonte.jpg"
+          image: blogImages[4]
         },
         {
           id: 5,
@@ -138,7 +167,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "tech",
           readTime: 10,
           date: "2024-12-15",
-          image: "/portfolio/images/blog/react-vs-vue.jpg"
+          image: blogImages[5]
         },
         {
           id: 6,
@@ -147,7 +176,25 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
           category: "tutorial",
           readTime: 12,
           date: "2024-12-08",
-          image: "/portfolio/images/blog/python-auto.jpg"
+          image: blogImages[6]
+        },
+        {
+          id: 7,
+          title: "Understanding the Cloud for Web Projects",
+          excerpt: "The essentials for choosing reliable, scalable cloud hosting for your application.",
+          category: "tech",
+          readTime: 9,
+          date: "2025-01-02",
+          image: blogImages[7]
+        },
+        {
+          id: 8,
+          title: "Artificial Intelligence and Automation",
+          excerpt: "Practical ideas for using artificial intelligence to save time every day.",
+          category: "tips",
+          readTime: 7,
+          date: "2024-12-01",
+          image: blogImages[8]
         }
       ]
     }
@@ -179,7 +226,7 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
       isDark
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
-    }`}>
+    } pb-32`}>
       <SiteHeader currentLang={currentLang} isDark={isDark} setIsDark={setIsDark} activePage="blog" />
 
       {/* Hero Section */}
@@ -244,8 +291,9 @@ const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
                 }`}
               >
                 {/* Article Image */}
-                <div className="h-48 bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${getCategoryColor(article.category)} opacity-80`} />
+                  <div className="h-48 bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden">
+                  <img src={article.image || blogImages[article.id]} alt={article.title} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${getCategoryColor(article.category)} opacity-35`} />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <BookOpen className="h-16 w-16 text-white/50" />
                   </div>

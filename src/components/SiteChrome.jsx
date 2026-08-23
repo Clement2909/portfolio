@@ -1,4 +1,4 @@
-import { Code, ExternalLink, Globe, Menu, Moon, Star, Sun, X } from 'lucide-react';
+import { Code, Globe, Menu, Moon, Star, Sun, X } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { localizedPath } from '../routes';
@@ -107,9 +107,9 @@ export const SiteFooter = ({ currentLang, isDark, activePage }) => {
   ];
 
   return (
-    <footer className={`py-8 ${isDark ? 'bg-black text-gray-300' : 'bg-gray-900 text-white'}`}>
+    <footer className={`fixed bottom-0 left-0 right-0 z-[200] py-4 ${isDark ? 'bg-black text-gray-300' : 'bg-gray-900 text-white'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4" aria-label="Footer">
+        <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-2" aria-label="Footer">
           {footerLinks.map(([page, label]) => (
             <button key={page} onClick={() => navigate(localizedPath(currentLang, page))} className={activePage === page ? 'text-blue-400 font-semibold' : 'hover:text-blue-400 transition-colors'}>
               {label}
@@ -132,7 +132,6 @@ export const SiteFooter = ({ currentLang, isDark, activePage }) => {
               {' · '}
               {isFrench ? 'Donner votre avis' : 'Leave a review'}
             </span>
-            <ExternalLink className="h-3.5 w-3.5 opacity-70" />
           </a>
           <a
             href="https://devis-calculateur-estimation.vercel.app/"
