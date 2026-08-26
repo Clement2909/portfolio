@@ -860,6 +860,27 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
       isPrivate: false,
       siteUrl: "https://miralux-gamma.vercel.app/",
       image: "/portfolio/images/mira_logo.png"
+    },
+    {
+      title: "Habby no Teryouri",
+      description: {
+        fr: "Site web pour un restaurant et une cuisine asiatique à Antsirabe, avec une évolution progressive vers le e-commerce.",
+        en: "Website for an Asian restaurant in Antsirabe, with a gradual evolution toward e-commerce."
+      },
+      tech: ["Next.js", "JavaScript", "Vercel", "E-commerce"],
+      isPrivate: false,
+      siteUrl: "https://habby-no.vercel.app/",
+      image: "/portfolio/images/habby.jpg"
+    },
+    {
+      title: "Chez Kevin Tsang",
+      description: {
+        fr: "Logiciel privé de gestion de restaurant en temps réel : point de vente, stocks, commandes, livraisons et recettes.",
+        en: "Private real-time restaurant management software covering point of sale, inventory, orders, deliveries, and recipes."
+      },
+      tech: ["Vite", "React", "Vercel", "Firebase", "Temps réel"],
+      isPrivate: true,
+      image: "/portfolio/images/Chez.jpg"
     }
 /*{
       title: "Weather Dashboard",
