@@ -6,12 +6,12 @@ import emailjs from '@emailjs/browser';
 import { localizedPath } from '../routes';
 import { SiteFooter, SiteHeader } from './SiteChrome';
 
-const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, setCurrentLang: propSetCurrentLang, page = 'home' }) => {
+const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang: propCurrentLang, page = 'home' }) => {
   const navigate = useNavigate();
   const formRef = useRef();
-  const [currentLang, setCurrentLang] = useState(propCurrentLang || 'fr');
+  const currentLang = propCurrentLang || 'fr';
   const [skillsVisible, setSkillsVisible] = useState(page === 'skills');
-  const [isDark, setIsDark] = useState(propIsDark !== undefined ? propIsDark : true);
+  const isDark = propIsDark ?? true;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
@@ -40,24 +40,11 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
     });
   };
 
-  // Sync with parent props
-  useEffect(() => {
-    if (propCurrentLang !== undefined) setCurrentLang(propCurrentLang);
-  }, [propCurrentLang]);
-
-  useEffect(() => {
-    if (propIsDark !== undefined) setIsDark(propIsDark);
-  }, [propIsDark]);
-
-  // Update parent state when local state changes
   const handleLangChange = (newLang) => {
-    setCurrentLang(newLang);
-    if (propSetCurrentLang) propSetCurrentLang(newLang);
     navigate(localizedPath(newLang, page === 'home' ? 'portfolio' : page));
   };
 
   const handleThemeChange = (newIsDark) => {
-    setIsDark(newIsDark);
     if (propSetIsDark) propSetIsDark(newIsDark);
   };
 
@@ -846,8 +833,7 @@ const Portfolio =  ({ isDark: propIsDark, setIsDark: propSetIsDark, currentLang:
         en: "Showcase website for an interior and exterior renovation company in Réunion"
       },
       tech: ["Next.js", "TypeScript", "Vercel", "OVH"],
-      isPrivate: false,
-      siteUrl: "https://traits-d-esprits.vercel.app/",
+      isPrivate: true,
       image: "/portfolio/images/traits_logo.png"
     },
     {

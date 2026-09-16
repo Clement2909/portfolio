@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { localizedPath } from "../routes";
 import { SiteFooter, SiteHeader } from './SiteChrome';
 
-const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
+const FAQ = ({ isDark, setIsDark, currentLang }) => {
   const [openIndex, setOpenIndex] = useState(null);
   const navigate = useNavigate();
 
@@ -268,7 +268,7 @@ const FAQ = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
             }`}>{section.category}</h2>
 
             <div className="space-y-4">
-              {section.questions.map((faq, faqIndex) => {
+              {section.questions.map((faq) => {
                 const currentIndex = questionCounter++;
                 const isOpen = openIndex === currentIndex;
 

@@ -15,7 +15,7 @@ const blogImages = {
   8: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80'
 };
 
-const Blog = ({ isDark, setIsDark, currentLang, setCurrentLang }) => {
+const Blog = ({ isDark, setIsDark, currentLang }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const navigate = useNavigate();
 

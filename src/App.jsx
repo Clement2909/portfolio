@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router basename={import.meta.env.BASE_URL}>
         <PageTransition isDark={isDark} setIsDark={setIsDark} />
       </Router>
     </div>
@@ -24,9 +24,12 @@ function PageTransition({ isDark, setIsDark }) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    const timer = window.setTimeout(() => setIsLoading(false), 350);
-    return () => window.clearTimeout(timer);
+    const showTimer = window.setTimeout(() => setIsLoading(true), 0);
+    const hideTimer = window.setTimeout(() => setIsLoading(false), 350);
+    return () => {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(hideTimer);
+    };
   }, [location.key]);
 
   return (
